@@ -12,6 +12,35 @@ addUnits([
     },
 
     {
+      code: "AMTH250",
+      name: "Introduction to Programming in the Sciences",
+      prereq: [ or("MTHS120", "MTHS130")],
+      cbok: [ programming(1) ],
+      sfia: []
+    },
+
+    {
+      code: "SCI210",
+      name: "Introduction to Scientific Programming",
+      prereq: [ choose(1, "MTHS110", "MTHS120", "MTHS130")],
+      cbok: [ programming(1) ],
+      sfia: []
+    },
+
+    {
+      code: "MTHS100",
+      name: "Introduction to Quantitative Skills",
+      prereq: [], cbok: [ ], sfia: []
+    },
+
+    {
+      code: "MTHS110",
+      name: "Quantitative Skills with Applications",
+      prereq: [], cbok: [ ], sfia: []
+    },
+
+
+    {
       code: "MTHS120",
       name: "Calculus & Linear Algebra 1",
       prereq: [], cbok: [ ], sfia: []
@@ -24,9 +53,30 @@ addUnits([
     },
 
     {
+      code: "MM105",
+      name: "Communication for Business",
+      prereq: [ ], cbok: [ communication(1) ], sfia: []
+    },
+
+
+    {
       code: "STAT100",
       name: "Introduction to Statistical Modelling",
       prereq: [], cbok: [ data(2) ], sfia: []
+    },
+
+    {
+      code: "STAT210",
+      name: "Statistical Modelling & Experimental Design",
+      prereq: [ choose(1, "STAT100", "AMTH250", "SCI210") ],
+      cbok: [ data(2) ], sfia: []
+    },
+
+    {
+      code: "STAT330",
+      name: "Statistical Learning",
+      prereq: [ "STAT210" ],
+      cbok: [ data(3) ], sfia: []
     },
 
     {
@@ -185,4 +235,13 @@ addUnits([
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
       sfia: []
     },
+
+    {
+      code: "COSC380",
+      name: "Algorithms in Machine Learning",
+      prereq: [ choose(1, "MTHS120", "MTHS130"), choose(1, "COSC230", "AMTH250", "SCI210", "STAT330") ],
+      cbok: [ data(3), programming(2) ],
+      sfia: []
+    },
+
 ])
