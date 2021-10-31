@@ -53,9 +53,21 @@ addUnits([
     },
 
     {
+      code: "PMTH213",
+      name: "Linear Algebra",
+      prereq: [ "MTHS120", "MTHS130" ], cbok: [ ], sfia: []
+    },
+
+    {
       code: "MM105",
       name: "Communication for Business",
       prereq: [ ], cbok: [ communication(1) ], sfia: []
+    },
+
+    {
+      code: "MM200",
+      name: "Management Practices in Responsible Organisations",
+      prereq: [ ], cbok: [ communication(1), teamwork(1) ], sfia: []
     },
 
 
@@ -73,6 +85,27 @@ addUnits([
     },
 
     {
+      code: "MATH260",
+      name: "Probability and Simulation",
+      prereq: [ "MTHS120", "MTHS130" ],
+      cbok: [ data(3) ], sfia: []
+    },
+
+    {
+      code: "STAT270",
+      name: "Inference",
+      prereq: [ "MATH260" ],
+      cbok: [ data(3) ], sfia: []
+    },
+
+    {
+      code: "STAT320",
+      name: "Advanced Statistical Modelling",
+      prereq: [ "STAT210" ],
+      cbok: [ data(3) ], sfia: []
+    },
+
+    {
       code: "STAT330",
       name: "Statistical Learning",
       prereq: [ "STAT210" ],
@@ -80,10 +113,29 @@ addUnits([
     },
 
     {
+      code: "SCI501",
+      name: "Special Topics in Science A (data science studio 2)",
+      prereq: [ ],
+      cbok: [ data(3) ], sfia: []
+    },
+
+    {
+      code: "QM161",
+      name: "Business Statistics",
+      prereq: [], cbok: [ data(2) ], sfia: []
+    },
+
+    {
+      code: "QM262",
+      name: "Introduction to Business Analytics",
+      prereq: [], cbok: [ data(2) ], sfia: []
+    },
+
+    {
       code: "ICT100",
       name: "Computational Thinking",
       prereq: [],
-      cbok: [  ],
+      cbok: [ ethics(1), societal(1), humanFactors(1), problemSolving(1), programming(1) ],
       sfia: []
     },
 
@@ -91,7 +143,7 @@ addUnits([
       code: "ICT101",
       name: "From Logic to Data Processing",
       prereq: [],
-      cbok: [ ],
+      cbok: [ fundamentals(1), understanding(1), data(1) ],
       sfia: []
     },
 
@@ -235,6 +287,16 @@ addUnits([
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
       sfia: []
     },
+
+    {
+      code: "COSC372",
+      name: "Management Information Systems",
+      prereq: [ cp(48) ],
+      cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
+      sfia: []
+    },
+
+
 
     {
       code: "COSC380",
