@@ -23,6 +23,11 @@ def subjCodes(el:PrereqElement):Seq[String] = el match
   case ComplexPrereqElement.choose(_, units:_*) => units
   case ComplexPrereqElement.cp(_) => Seq.empty
 
+def isMandatoryIn(code:String, el:PrereqElement):Boolean = el match
+  case s:String => s == code
+  case ComplexPrereqElement.choose(num, units:_*) => num == units.length && units.contains(code)
+  case _ => false
+
 // Note - we can't call this Unit because Unit is a Scala core type!
 case class Subject(
  code:String,

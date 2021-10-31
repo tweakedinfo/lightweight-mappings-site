@@ -10,6 +10,10 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 type PlanComponent = (String, Seq[PrereqElement])
 type Plan = Seq[PlanComponent]
 
+def isMandatoryInPC(unit:Subject, planComponent: PlanComponent) =
+  val (_, els) = planComponent
+  els.exists(p => isMandatoryIn(unit.code, p))
+
 // Turns a plan into a sequence of the main string in each row.
 // Used to work out what row a unit is in, when drawing pre-req arrows
 def flatStrings(plan: Plan):Seq[String] =
