@@ -963,7 +963,7 @@ function $c_Lacssite_Common$() {
   $n_Lacssite_Common$ = this;
   this.Lacssite_Common$__f_markdownGenerator = new $c_Lcom_wbillingsley_veautiful_html_Markup(new $c_sjsr_AnonFunction1(((this$1) => ((s) => {
     var s$1 = $as_T(s);
-    return $as_T(marked(s$1))
+    return $as_T(marked.parse(s$1))
   }))(this)));
   this.Lacssite_Common$__f_willCcBy = $m_sc_StringOps$().stripMargin$extension__T__C__T("\r\n      |<p>Written by Will Billingsley</p>\r\n      |\r\n      |<a rel=\"license\" href=\"http://creativecommons.org/licenses/by/3.0/au/\">\r\n      |  <img alt=\"Creative Commons Licence\" style=\"border-width:0\" src=\"https://i.creativecommons.org/l/by/3.0/au/88x31.png\" /></a><br />\r\n      |  This work is licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by/3.0/au/\">Creative Commons Attribution 3.0 Australia License</a>.\r\n      |", 124)
 }
