@@ -9,3 +9,9 @@ target/
 project/project/
 project/.bloop/
 project/metals.sbt
+
+.metals/
+.vscode/
+.bloop/
+
+*.out

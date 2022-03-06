@@ -17,6 +17,20 @@ enum ComplexPrereqElement:
   @JSExportTopLevel("cp")
   case cp(i:Int)
 
+extension (el:PrereqElement) {
+  // Produces a left-to-right Seq of the unit strings
+  def flattened:Seq[String] = el match
+    case s:String => Seq(s)
+    case ComplexPrereqElement.or(a, b) => Seq(a, b)
+    case ComplexPrereqElement.choose(_, els:_*) => els
+    case ComplexPrereqElement.cp(_) => Seq.empty
+} 
+
+extension (els:Seq[PrereqElement]) {
+  // Produces a left-to-right Seq of the unit strings
+  def flattened:Seq[String] = els.flatMap(_.flattened)
+}
+
 def subjCodes(el:PrereqElement):Seq[String] = el match
   case s:String => Seq(s)
   case ComplexPrereqElement.or(a, b) => Seq(a, b)

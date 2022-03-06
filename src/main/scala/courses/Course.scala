@@ -10,6 +10,11 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 type PlanComponent = (String, Seq[PrereqElement])
 type Plan = Seq[PlanComponent]
 
+extension (p:Plan) {
+  def findComponentName(s:Subject):Option[String] = 
+    p.find((_, els) => els.flattened.contains(s.code)).map((name, _) => name)
+}
+
 def isMandatoryInPC(unit:Subject, planComponent: PlanComponent) =
   val (_, els) = planComponent
   els.exists(p => isMandatoryIn(unit.code, p))
@@ -76,18 +81,23 @@ def planPage(c:Course) = Unique(<.div(
     <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
   ),
   Common.markdown(
-    """ The diagram below visualises an indicative course plan to illustrate how units scaffold through the degree.
-      | Please note, however, there is a large amount of flexibility in our course design, especially for
-      | part-time students. For canonical details on course structures, please see the handbook entry.
+    """ The basic structure of the course is shown below. 
+      | Scroll further down for course plans annotated with prerequisites to visualise Form 2 of ACS. 
+      | For canonical details on course structures, please see the handbook entry.
       |""".stripMargin
   ),
   <.h3("Structure"),
   PlanPrereqWidget(c.structure),
-  <.h3("Indicative course plans"),
+  <.h3("Course plans for visualisation"),
+  Common.markdown(
+    """ Select a plan from the drop-down list. Fixed pre-requisites are shown in red. 
+      | Prerequisites that include some choice (i.e. assumed knowledge) are shown in grey.
+      | Click on a unit to show only prerequisite lines that unit is involved in.
+      | Click on the unit again to deselect it.
+      |""".stripMargin
+  ),
   <.div(
-    for (title, plan) <- c.plans yield <.div(
-      <.h4(title), PlanPrereqWidget(plan)
-    )
+    HPlanChooser(c)
   )
 
 ))
