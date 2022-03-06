@@ -54,10 +54,13 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
   val rowH = 36
   val halfH = rowH / 2
 
+  val unitBlockStart = 50 - 4
+  val unitBlockWidth = 450 + 8
+
   def svg(offset:Int, el:PrereqElement):(Int, <.SingleChild[dom.svg.G]) = el match {
     case s:String =>
       1 -> SVG.g(
-        SVG.rect(^.attr("x") := 50 - 4, ^.attr("width") := 850, ^.attr("y") := offset * rowH + 2, ^.attr("height") := rowH - 4, ^.attr("fill") := "rgba(120, 120, 120, 0.2)" ),
+        SVG.rect(^.attr("x") := unitBlockStart, ^.attr("width") := unitBlockWidth, ^.attr("y") := offset * rowH + 2, ^.attr("height") := rowH - 4, ^.attr("fill") := "rgba(120, 120, 120, 0.2)" ),
         SVG.text(^.attr("x") := 50, ^.attr("y") := offset * rowH + halfH, ^.cls := unitStyle.className, unitText(s)),
       )
 
@@ -88,12 +91,16 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
 
   def prereqLines(plan: Plan, active:Option[String]) =
     def arrow(startRow:Int, endRow:Int, number:Int) =
+      val startX = unitBlockStart + unitBlockWidth
       val startY = startRow * rowH + rowH - 6
       val endY = endRow * rowH + 6
+
+      val midXOffset = 50 + (startRow % 40) * 10 + number
       val midY = (startY + endY) / 2
-      val endsX = (endRow * 25) + (number * 5)
+      val endsX = startX //(endRow * 25) + (number * 5)
       SVG.path(
-        ^.attr("d") := s"M $endsX $startY L $endsX $endY l -4 -4 m 4 4 l 4 -4",
+     //   ^.attr("d") := s"M $startX $startY C ${startX + midXOffset} $startY  ${startX + midXOffset} $endY $endsX $endY l 4 -4 m -4 4 l 4 4",
+        ^.attr("d") := s"M $startX ${startY + number} l ${midXOffset - 5} 0 q 5 0 5 5 L ${startX + midXOffset} $endY q 0 5 -5 5 l ${5 - midXOffset} 0 l 4 -4 m -4 4 l 4 4",
         ^.attr("stroke") := "red", ^.attr("fill") := "none"
       )
 
@@ -112,7 +119,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
   override def render = SVG.svg(
     ^.attr("width") := 1000, ^.attr("height") := planStrings.length * rowH,
     ^.attr("viewBox") := s"0 0 1000 ${planStrings.length * rowH}",
-    prereqLines(plan, None),
+    //prereqLines(plan, None),
     {
       var row = 0
       def textY = (row * rowH) + rowH/2
