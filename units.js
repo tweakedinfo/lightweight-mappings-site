@@ -109,7 +109,7 @@ addUnits([
       code: "STAT330",
       name: "Statistical Learning",
       prereq: [ "STAT210" ],
-      cbok: [ data(3) ], sfia: []
+      cbok: [ data(3) ], sfia: [], tags: ["Advanced"]
     },
 
     {
@@ -237,7 +237,8 @@ addUnits([
       name: "Software Project Management",
       prereq: [ choose(1, "COSC210", "COSC220") ],
       cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
     {
@@ -245,7 +246,8 @@ addUnits([
       name: "Information Technology Project",
       prereq: [ "COSC220", "COSC310", cp(96) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
-      sfia: []
+      sfia: [],
+      tags: [ "Advanced", "Capstone" ]
     },
 
     {
@@ -253,7 +255,8 @@ addUnits([
       name: "Parallel and Distributed Computing",
       prereq: [ or("COSC230", "COSC240") ],
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
     {
@@ -261,7 +264,8 @@ addUnits([
       name: "Computer Networks and Information Security",
       prereq: [ cp(72), "AMTH140", "COSC240" ],
       cbok: [ societal(1), fundamentals(2), data(2), networking(3), programming(1), cybersecurity(2) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
     {
@@ -269,7 +273,8 @@ addUnits([
       name: "Artificial Intelligence",
       prereq: [ "COSC230" ],
       cbok: [ data(3), programming(3) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
     {
@@ -277,7 +282,8 @@ addUnits([
       name: "Advanced Web Programming",
       prereq: [ "COSC120", "COSC260" ],
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
     {
@@ -285,7 +291,8 @@ addUnits([
       name: "User Experience & Interaction Design",
       prereq: [ cp(72), "COSC220" ],
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
     {
@@ -303,7 +310,8 @@ addUnits([
       name: "Algorithms in Machine Learning",
       prereq: [ choose(1, "MTHS120", "MTHS130"), choose(1, "COSC230", "AMTH250", "SCI210", "STAT330") ],
       cbok: [ data(3), programming(2) ],
-      sfia: []
+      sfia: [],
+      tags: ["Advanced"]
     },
 
 ])

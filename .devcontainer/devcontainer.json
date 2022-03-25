@@ -3,7 +3,7 @@
   "build": {
       "dockerfile": "Dockerfile"
   },
-  "updateContentCommand": "sbt bloopInstall fastOptJS fullOptJS",
+  "updateContentCommand": "sbt fastOptJS fullOptJS",
   "postCreateCommand": "nohup http-server -p 8080 &",
   "extensions": [
       "scalameta.metals",

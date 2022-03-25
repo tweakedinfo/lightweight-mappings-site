@@ -61,7 +61,11 @@ def cbokGrid(plan:Plan) = {
               case Some(u) => Seq(<.tr(^.cls := "mandatory",
                 unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
               ))
-              case None => Seq(<.tr("Unit not found: " + s))
+              case None => 
+                val u = Subject.empty(s)
+                Seq(<.tr(^.cls := "optional",
+                  unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
+                )) 
           case ComplexPrereqElement.choose(lim, units:_*) =>
             for (s, i) <- units.zipWithIndex yield
               subjects.find(_.code == s) match

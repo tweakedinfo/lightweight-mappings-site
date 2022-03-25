@@ -29,6 +29,14 @@ extension (el:PrereqElement) {
 extension (els:Seq[PrereqElement]) {
   // Produces a left-to-right Seq of the unit strings
   def flattened:Seq[String] = els.flatMap(_.flattened)
+
+  def stringify:String = 
+    els.map({
+      case s:String => s
+      case ComplexPrereqElement.or(a, b) => s"($a or $b)"
+      case ComplexPrereqElement.choose(num, units:_*) => s"($num from ${units.mkString(", ")})"
+      case ComplexPrereqElement.cp(num) => s"${num}cp"
+    }).mkString(", ")
 }
 
 def subjCodes(el:PrereqElement):Seq[String] = el match
@@ -42,33 +50,48 @@ def isMandatoryIn(code:String, el:PrereqElement):Boolean = el match
   case ComplexPrereqElement.choose(num, units:_*) => num == units.length && units.contains(code)
   case _ => false
 
-// Note - we can't call this Unit because Unit is a Scala core type!
+/**
+ * The definition of a Unit.
+ * Note - we can't call this Unit because Unit is a Scala core type!
+ */
 case class Subject(
  code:String,
  name:String,
  handbookUrl:String,
  cbok: Seq[(CBOK, Int)],
+ swebok: Seq[SWEBOK],
  sfia: Seq[String],
- prereq: Seq[PrereqElement]
+ prereq: Seq[PrereqElement],
+ tags: Seq[String] = Seq.empty
 ) {
   def cbokLevel(cat:CBOK):Int =
     cbok.find(_._1 == cat).map(_._2).getOrElse(0)
 }
 
+object Subject {
+  def empty(s:String) = Subject("", s , "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
+}
+
 val subjects = mutable.Buffer.empty[Subject]
 
+/**
+ * Allows our units.js script to add a Unit from JavaScript
+ */
 @JSExportTopLevel("addUnit")
 def addUnit(config:js.Dynamic) = {
   try {
     import js.JSConverters._
+    import js.DynamicImplicits.truthValue
 
     val s = Subject(
       code = config.code.asInstanceOf[String],
       name = config.name.asInstanceOf[String],
       handbookUrl = "",
       cbok = config.cbok.asInstanceOf[js.Array[(CBOK, Int)]].toSeq,
+      swebok = if config.swebok then config.swebok.asInstanceOf[js.Array[SWEBOK]].toSeq else Seq.empty,
       sfia = config.sfia.asInstanceOf[js.Array[String]].toSeq,
-      prereq = config.prereq.asInstanceOf[js.Array[PrereqElement]].toSeq
+      prereq = config.prereq.asInstanceOf[js.Array[PrereqElement]].toSeq,
+      tags = if config.tags then config.tags.asInstanceOf[js.Array[String]].toSeq else Seq.empty
     )
 
     subjects.append(s)

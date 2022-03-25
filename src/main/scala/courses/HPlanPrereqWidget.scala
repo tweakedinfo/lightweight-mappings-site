@@ -43,13 +43,23 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
 
   val leftMargin = "50px"
 
+  val bgStyle = Styling(
+    """
+    |fill: white;
+    |stroke: none;
+    |""".stripMargin
+  ).modifiedBy(
+  ).register()
+
+
   val subjectBoxStyle = Styling(
     """
     |fill: white;
     |stroke: #888;
     |""".stripMargin
   ).modifiedBy(
-      ".selected" -> "stroke-width: 3; fill: rgb(240, 240, 220);",
+      ".selected" -> "fill: rgb(240, 240, 220);",
+      " .mandatory" -> "stroke-width: 2;",
       " .code" -> "font-size: 11px;",
       " .name" -> "",
       " .prereq-anchor" -> "fill: #777; stroke: #aaa;"
@@ -70,7 +80,10 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
   ).modifiedBy(
       " .code" -> "font-size: 11px;",
       " .name" -> "",
-      " .component" -> "font-style: italic; color: orange;"
+      " .component" -> "position: absolute; top: 0; font-style: italic; font-size: 12px; color: orange;",
+      " .tag" -> "margin: 2px; padding: 2px 5px 2px 5px; background-color: #add; font-size: 12px;",
+      " .tag.Capstone" -> "background: #dad",
+      " .tag.Applied" -> "background: #dda",
   ).register()
 
   val sectionStyle = Styling(
@@ -93,18 +106,19 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
   val orStyle = Styling(
     """font-family: 'Lato', sans-serif;
       |size: 12px;
-      |fill: rgb(200, 200, 255);
+      |fill: rgb(240, 240, 245);
+      |stroke: rgb(200, 200, 200);
       |dominant-baseline: hanging;
       |text-anchor: middle;
       |""".stripMargin
   ).modifiedBy(
-    " .orLabel" -> "fill: black; font-style: italic;"
+    " .orLabel" -> "fill: black; stroke: none; font-style: italic;"
   ).register()
 
   val titleGutter = 150
   val unitBlockWidth = 200
   val unitBlockHeight = 200
-  val unitColumnWidth = 250
+  val unitColumnWidth = 220
   val planRowHeight = 250
   val maxColumns = 8
 
@@ -128,16 +142,24 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
     selected = None
     rerender()
 
-  def subjectDetails(s:Subject) = <.div(^.cls := subjectDetailsStyle.className,
+  def subjectDetails(s:Subject) = <.div(
+      ^.cls := subjectDetailsStyle.className,
+      
       <.div(^.cls := "code", s.code),
       <.div(^.cls := "name", s.name),
-      <.div(^.cls := "component", course.structure.findComponentName(s))
+      <.div(^.cls := "component", course.structure.findComponentName(s)),
+      <.div(^.cls := "tags", 
+        for t <- s.tags yield <.span(<.span(^.cls := s"tag $t", t), " "), 
+      )
   )
 
   def subjectBox(s:Subject) = SVG.g(
     ^.cls := (if selected.contains(s) then subjectBoxStyle.className + " selected" else subjectBoxStyle.className),
     ^.onClick --> toggle(s),
-    SVG.rect(^.attr("width") := unitBlockWidth, ^.attr("height") := unitBlockHeight, ^.attr("ry") := 5),
+    SVG.rect(
+      ^.cls := (if isMandatoryInCourse(s, course) then "mandatory" else "optional"),
+      ^.attr("width") := unitBlockWidth, ^.attr("height") := unitBlockHeight, ^.attr("ry") := 5
+    ),
     SVG.circle(^.attr("cx") := unitBlockWidth / 2, ^.attr("cy") := 25, ^.attr("r") := 5, ^.cls := "prereq-anchor"),
     SVG.circle(^.attr("cx") := unitBlockWidth / 2, ^.attr("cy") := unitBlockHeight - 25, ^.attr("r") := 5, ^.cls := "prereq-anchor"),
     SVG.foreignObject(^.attr("width") := unitBlockWidth, ^.attr("height") := unitBlockHeight,
@@ -295,6 +317,13 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
     SVG.svg(
       ^.attr("width") := (maxColumns * unitColumnWidth), ^.attr("height") := height,
       ^.attr("viewBox") := s"0 ${-labelSpaceY} ${maxColumns * unitColumnWidth} ${height - labelSpaceY}",
+
+      SVG.rect(^.cls := bgStyle.className,
+        ^.attr("x") := 0, ^.attr("y") := 0, 
+        ^.attr("width") := maxColumns * unitColumnWidth, 
+        ^.attr("height") := height,
+        ^.onClick --> { selected = None; rerender(); }
+      ),
       
       for {
         ((periodName, elements), row) <- plan.zipWithIndex

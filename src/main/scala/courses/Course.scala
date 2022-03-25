@@ -19,6 +19,12 @@ def isMandatoryInPC(unit:Subject, planComponent: PlanComponent) =
   val (_, els) = planComponent
   els.exists(p => isMandatoryIn(unit.code, p))
 
+def isMandatoryInCourse(unit:Subject, course: Course) =
+  course.structure.exists {
+    case (_, els) => 
+      els.exists(p => isMandatoryIn(unit.code, p))   
+  }
+
 // Turns a plan into a sequence of the main string in each row.
 // Used to work out what row a unit is in, when drawing pre-req arrows
 def flatStrings(plan: Plan):Seq[String] =
@@ -81,19 +87,25 @@ def planPage(c:Course) = Unique(<.div(
     <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
   ),
   Common.markdown(
-    """ The basic structure of the course is shown below. 
-      | Scroll further down for course plans annotated with prerequisites to visualise Form 2 of ACS. 
-      | For canonical details on course structures, please see the handbook entry.
+    """ The structure of the course is illustrated below. 
+      | Trimester-by-trimester plans are visualised further down the page. 
+      | 
+      | * Advanced units are tagged "Advanced"
+      | * Integrated and Applied units (Criterion E) are tagged "Capstone" 
       |""".stripMargin
   ),
   <.h3("Structure"),
   PlanPrereqWidget(c.structure),
-  <.h3("Course plans for visualisation"),
+  <.h3("Trimester-by-trimester plans"),
   Common.markdown(
-    """ Select a plan from the drop-down list. Fixed pre-requisites are shown in red. 
-      | Prerequisites that include some choice (i.e. assumed knowledge) are shown in grey.
-      | Click on a unit to show only prerequisite lines that unit is involved in.
-      | Click on the unit again to deselect it.
+    """ 
+      | * A thicker border indicates a mandatory unit. 
+      |   Note that in some cases, there is a choice between two core units (causing neither to appear marked as mandatory here).
+      |   These can be seen more clearly in the course structure illustration at the top of the page. 
+      | * Fixed pre-requisites are shown in red. 
+      | * Prerequisites that include some choice (i.e. assumed knowledge) are shown in grey.
+      | * Click on a unit to show only prerequisite lines that unit is involved in.
+      | * Click on the unit again (or on the background) to deselect it.
       |""".stripMargin
   ),
   <.div(
@@ -109,10 +121,10 @@ def cbokPage(c:Course) = Unique(<.div(
     ),
     Common.markdown(
       """ The table below is generated from the data files for each unit within the course structure.
-        | (Consequently, it might sometimes identify more than 3 units in a column).
+        | (Consequently, it might sometimes identify more than 3 units in a column; to-do: fix this).
         |
-        | Optional units have been included, as frequently (e.g. COSC101 or COSC102) there are two alternatives
-        | but either path provides coverage of a CBoK aspect (e.g. teamwork).
+        | Where there is a choice between units, the number to select is shown next to the rows, and the rows are faded.
+        | These have been included as we sometimes allow choice between two units offering a skill such as teamwork.
         |""".stripMargin
     ),
     cbokGrid(c.structure),

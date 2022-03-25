@@ -26,3 +26,12 @@ deployScript := {
   val opt = (Compile / fullOptJS).value
   IO.copyFile(opt.data, new java.io.File("deployscripts/compiled.js"))
 }
+
+val fastDeployScript = taskKey[Unit]("Copies the fastOptJS script to deployscripts/")
+
+// Used by Travis-CI to get the script out from the .gitignored target directory
+// Don't run it locally, or you'll find the script gets loaded twice in index.html!
+fastDeployScript := {
+  val opt = (Compile / fastOptJS).value
+  IO.copyFile(opt.data, new java.io.File("deployscripts/compiled.js"))
+}
