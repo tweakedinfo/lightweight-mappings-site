@@ -159,7 +159,7 @@ addUnits([
       code: "COSC102",
       name: "Data Science Studio 1",
       prereq: [ choose(2, "COSC110", "STAT110") ],
-      cbok: [  ],
+      cbok: [  programming(2), teamwork(2), communication(2), data(1),problemSolving(1)],
       sfia: []
     },
 
@@ -168,7 +168,7 @@ addUnits([
       code: "COSC110",
       name: "Introduction to Programming and the Unix Environment",
       prereq: [],
-      cbok: [ ethics(1), expectations(1), teamwork(2), understanding(1), communication(1), programming(2), fundamentals(2) ],
+      cbok: [ ethics(1), expectations(1), teamwork(1), societal(2), understanding(1), communication(1), programming(2), fundamentals(1) ],
       sfia: []
     },
 
@@ -212,7 +212,7 @@ addUnits([
       code: "COSC240",
       name: "Operating Systems",
       prereq: [ "COSC120" ],
-      cbok: [ problemSolving(2), societal(1), fundamentals(2), networking(2), programming(2), systems(1), cybersecurity(2) ],
+      cbok: [ problemSolving(2), societal(1), understanding(2), fundamentals(2), networking(2), programming(3), systems(1), cybersecurity(2) ],
       sfia: []
     },
 
@@ -263,7 +263,7 @@ addUnits([
       code: "COSC340",
       name: "Computer Networks and Information Security",
       prereq: [ cp(72), "AMTH140", "COSC240" ],
-      cbok: [ societal(1), fundamentals(2), data(2), networking(3), programming(1), cybersecurity(2) ],
+      cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       sfia: [],
       tags: ["Advanced"]
     },
@@ -272,7 +272,7 @@ addUnits([
       code: "COSC350",
       name: "Artificial Intelligence",
       prereq: [ "COSC230" ],
-      cbok: [ data(3), programming(3) ],
+      cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
       sfia: [],
       tags: ["Advanced"]
     },
