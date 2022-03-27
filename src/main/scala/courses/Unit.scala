@@ -17,6 +17,9 @@ enum ComplexPrereqElement:
   @JSExportTopLevel("cp")
   case cp(i:Int)
 
+  @JSExportTopLevel("coreq")
+  case coreq(els:PrereqElement*)
+
 extension (el:PrereqElement) {
   // Produces a left-to-right Seq of the unit strings
   def flattened:Seq[String] = el match
@@ -24,6 +27,7 @@ extension (el:PrereqElement) {
     case ComplexPrereqElement.or(a, b) => Seq(a, b)
     case ComplexPrereqElement.choose(_, els:_*) => els
     case ComplexPrereqElement.cp(_) => Seq.empty
+    case ComplexPrereqElement.coreq(els:_*) => els.flattened
 } 
 
 extension (els:Seq[PrereqElement]) {
@@ -36,6 +40,7 @@ extension (els:Seq[PrereqElement]) {
       case ComplexPrereqElement.or(a, b) => s"($a or $b)"
       case ComplexPrereqElement.choose(num, units:_*) => s"($num from ${units.mkString(", ")})"
       case ComplexPrereqElement.cp(num) => s"${num}cp"
+      case ComplexPrereqElement.coreq(els:_*) => s"corequisite(${(els.stringify)})"
     }).mkString(", ")
 }
 
@@ -44,6 +49,7 @@ def subjCodes(el:PrereqElement):Seq[String] = el match
   case ComplexPrereqElement.or(a, b) => Seq(a, b)
   case ComplexPrereqElement.choose(_, units:_*) => units
   case ComplexPrereqElement.cp(_) => Seq.empty
+  case ComplexPrereqElement.coreq(els:_*) => els.flatMap(subjCodes)
 
 def isMandatoryIn(code:String, el:PrereqElement):Boolean = el match
   case s:String => s == code
@@ -60,6 +66,8 @@ case class Subject(
  handbookUrl:String,
  cbok: Seq[(CBOK, Int)],
  swebok: Seq[SWEBOK],
+ dsbok: Seq[GridCategory],
+ other: Seq[GridCategory],
  sfia: Seq[String],
  prereq: Seq[PrereqElement],
  tags: Seq[String] = Seq.empty
@@ -69,7 +77,7 @@ case class Subject(
 }
 
 object Subject {
-  def empty(s:String) = Subject("", s , "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
+  def empty(s:String) = Subject("", s , "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
 }
 
 val subjects = mutable.Buffer.empty[Subject]
@@ -89,6 +97,8 @@ def addUnit(config:js.Dynamic) = {
       handbookUrl = "",
       cbok = config.cbok.asInstanceOf[js.Array[(CBOK, Int)]].toSeq,
       swebok = if config.swebok then config.swebok.asInstanceOf[js.Array[SWEBOK]].toSeq else Seq.empty,
+      dsbok = if config.dsbok then config.dsbok.asInstanceOf[js.Array[GridCategory]].toSeq else Seq.empty,
+      other = if config.other then config.other.asInstanceOf[js.Array[GridCategory]].toSeq else Seq.empty,
       sfia = config.sfia.asInstanceOf[js.Array[String]].toSeq,
       prereq = config.prereq.asInstanceOf[js.Array[PrereqElement]].toSeq,
       tags = if config.tags then config.tags.asInstanceOf[js.Array[String]].toSeq else Seq.empty

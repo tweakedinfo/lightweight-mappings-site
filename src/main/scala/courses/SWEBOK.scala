@@ -3,7 +3,12 @@ package courses
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
 import scala.collection.immutable.Stream.Cons
 
-enum SWEBOK(val name: String):
+trait GridCategory {
+  def name:String
+  def css:String
+}
+
+enum SWEBOK(val name: String) extends GridCategory {
   case Requirements extends SWEBOK("Software Requirements")
   case Design extends SWEBOK("Software Design")
   case Construction extends SWEBOK("Software Construction")
@@ -17,9 +22,11 @@ enum SWEBOK(val name: String):
   case ProfPractice extends SWEBOK("Software Engineering Professional Practice")
   case Economics extends SWEBOK("Software Engineering Economics")
   case CompFoundations extends SWEBOK("Computing Foundations")
-  case MathFoundations extends SWEBOK("Nathematical Foundations")
+  case MathFoundations extends SWEBOK("Mathematical Foundations")
   case EngFoundations extends SWEBOK("Engineering Foundations")
-  
+
+  def css = "swebok" 
+}
 
 /*
  * JavaScript API

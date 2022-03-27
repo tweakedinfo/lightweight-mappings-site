@@ -39,6 +39,9 @@ case class Course(
   plans: Seq[(String, Plan)]
 )
 
+// Limits the rows shown in the CBOK table for a course
+val topCbok:mutable.Map[String, Map[CBOK, Seq[String]]] = mutable.Map.empty
+
 trait JSPlanComponent extends js.Object:
   val name:String
   val units:js.Array[PrereqElement]
@@ -80,6 +83,11 @@ def addCourses(courses:js.Array[JSCourse]): Unit = {
   for c <- courses do addCourse(c)
 }
 
+@JSExportTopLevel("limitCBOK")
+def limitCbok(courses:js.Array[String], category:CBOK, units:js.Array[String]) = {
+  for course <- courses do
+    topCbok(course) = topCbok.getOrElse(course, Map.empty) + (category -> units.toSeq)
+}
 
 def planPage(c:Course) = Unique(<.div(
   <.h1(c.name),
@@ -121,12 +129,85 @@ def cbokPage(c:Course) = Unique(<.div(
     ),
     Common.markdown(
       """ The table below is generated from the data files for each unit within the course structure.
-        | (Consequently, it might sometimes identify more than 3 units in a column; to-do: fix this).
+        | A toggle is provided to toggle between:
+        |
+        | * showing only the selected top 3 core units for each course (to show coverage of CBoK in core units) 
+        | * showing where that CBoK item appears in all units (to show scaffolding, or in-depth knowledge in advanced units, such as within majors)
         |
         | Where there is a choice between units, the number to select is shown next to the rows, and the rows are faded.
         | These have been included as we sometimes allow choice between two units offering a skill such as teamwork.
+        | (e.g. in the BCompSc, how teamwork is scaffolded from COSC101 and COSC102 in first year, rather than only showing
+        | its mandatory presence in units in later years).
         |""".stripMargin
     ),
-    cbokGrid(c.structure),
+    CBOKGridComponent(c, c.structure)
+  )
+)
+
+
+def swebokPage(c:Course) = Unique(<.div(
+    <.h1(c.name),
+    <.p(
+      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
+    ),
+    Common.markdown(
+      """ The table below shows top-level SWEBOK categories that are relevant to each unit in the course
+        |
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[SWEBOK](c.structure, SWEBOK.values.toSeq) {
+      (s, cat) => s.swebok.contains(cat)
+    },
+  )
+)
+
+def dsbokPage(c:Course) = Unique(<.div(
+    <.h1("Data Science bodies of knoweledge"),
+    <.h2(c.name),
+    <.p(
+      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
+    ),
+    Common.markdown(
+      """
+        |This page maps units in the course against ACM and Edison bodies of knowledge for data science.
+        |Note however, that as the criteria ask for 1 EFTSL of content drawn from these bodies of knowledge,
+        |rather than complete coverage of all bodies of knowledge, not every column may be covered.
+        | 
+        |### ACM Computing Competencies for Undergraduate Data Science Curricula (CCDS)
+        |
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[CCDSC](c.structure, CCDSC.values.toSeq) {
+      (s, cat) => s.dsbok.contains(cat)
+    },
+    Common.markdown(
+      """
+        |### Edison Data Science Body of Knowledge
+        | 
+        |The table below maps units to Knowledge Areas (KAs) in the Edison Data Science Body of Knowledge.
+        |KAs within the same Knowledge Area Group (KAG) are given similar colouring. 
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[EdisonDSBOK](c.structure, EdisonDSBOK.values.toSeq) {
+      (s, cat) => s.dsbok.contains(cat)
+    },
+  )
+)
+
+def idverifyPage(c:Course) = Unique(<.div(
+    <.h1("Methods of Identity Management"),
+    <.h2(c.name),
+    <.p(
+      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
+    ),
+    Common.markdown(
+      """
+        |This page maps units in the course against different mechanisms that are used in assessment to support
+        |identity management and deter or detect academic misconduct
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[IdentityVerification](c.structure, IdentityVerification.values.toSeq) {
+      (s, cat) => s.dsbok.contains(cat)
+    },
   )
 )

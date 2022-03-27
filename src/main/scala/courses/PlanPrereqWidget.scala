@@ -67,7 +67,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
   val halfH = rowH / 2
 
   val unitBlockStart = 50 - 4
-  val unitBlockWidth = 500 + 8
+  val unitBlockWidth = 600 + 8
 
   def subjectDetails(s:Subject) = <.div(^.cls := unitStyle.className,
     <.div(<.span(^.cls := "code", s.code), " ", 

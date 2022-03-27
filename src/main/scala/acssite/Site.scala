@@ -33,11 +33,31 @@ object ITICSESite {
           s"${u.code} ${u.name}" -> site.addPage(s"course-cbok-${u.code}", courses.cbokPage(u))
           ).toSeq:_*
       ),
-      "Units" -> site.Toc(
+
+      "SWEBOK Tables" -> site.Toc(
+        (for u <- courses.courses yield
+          s"${u.code} ${u.name}" -> site.addPage(s"course-swebok-${u.code}", courses.swebokPage(u))
+          ).toSeq:_*
+      ),
+
+      "DSBoK Pages" -> site.Toc(
+        (for u <- courses.courses yield
+          s"${u.code} ${u.name}" -> site.addPage(s"course-dsbok-${u.code}", courses.dsbokPage(u))
+          ).toSeq:_*
+      ),
+
+      "Identity management" -> site.Toc(
+        (for u <- courses.courses yield
+          s"${u.code} ${u.name}" -> site.addPage(s"course-idverify-${u.code}", courses.idverifyPage(u))
+          ).toSeq:_*
+      ),
+
+
+      /*"Units" -> site.Toc(
         (for u <- courses.subjects yield
           s"${u.code} ${u.name}" -> site.addPage(s"Unit ${u.code}", courses.unitPage(u))
           ).toSeq:_*
-      ),
+      ),*/
     )
 
     site.home = () => site.renderPage(courses.home)
@@ -45,12 +65,3 @@ object ITICSESite {
     site.attachTo(n)
   }
 }
-
-val frontPage = unique(<.div(
-  <.h1("A site for my ITiCSE Talk in 2021"),
-  <.p(
-    """
-      | Bla bla bla
-      |""".stripMargin
-  )
-))

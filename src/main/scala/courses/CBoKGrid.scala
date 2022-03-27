@@ -23,6 +23,13 @@ val gridStyle = Styling(
   " ."+Category.TechnologyBuilding.css -> "background-color: #baffc9;",
   " ."+Category.TechnologyResources.css -> "background-color: #ffffba;",
   " ."+Category.Management.css -> "background-color: #bae0ff;",
+  " .swebok" -> "background-color: #baffc9; text-align: center;",
+  " .ccdsc" -> "background-color: #baffc9; text-align: center;",
+  " .edison.dsda" -> "background-color: #baffc9; text-align: center;",
+  " .edison.dseng" -> "background-color: #ffffba; text-align: center;",
+  " .edison.dsdm" -> "background-color: #ffdfba; text-align: center;",
+  " .edison.dsrmpm" -> "background-color: #bae0ff; text-align: center;",
+  " .identity" -> "background-color: #baffc9; text-align: center;",
 ).register()
 
 val rotatedHeader = Styling(
@@ -37,7 +44,10 @@ val rotatedHeader = Styling(
     |""".stripMargin
 ).register()
 
-def cbokGrid(plan:Plan) = {
+
+
+//
+def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Subject, C) => Boolean) = {
 
   def unitTH(u:Subject) =
     <.th(^.cls := "unit",
@@ -45,10 +55,9 @@ def cbokGrid(plan:Plan) = {
     )
 
   def unitCBoKcells(u:Subject) =
-    for cat <- CBOK.values.toSeq yield
-      <.td(^.cls := cat.category.css, {
-        val l = u.cbokLevel(cat)
-        if l > 0 then l.toString else ""
+    for cat <- categories yield
+      <.td(^.cls := cat.css, {
+        if f(u, cat) then "✔" else ""
       })
 
   def subTable(planComponent: PlanComponent) =
@@ -94,6 +103,114 @@ def cbokGrid(plan:Plan) = {
                 case None => <.tr("Unit not found: " + s)
           case ComplexPrereqElement.cp(x) =>
             Seq(<.tr(<.th(s"Complete $x credit points")))
+          case ComplexPrereqElement.coreq(els:_*) => Seq(<.tr(s"Corequisite ${els.stringify}"))
+        }
+      )
+
+
+  <.table(^.cls := gridStyle.className,
+    <.tr(
+      <.th(""), <.td(),
+      for cat <- categories yield <.th(^.cls := "cat",
+        <.span(^.cls := "cat " + rotatedHeader.className + " " + cat.css, cat.name)
+      )
+    ),
+
+    for
+      pc <- plan
+      html <- subTable(pc)
+    yield html
+
+  )
+}
+
+
+case class CBOKGridComponent(course:Course, plan:Plan) extends VHtmlComponent {
+
+  var limitToMap:Boolean = true
+
+  def render = 
+    <.div(
+      <.div(
+        <.input(^.attr("id") := "limit-toggle",
+          ^.attr("type") := "checkbox", ^.attr("checked") ?= (if limitToMap then Some("checked") else None),
+          ^.on("change") --> { limitToMap = !limitToMap; rerender(); }
+        ), " ",
+        <("label")(^.attr("for") := "limit-toggle", "Limit to top 3 core units for each category")
+      ),
+
+      if (limitToMap && topCbok.contains(course.code)) then
+        cbokGrid(plan, topCbok(course.code))
+      else cbokGrid(plan, Map.empty)
+    )
+}
+
+
+/** 
+ * A specialised grid for showing CBOK values, colour coded into their categories
+ */
+def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
+
+  def unitTH(u:Subject) =
+    <.th(^.cls := "unit",
+      <("small")(u.code), " ", u.name
+    )
+
+  def unitPermitted(category:CBOK, unitCode:String):Boolean = 
+    !topCbokMap.contains(category) || topCbokMap(category).contains(unitCode) 
+
+  def unitCBoKcells(u:Subject) =
+    for cat <- CBOK.values.toSeq yield
+      <.td(^.cls := cat.category.css, {
+        val l = u.cbokLevel(cat)
+        if unitPermitted(cat, u.code) && l > 0 then l.toString else ""
+      })
+
+  def subTable(planComponent: PlanComponent) =
+    val (name, els) = planComponent
+    <.tr(
+      <.th(^.cls := "section", ^.attr("colspan") := 1, name)) +: (
+        els.flatMap {
+          case s:String =>
+            subjects.find(_.code == s) match
+              case Some(u) => Seq(<.tr(^.cls := "mandatory",
+                unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
+              ))
+              case None => 
+                val u = Subject.empty(s)
+                Seq(<.tr(^.cls := "optional",
+                  unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
+                )) 
+          case ComplexPrereqElement.choose(lim, units:_*) =>
+            for (s, i) <- units.zipWithIndex yield
+              subjects.find(_.code == s) match
+                case Some(u) =>
+                  if i == 0 then
+                    <.tr(^.cls := "optional choose",
+                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := units.length, lim.toString), unitCBoKcells(u)
+                    )
+                  else
+                    <.tr(^.cls := "optional choose",
+                      unitTH(u), unitCBoKcells(u)
+                    )
+                case None => <.tr("Unit not found: " + s)
+          case ComplexPrereqElement.or(a, b) =>
+            for (s, i) <- Seq(a, b).zipWithIndex yield
+              subjects.find(_.code == s) match
+                case Some(u) =>
+                  if i == 0 then
+                    <.tr(^.cls := "optional or",
+                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := 2, 1.toString), unitCBoKcells(u)
+                    )
+                  else
+                    <.tr(^.cls := "optional or",
+                      unitTH(u), unitCBoKcells(u)
+                    )
+                case None => <.tr("Unit not found: " + s)
+          case ComplexPrereqElement.cp(x) =>
+            Seq(<.tr(<.th(s"Complete $x credit points")))
+          case ComplexPrereqElement.coreq(els:_*) =>
+            Seq(<.tr(<.th(s"Corequisite(${els.stringify})")))
         }
       )
 
@@ -113,3 +230,5 @@ def cbokGrid(plan:Plan) = {
 
   )
 }
+
+

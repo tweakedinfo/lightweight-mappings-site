@@ -1,8 +1,9 @@
 package courses
 
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
+import scala.scalajs.js.JSConverters._
 
-enum IdentityVerification(val name:String):
+enum IdentityVerification(val name:String) extends GridCategory:
     case ProctoredExam extends IdentityVerification("Proctored online exam")
     case Video extends IdentityVerification("Video submissions")
     case PersonalisedAssessment extends IdentityVerification("Personalised assessment")
@@ -10,13 +11,8 @@ enum IdentityVerification(val name:String):
     case GroupWork extends IdentityVerification("Group work")
     case DataTrails extends IdentityVerification("Data trails")
 
+    def css = "identity"
+
 @JSExportTopLevel("idverify")
 @JSExportAll 
-object IDVerify {
-    val ProctoredExam = IdentityVerification.ProctoredExam
-    val Video = IdentityVerification.Video
-    val PersonalisedAssessment = IdentityVerification.PersonalisedAssessment
-    val Project = IdentityVerification.Project
-    val GroupWork = IdentityVerification.GroupWork
-    val DataTrails = IdentityVerification.DataTrails
-}
+val idverify = (for e <- IdentityVerification.values yield e.productPrefix -> e).toMap.toJSDictionary

@@ -31,11 +31,35 @@ enum CBOK(val category: Category, val name: String):
   case Cybersecurity extends CBOK(Category.Management, "Cybersecurity")
 
   // This lets us say Cybersecurity(3) to get the tuple (3, Cybersecurity)
+  @JSExport("apply")
   def apply(level:Int): (CBOK, Int) = (this, level)
 
 /*
  * JavaScript API
  */
+
+@JSExportTopLevel("cbok")
+@JSExportAll
+object cbokk {
+  val ethics = CBOK.Ethics
+  val expectations = CBOK.ProfExpectations
+  val teamwork = CBOK.Teamwork
+  val communication = CBOK.Communication
+  val societal = CBOK.Societal
+  val understanding = CBOK.Understanding
+  val problemSolving = CBOK.ProblemSolving
+  val fundamentals = CBOK.Fundamentals
+  val data = CBOK.Data
+  val networking = CBOK.Networking
+  val humanFactors = CBOK.HumanFactors
+  val programming = CBOK.Programming
+  val systems = CBOK.Systems
+  val governance = CBOK.Governance
+  val projectManagement = CBOK.ProjectManagement
+  val serviceManagement = CBOK.ServiceManagement
+  val cybersecurity = CBOK.Cybersecurity
+}
+
 
 import CBOK.*
 @JSExportTopLevel("ethics") def ethics(level:Int) = Ethics(level)
