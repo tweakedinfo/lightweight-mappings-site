@@ -9,122 +9,138 @@ addUnits([
       prereq: [],
       cbok: [ problemSolving(2), understanding(1), fundamentals(2), cybersecurity(1) ],
       sfia: [],
-      swebok: [swebok.MathFoundations ]
+      swebok: [swebok.MathFoundations ],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "AMTH250",
       name: "Introduction to Programming in the Sciences",
       prereq: [ or("MTHS120", "MTHS130")],
-      cbok: [ programming(1) ],
-      sfia: []
+      cbok: [ programming(1) ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "SCI210",
       name: "Introduction to Scientific Programming",
       prereq: [ choose(1, "MTHS110", "MTHS120", "MTHS130")],
-      cbok: [ programming(1) ],
-      sfia: []
+      cbok: [ programming(1) ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MTHS100",
       name: "Introduction to Quantitative Skills",
-      prereq: [], cbok: [ ], sfia: []
+      prereq: [], cbok: [ ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MTHS110",
       name: "Quantitative Skills with Applications",
-      prereq: [], cbok: [ ], sfia: []
+      prereq: [], cbok: [ ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
 
     {
       code: "MTHS120",
       name: "Calculus & Linear Algebra 1",
-      prereq: [], cbok: [ ], sfia: []
+      prereq: [], cbok: [ ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MTHS130",
       name: "Calculus & Linear Algebra 2",
-      prereq: [ "MTHS120" ], cbok: [ ], sfia: []
+      prereq: [ "MTHS120" ], cbok: [ ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "PMTH213",
       name: "Linear Algebra",
-      prereq: [ "MTHS120", "MTHS130" ], cbok: [ ], sfia: []
+      prereq: [ "MTHS120", "MTHS130" ], cbok: [ ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MM105",
       name: "Communication for Business",
-      prereq: [ ], cbok: [ communication(1) ], sfia: []
+      prereq: [ ], cbok: [ communication(1) ], sfia: [], 
+      other: [ idverify.TurnItIn ]
     },
 
     {
-      code: "MM200",
+      code: "MM203",
       name: "Management Practices in Responsible Organisations",
-      prereq: [ ], cbok: [ communication(1), teamwork(1) ], sfia: []
+      prereq: [ ], cbok: [ communication(1), teamwork(1) ], sfia: [],
+      other: [ idverify.TurnItIn, idverify.ProctoredExam ]
     },
 
 
     {
       code: "STAT100",
       name: "Introduction to Statistical Modelling",
-      prereq: [], cbok: [ data(2) ], sfia: []
+      prereq: [], cbok: [ data(2) ], sfia: [],
+      other: [ idverify.ProctoredExam ] 
     },
 
     {
       code: "STAT210",
       name: "Statistical Modelling & Experimental Design",
       prereq: [ choose(1, "STAT100", "AMTH250", "SCI210") ],
-      cbok: [ data(2) ], sfia: []
+      cbok: [ data(2) ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "STAT410",
       name: "Statistical Modelling & Experimental Design",
       prereq: [ "candidature in a pg award" ],
-      cbok: [ data(2) ], sfia: []
+      cbok: [ data(2) ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MATH260",
       name: "Probability and Simulation",
       prereq: [ "MTHS120", "MTHS130" ],
-      cbok: [ data(3) ], sfia: []
+      cbok: [ data(3) ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "STAT270",
       name: "Inference",
       prereq: [ "MATH260" ],
-      cbok: [ data(3) ], sfia: []
+      cbok: [ data(3) ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "STAT320",
       name: "Advanced Statistical Modelling",
       prereq: [ "STAT210" ],
-      cbok: [ data(3) ], sfia: []
+      cbok: [ data(3) ], sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "STAT330",
       name: "Statistical Learning",
       prereq: [ "STAT210" ],
-      cbok: [ data(3) ], sfia: [], tags: ["Advanced"]
+      cbok: [ data(3) ], sfia: [], tags: ["Advanced"], 
+      other: [ idverify.TurnItIn, idverify.Oral ]
     },
 
     {
       code: "STAT430",
       name: "Statistical Learning",
       prereq: [ "STAT100", "candidature in MDatSci or pg award" ],
-      cbok: [ data(3) ], sfia: [], tags: ["Advanced"]
+      cbok: [ data(3) ], sfia: [], tags: ["Advanced"],
+      other: [ idverify.TurnItIn, idverify.Oral ]
     },
 
 
@@ -132,7 +148,8 @@ addUnits([
       code: "SCI410",
       name: "Introduction to Scientific Programming",
       prereq: [ cp(96), "or enrolment in pg award" ],
-      cbok: [ programming(2), data(2) ], sfia: [], tags: ["Advanced"]
+      cbok: [ programming(2), data(2) ], sfia: [], tags: ["Advanced"],
+      other: [ idverify.ProctoredExam ]
     },
 
 
@@ -141,19 +158,22 @@ addUnits([
       name: "Special Topics in Science A",
       prereq: [ cp(48), "permission of HoS"],
       cbok: [ data(3) ], sfia: [],
-      tags: [ "Advanced", "Capstone" ]
+      tags: [ "Advanced", "Capstone" ],
+      other: [ idverify.TurnItIn, idverify.Project, idverify.PersonalisedAssessment ]
     },
 
     {
       code: "QM161",
       name: "Business Statistics",
-      prereq: [], cbok: [ data(2) ], sfia: []
+      prereq: [], cbok: [ data(2) ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "QM262",
       name: "Introduction to Business Analytics",
-      prereq: [], cbok: [ data(2) ], sfia: []
+      prereq: [], cbok: [ data(2) ], sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -161,7 +181,8 @@ addUnits([
       name: "Computational Thinking",
       prereq: [],
       cbok: [ ethics(1), societal(1), humanFactors(1), problemSolving(1), programming(1) ],
-      sfia: []
+      sfia: [],
+      other: []
     },
 
     {
@@ -169,7 +190,8 @@ addUnits([
       name: "From Logic to Data Processing",
       prereq: [],
       cbok: [ fundamentals(1), understanding(1), data(1) ],
-      sfia: []
+      sfia: [],
+      other: []
     },
 
     {
@@ -177,7 +199,8 @@ addUnits([
       name: "Software Development Studio 1",
       prereq: [],
       cbok: [ problemSolving(2), teamwork(2), communication(2), networking(1), humanFactors(1) ],
-      sfia: []
+      sfia: [],
+      other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.Video ]
     },
 
     {
@@ -185,7 +208,8 @@ addUnits([
       name: "Data Science Studio 1",
       prereq: [ choose(2, "COSC110", "STAT110") ],
       cbok: [  programming(2), teamwork(2), communication(2), data(1),problemSolving(1)],
-      sfia: []
+      sfia: [],
+      other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.Video ]
     },
 
 
@@ -194,7 +218,8 @@ addUnits([
       name: "Introduction to Programming and the Unix Environment",
       prereq: [],
       cbok: [ ethics(1), expectations(1), teamwork(1), societal(2), understanding(1), communication(1), programming(2), fundamentals(1) ],
-      sfia: []
+      sfia: [], 
+      other: [ idverify.ProctoredExam, idverify.TurnItIn ]
     },
 
     {
@@ -202,7 +227,8 @@ addUnits([
       name: "Object Oriented Programming",
       prereq: [ "COSC110" ],
       cbok: [ programming(2), problemSolving(1) ],
-      sfia: []
+      sfia: [],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -210,7 +236,8 @@ addUnits([
       name: "Database Management Systems",
       prereq: [ "COSC110" ],
       cbok: [ problemSolving(1), societal(1), data(3), networking(2), systems(1), cybersecurity(1) ],
-      sfia: []
+      sfia: [ ],
+      other: [ idverify.ProctoredExam, idverify.TurnItIn ]
     },
 
     {
@@ -222,7 +249,8 @@ addUnits([
         understanding(2), data(3), programming(3), humanFactors(2), systems(2), projectManagement(2),
         serviceManagement(1)
       ],
-      sfia: []
+      sfia: [],
+      other: [ idverify.TurnItIn, idverify.GroupWork, idverify.Project, idverify.DataTrails, idverify.Video ]
     },
 
     {
@@ -230,7 +258,8 @@ addUnits([
       name: "Data Structures & Algorithms",
       prereq: [ "AMTH140", "COSC120", choose(1, "COSC101", "COSC110", "SCI210", "AMTH250") ],
       cbok: [ fundamentals(2), programming(2) ],
-      sfia: []
+      sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -238,7 +267,8 @@ addUnits([
       name: "Operating Systems",
       prereq: [ "COSC120" ],
       cbok: [ problemSolving(2), societal(1), understanding(2), fundamentals(2), networking(2), programming(3), systems(1), cybersecurity(2) ],
-      sfia: []
+      sfia: [], 
+      other: [ idverify.ProctoredExam, idverify.TurnItIn ]
     },
 
     {
@@ -246,7 +276,8 @@ addUnits([
       name: "Functional and Reactive Programming",
       prereq: [ "COSC120", choose(1, "COSC101", "COSC110", "SCI210", "AMTH250") ],
       cbok: [ understanding(1), programming(3), systems(2) ],
-      sfia: []
+      sfia: [],
+      other: [ idverify.ProctoredExam, idverify.Video ]
     },
 
     {
@@ -254,7 +285,8 @@ addUnits([
       name: "Web Programming",
       prereq: [ choose(2, "COSC101", "COSC110", "COSC120") ],
       cbok: [ societal(1), networking(2), programming(2), humanFactors(2), systems(2), cybersecurity(2) ],
-      sfia: []
+      sfia: [], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -263,7 +295,8 @@ addUnits([
       prereq: [ cp(48), "permission of HoS" ],
       cbok: [ ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.PersonalisedAssessment ]
     },
 
 
@@ -272,8 +305,10 @@ addUnits([
       name: "Software Project Management",
       prereq: [ choose(1, "COSC210", "COSC220") ],
       cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
+      dsbok: [],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
     },
 
     {
@@ -282,7 +317,8 @@ addUnits([
       prereq: [ coreq("COSC110", "COSC120" ) ],
       cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
     },
 
 
@@ -292,7 +328,8 @@ addUnits([
       prereq: [ "COSC220", "COSC310", cp(96) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
-      tags: [ "Advanced", "Capstone" ]
+      tags: [ "Advanced", "Capstone" ],
+      other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
 
     {
@@ -301,7 +338,8 @@ addUnits([
       prereq: [ "COSC510", choose(1, "COSC530", "COSC540", "COSC550", "COSC560", "COSC570", "COSC572", "COSC580") ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
-      tags: [ "Advanced", "Capstone" ]
+      tags: [ "Advanced", "Capstone" ],
+      other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
 
 
@@ -311,7 +349,8 @@ addUnits([
       prereq: [ "COSC220", cp(48) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
-      tags: [ "Advanced", "Capstone" ]
+      tags: [ "Advanced", "Capstone" ],
+      other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
 
     {
@@ -320,7 +359,8 @@ addUnits([
       prereq: [ "COSC220", cp(48) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
-      tags: [ "Advanced", "Capstone" ]
+      tags: [ "Advanced", "Capstone" ],
+      other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
 
 
@@ -330,7 +370,8 @@ addUnits([
       prereq: [ or("COSC230", "COSC240") ],
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [  ]
     },
 
     {
@@ -339,7 +380,8 @@ addUnits([
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ ]
     },
 
     
@@ -349,7 +391,8 @@ addUnits([
       prereq: [ cp(72), "AMTH140", "COSC240" ],
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"], 
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -358,7 +401,8 @@ addUnits([
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam ]
     },
 
 
@@ -368,7 +412,8 @@ addUnits([
       prereq: [ "COSC230" ],
       cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -377,7 +422,8 @@ addUnits([
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam ]
     },
 
     {
@@ -386,7 +432,8 @@ addUnits([
       prereq: [ "COSC120", "COSC260" ],
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam, idverify.Project, idverify.Video ]
     },
 
     {
@@ -395,7 +442,8 @@ addUnits([
       prereq: [ "COSC260", or("COSC110", "COSC120") ],
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.ProctoredExam, idverify.Project, idverify.Video ]
     },
 
 
@@ -405,7 +453,8 @@ addUnits([
       prereq: [ cp(72), "COSC220" ],
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.Project, idverify.Video, idverify.TurnItIn ]
     },
 
     {
@@ -414,7 +463,8 @@ addUnits([
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
       sfia: [],
-      tags: ["Advanced"]
+      tags: ["Advanced"],
+      other: [ idverify.Project, idverify.Video, idverify.TurnItIn ]
     },
 
 
@@ -423,7 +473,8 @@ addUnits([
       name: "Management Information Systems",
       prereq: [ cp(48) ],
       cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
-      sfia: []
+      sfia: [],
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
     },
 
     {
@@ -431,7 +482,8 @@ addUnits([
       name: "Management Information Systems",
       prereq: [ cp(48) ],
       cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
-      sfia: []
+      sfia: [],
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ] 
     },
 
 

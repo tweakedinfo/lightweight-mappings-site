@@ -5,6 +5,8 @@ import scala.scalajs.js.JSConverters._
 
 enum IdentityVerification(val name:String) extends GridCategory:
     case ProctoredExam extends IdentityVerification("Proctored online exam")
+    case TurnItIn extends IdentityVerification("TurnItIn")
+    case Oral extends IdentityVerification("Oral or live assessment")
     case Video extends IdentityVerification("Video submissions")
     case PersonalisedAssessment extends IdentityVerification("Personalised assessment")
     case Project extends IdentityVerification("Project work")

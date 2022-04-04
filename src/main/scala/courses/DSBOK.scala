@@ -22,20 +22,7 @@ enum CCDSC(val name:String) extends GridCategory:
   def css = "ccdsc"
 
 @JSExportTopLevel("ccdsc")
-@JSExportAll 
-object ccdscjs {
-  val AP = CCDSC.AP
-  val AI = CCDSC.AI
-  val BDS = CCDSC.BDS
-  val CCF = CCDSC.CCF
-  val DG = CCDSC.DG
-  val DM = CCDSC.DM
-  val DP = CCDSC.DP
-  val ML = CCDSC.ML
-  val PR = CCDSC.PR
-  val PDA = CCDSC.PDA
-  val SDM = CCDSC.SDM
-}
+val ccdscjs = (for e <- CCDSC.values yield e.productPrefix -> e).toMap.toJSDictionary
 
 
 enum EdisonDSBOK(val name:String, val css:String) extends GridCategory:

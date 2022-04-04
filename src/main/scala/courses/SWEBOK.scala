@@ -1,7 +1,7 @@
 package courses
 
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
-import scala.collection.immutable.Stream.Cons
+import scala.scalajs.js.JSConverters._
 
 trait GridCategory {
   def name:String
@@ -33,21 +33,5 @@ enum SWEBOK(val name: String) extends GridCategory {
  */
 
 @JSExportTopLevel("swebok")
-@JSExportAll 
-object swebokk {
-  val Requirements = SWEBOK.Requirements
-  val Design = SWEBOK.Design
-  val Construction = SWEBOK.Construction
-  val Testing = SWEBOK.Testing
-  val Maintenance = SWEBOK.Maintenance
-  val ConfigManagement = SWEBOK.ConfigManagement
-  val EngManagement = SWEBOK.EngManagement
-  val Process = SWEBOK.Process
-  val ModelsAndMethods = SWEBOK.ModelsAndMethods
-  val Quality = SWEBOK.Quality
-  val ProfPractice = SWEBOK.ProfPractice
-  val Economics = SWEBOK.Economics
-  val CompFoundations = SWEBOK.CompFoundations
-  val MathFoundations = SWEBOK.MathFoundations
-  val EngFoundations = SWEBOK.EngFoundations
-}
+val swebokjs = (for e <- SWEBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+

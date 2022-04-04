@@ -1,6 +1,7 @@
 package courses
 
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
+import scala.scalajs.js.JSConverters.*
 
 enum Category(val css:String):
   case Essential extends Category("essential")
@@ -31,7 +32,7 @@ enum CBOK(val category: Category, val name: String):
   case Cybersecurity extends CBOK(Category.Management, "Cybersecurity")
 
   // This lets us say Cybersecurity(3) to get the tuple (3, Cybersecurity)
-  @JSExport("apply")
+  @JSExport("level")
   def apply(level:Int): (CBOK, Int) = (this, level)
 
 /*
@@ -39,6 +40,11 @@ enum CBOK(val category: Category, val name: String):
  */
 
 @JSExportTopLevel("cbok")
+val cbokjs = (for e <- CBOK.values yield {
+  e.productPrefix -> e
+}).toMap.toJSDictionary
+
+
 @JSExportAll
 object cbokk {
   val ethics = CBOK.Ethics
