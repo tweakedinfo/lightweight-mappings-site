@@ -181,6 +181,7 @@ addUnits([
       name: "Computational Thinking",
       prereq: [],
       cbok: [ ethics(1), societal(1), humanFactors(1), problemSolving(1), programming(1) ],
+      swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.EngFoundations, swebok.Construction ],
       sfia: [],
       other: []
     },
@@ -190,6 +191,7 @@ addUnits([
       name: "From Logic to Data Processing",
       prereq: [],
       cbok: [ fundamentals(1), understanding(1), data(1) ],
+      swebok: [ swebok.MathFoundations, swebok.CompFoundations ],
       sfia: [],
       other: []
     },
@@ -199,6 +201,7 @@ addUnits([
       name: "Software Development Studio 1",
       prereq: [],
       cbok: [ problemSolving(2), teamwork(2), communication(2), networking(1), humanFactors(1) ],
+      swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.Construction, swebok.ProfPractice ],
       sfia: [],
       other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.Video ]
     },
@@ -208,6 +211,7 @@ addUnits([
       name: "Data Science Studio 1",
       prereq: [ choose(2, "COSC110", "STAT110") ],
       cbok: [  programming(2), teamwork(2), communication(2), data(1),problemSolving(1)],
+      swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.EngFoundations, swebok.ProfPractice  ],
       sfia: [],
       other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.Video ]
     },
@@ -227,6 +231,7 @@ addUnits([
       name: "Object Oriented Programming",
       prereq: [ "COSC110" ],
       cbok: [ programming(2), problemSolving(1) ],
+      swebok: [ swebok.Construction, swebok.Design, swebok.ModelsAndMethods ],
       sfia: [],
       other: [ idverify.ProctoredExam ]
     },
@@ -235,7 +240,8 @@ addUnits([
       code: "COSC210",
       name: "Database Management Systems",
       prereq: [ "COSC110" ],
-      cbok: [ problemSolving(1), societal(1), data(3), networking(2), systems(1), cybersecurity(1) ],
+      cbok: [ problemSolving(1), societal(1), data(3), networking(2), systems(1), cybersecurity(1) ],      
+      swebok: [ swebok.Construction, swebok.Design, swebok.ModelsAndMethods ],
       sfia: [ ],
       other: [ idverify.ProctoredExam, idverify.TurnItIn ]
     },
@@ -249,6 +255,11 @@ addUnits([
         understanding(2), data(3), programming(3), humanFactors(2), systems(2), projectManagement(2),
         serviceManagement(1)
       ],
+      swebok: [ 
+        swebok.Requirements, swebok.Design, swebok.Construction, swebok.Testing, swebok.Maintenance,
+        swebok.ConfigManagement, swebok.EngManagement, swebok.Process, swebok.ModelsAndMethods, swebok.Quality, 
+        swebok.ProfPractice, swebok.EngFoundations
+      ],
       sfia: [],
       other: [ idverify.TurnItIn, idverify.GroupWork, idverify.Project, idverify.DataTrails, idverify.Video ]
     },
@@ -258,6 +269,7 @@ addUnits([
       name: "Data Structures & Algorithms",
       prereq: [ "AMTH140", "COSC120", choose(1, "COSC101", "COSC110", "SCI210", "AMTH250") ],
       cbok: [ fundamentals(2), programming(2) ],
+      swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.Construction, swebok.ModelsAndMethods, swebok.Design ],
       sfia: [], 
       other: [ idverify.ProctoredExam ]
     },
@@ -268,6 +280,7 @@ addUnits([
       prereq: [ "COSC120" ],
       cbok: [ problemSolving(2), societal(1), understanding(2), fundamentals(2), networking(2), programming(3), systems(1), cybersecurity(2) ],
       sfia: [], 
+      swebok: [ swebok.CompFoundations ], 
       other: [ idverify.ProctoredExam, idverify.TurnItIn ]
     },
 
@@ -276,6 +289,7 @@ addUnits([
       name: "Functional and Reactive Programming",
       prereq: [ "COSC120", choose(1, "COSC101", "COSC110", "SCI210", "AMTH250") ],
       cbok: [ understanding(1), programming(3), systems(2) ],
+      swebok: [ swebok.Design, swebok.Construction, swebok.Testing, swebok.ModelsAndMethods, swebok.MathFoundations, swebok.CompFoundations ],
       sfia: [],
       other: [ idverify.ProctoredExam, idverify.Video ]
     },
@@ -306,6 +320,7 @@ addUnits([
       prereq: [ choose(1, "COSC210", "COSC220") ],
       cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
       dsbok: [],
+      swebok: [ swebok.Requirements, swebok.Maintenance, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice, swebok.Economics ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
@@ -316,6 +331,7 @@ addUnits([
       name: "Software Project Management",
       prereq: [ coreq("COSC110", "COSC120" ) ],
       cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
+      swebok: [ swebok.Requirements, swebok.Maintenance, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice, swebok.Economics ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
@@ -327,6 +343,7 @@ addUnits([
       name: "Information Technology Project",
       prereq: [ "COSC220", "COSC310", cp(96) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
+      swebok: [ swebok.Requirements, swebok.Construction, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice ],
       sfia: [],
       tags: [ "Advanced", "Capstone" ],
       other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
