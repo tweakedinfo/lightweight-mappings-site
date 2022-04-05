@@ -32,14 +32,18 @@ addUnits([
     {
       code: "MTHS100",
       name: "Introduction to Quantitative Skills",
-      prereq: [], cbok: [ ], sfia: [], 
+      prereq: [], cbok: [ ], 
+      swebok: [ swebok.MathFoundations ],
+      sfia: [], 
       other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MTHS110",
       name: "Quantitative Skills with Applications",
-      prereq: [], cbok: [ ], sfia: [], 
+      prereq: [], cbok: [ ], 
+      swebok: [ swebok.MathFoundations ],
+      sfia: [], 
       other: [ idverify.ProctoredExam ]
     },
 
@@ -47,14 +51,18 @@ addUnits([
     {
       code: "MTHS120",
       name: "Calculus & Linear Algebra 1",
-      prereq: [], cbok: [ ], sfia: [],
+      prereq: [], cbok: [ ], 
+      swebok: [ swebok.MathFoundations ],
+      sfia: [],
       other: [ idverify.ProctoredExam ]
     },
 
     {
       code: "MTHS130",
       name: "Calculus & Linear Algebra 2",
-      prereq: [ "MTHS120" ], cbok: [ ], sfia: [],
+      prereq: [ "MTHS120" ], cbok: [ ], 
+      swebok: [ swebok.MathFoundations ],
+      sfia: [],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -83,7 +91,9 @@ addUnits([
     {
       code: "STAT100",
       name: "Introduction to Statistical Modelling",
-      prereq: [], cbok: [ data(2) ], sfia: [],
+      prereq: [], cbok: [ data(2) ], 
+      swebok: [ swebok.MathFoundations, swebok.EngFoundations ],
+      sfia: [],
       other: [ idverify.ProctoredExam ] 
     },
 
@@ -92,6 +102,7 @@ addUnits([
       name: "Statistical Modelling & Experimental Design",
       prereq: [ choose(1, "STAT100", "AMTH250", "SCI210") ],
       cbok: [ data(2) ], sfia: [], 
+      swebok: [ swebok.MathFoundations, swebok.EngFoundations ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -131,7 +142,9 @@ addUnits([
       code: "STAT330",
       name: "Statistical Learning",
       prereq: [ "STAT210" ],
-      cbok: [ data(3) ], sfia: [], tags: ["Advanced"], 
+      cbok: [ data(3) ], sfia: [], 
+      swebok: [ swebok.MathFoundations, swebok.EngFoundations, swebok.Construction ],
+      tags: ["Advanced"], 
       other: [ idverify.TurnItIn, idverify.Oral ]
     },
 
@@ -222,6 +235,7 @@ addUnits([
       name: "Introduction to Programming and the Unix Environment",
       prereq: [],
       cbok: [ ethics(1), expectations(1), teamwork(1), societal(2), understanding(1), communication(1), programming(2), fundamentals(1) ],
+      swebok: [ swebok.CompFoundations, swebok.Construction, swebok.Testing ],
       sfia: [], 
       other: [ idverify.ProctoredExam, idverify.TurnItIn ]
     },
@@ -299,6 +313,7 @@ addUnits([
       name: "Web Programming",
       prereq: [ choose(2, "COSC101", "COSC110", "COSC120") ],
       cbok: [ societal(1), networking(2), programming(2), humanFactors(2), systems(2), cybersecurity(2) ],
+      swebok: [ swebok.Construction, swebok.Requirements ],
       sfia: [], 
       other: [ idverify.ProctoredExam ]
     },
@@ -386,6 +401,7 @@ addUnits([
       name: "Parallel and Distributed Computing",
       prereq: [ or("COSC230", "COSC240") ],
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
+      swebok: [ swebok.Construction, swebok.CompFoundations, swebok.ModelsAndMethods ],
       sfia: [],
       tags: ["Advanced"],
       other: [  ]
@@ -396,6 +412,7 @@ addUnits([
       name: "Parallel and Distributed Computing",
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
+      swebok: [ swebok.Construction, swebok.CompFoundations, swebok.ModelsAndMethods ],
       sfia: [],
       tags: ["Advanced"],
       other: [ ]
@@ -407,6 +424,7 @@ addUnits([
       name: "Computer Networks and Information Security",
       prereq: [ cp(72), "AMTH140", "COSC240" ],
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
+      swebok: [ swebok.CompFoundations, swebok.Construction ],
       sfia: [],
       tags: ["Advanced"], 
       other: [ idverify.ProctoredExam ]
@@ -417,6 +435,7 @@ addUnits([
       name: "Computer Networks and Information Security",
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
+      swebok: [ swebok.CompFoundations, swebok.Construction ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam ]
@@ -428,6 +447,7 @@ addUnits([
       name: "Artificial Intelligence",
       prereq: [ "COSC230" ],
       cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
+      swebok: [ swebok.Construction ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam ]
@@ -438,6 +458,7 @@ addUnits([
       name: "Artificial Intelligence",
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
+      swebok: [ swebok.Construction ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam ]
@@ -448,6 +469,7 @@ addUnits([
       name: "Advanced Web Programming",
       prereq: [ "COSC120", "COSC260" ],
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
+      swebok: [ swebok.Construction, swebok.Design, swebok.Testing, swebok.Requirements ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam, idverify.Project, idverify.Video ]
@@ -458,6 +480,7 @@ addUnits([
       name: "Advanced Web Programming",
       prereq: [ "COSC260", or("COSC110", "COSC120") ],
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
+      swebok: [ swebok.Construction, swebok.Design, swebok.Testing, swebok.Requirements ],
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam, idverify.Project, idverify.Video ]
@@ -469,6 +492,7 @@ addUnits([
       name: "User Experience & Interaction Design",
       prereq: [ cp(72), "COSC220" ],
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
+      swebok: [ swebok.Requirements, swebok.Design, swebok.ProfPractice ], 
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.Project, idverify.Video, idverify.TurnItIn ]
@@ -479,6 +503,7 @@ addUnits([
       name: "User Experience & Interaction Design",
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
+      swebok: [ swebok.Requirements, swebok.Design, swebok.ProfPractice ], 
       sfia: [],
       tags: ["Advanced"],
       other: [ idverify.Project, idverify.Video, idverify.TurnItIn ]
@@ -490,6 +515,7 @@ addUnits([
       name: "Management Information Systems",
       prereq: [ cp(48) ],
       cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
+      swebok: [ swebok.Economics, swebok.Maintenance, swebok.Quality ],
       sfia: [],
       other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
     },
@@ -499,6 +525,7 @@ addUnits([
       name: "Management Information Systems",
       prereq: [ cp(48) ],
       cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
+      swebok: [ swebok.Economics, swebok.Maintenance, swebok.Quality ],
       sfia: [],
       other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ] 
     },
@@ -509,6 +536,7 @@ addUnits([
       name: "Algorithms in Machine Learning",
       prereq: [ choose(1, "MTHS120", "MTHS130"), choose(1, "COSC230", "AMTH250", "SCI210", "STAT330") ],
       cbok: [ data(3), programming(2) ],
+      swebok: [ swebok.Construction, swebok.MathFoundations ],
       sfia: [],
       tags: ["Advanced"]
     },
@@ -518,6 +546,7 @@ addUnits([
       name: "Algorithms in Machine Learning",
       prereq: [ "MTHS120", or("COSC110", "SCI410") ],
       cbok: [ data(3), programming(2) ],
+      swebok: [ swebok.Construction, swebok.MathFoundations ],
       sfia: [],
       tags: ["Advanced"]
     },
