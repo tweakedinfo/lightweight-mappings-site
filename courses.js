@@ -230,7 +230,16 @@ addCourses([
         {
           name: "Listed group 1",
           units: [
-            choose(3, "COSC530", "COSC540", "COSC550", "COSC572"), "Listed elective", "Listed elective"
+            choose(3, "COSC530", "COSC540", "COSC550", "COSC572")
+          ]
+        },
+        {
+          name: "Listed group 2",
+          units: [
+            choose(2,
+              "AMTH250", "COSC240", "COSC250", "SCI410", 
+              "COSC530", "COSC540", "COSC550", "COSC572", "Listed elective", "Listed elective"
+            )
           ]
         }
       ],
@@ -307,7 +316,7 @@ limitCBOK([ "MIT" ], cbok.ProfExpectations, ["COSC110", "COSC220", "COSC594", "C
 limitCBOK([ "MIT" ], cbok.Teamwork, ["COSC101", "COSC220", "COSC594", "COSC595"])
 limitCBOK([ "MIT" ], cbok.Communication, ["COSC220", "COSC570", "COSC594", "COSC595"])
 limitCBOK([ "MIT" ], cbok.Societal, ["COSC110", "COSC210", "COSC570"])
-limitCBOK([ "MIT" ], cbok.Understanding, ["COSC110", "COSC220", "COSC240"])
+limitCBOK([ "MIT" ], cbok.Understanding, ["COSC110", "COSC220", "COSC594", "COSC595"])
 limitCBOK([ "MIT" ], cbok.ProblemSolving, ["COSC101", "COSC102", "COSC220", "COSC594", "COSC595"])
 limitCBOK([ "MIT" ], cbok.Fundamentals, ["COSC110" ])
 limitCBOK([ "MIT" ], cbok.Data, ["COSC210", "COSC220", "STAT100"])
