@@ -9,8 +9,12 @@ addUnits([
       prereq: [],
       cbok: [ problemSolving(2), understanding(1), fundamentals(2), cybersecurity(1) ],
       sfia: [],
+      dsbok: [ ccdsc.CCF, ccdsc.PDA,
+        edison.SDMA, // Discrete Mathematics is KU1.01.12 within this category
+        edison.SEC, // Cryptography
+      ],
       swebok: [swebok.MathFoundations ],
-      other: [ idverify.ProctoredExam ]
+      other: [ ]
     },
 
     {
@@ -18,6 +22,10 @@ addUnits([
       name: "Introduction to Programming in the Sciences",
       prereq: [ or("MTHS120", "MTHS130")],
       cbok: [ programming(1) ], sfia: [],
+      dsbok: [ 
+        ccdsc.PDA,
+        edison.SMDA, // KU1.01.14 Mathematical software and tools (Matlab) 
+      ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -26,6 +34,9 @@ addUnits([
       name: "Introduction to Scientific Programming",
       prereq: [ choose(1, "MTHS110", "MTHS120", "MTHS130")],
       cbok: [ programming(1) ], sfia: [],
+      dsbok: [ ccdsc.AP, 
+        edison.SDMA, // KU1.01.14 Mathematical software and tools (Matlab) 
+      ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -53,6 +64,7 @@ addUnits([
       name: "Calculus & Linear Algebra 1",
       prereq: [], cbok: [ ], 
       swebok: [ swebok.MathFoundations ],
+      dsbok: [ ccdsc.AP, edison.SMDA ],
       sfia: [],
       other: [ idverify.ProctoredExam ]
     },
@@ -62,6 +74,7 @@ addUnits([
       name: "Calculus & Linear Algebra 2",
       prereq: [ "MTHS120" ], cbok: [ ], 
       swebok: [ swebok.MathFoundations ],
+      dsbok: [ ccdsc.AP, edison.SMDA ],
       sfia: [],
       other: [ idverify.ProctoredExam ]
     },
@@ -70,7 +83,8 @@ addUnits([
       code: "PMTH213",
       name: "Linear Algebra",
       prereq: [ "MTHS120", "MTHS130" ], cbok: [ ], sfia: [],
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.AP, edison.SMDA ],
+      other: [ ]
     },
 
     {
@@ -93,8 +107,9 @@ addUnits([
       name: "Introduction to Statistical Modelling",
       prereq: [], cbok: [ data(2) ], 
       swebok: [ swebok.MathFoundations, swebok.EngFoundations ],
+      dsbok: [ ccdsc.AP, edison.SMDA ],
       sfia: [],
-      other: [ idverify.ProctoredExam ] 
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ] 
     },
 
     {
@@ -103,7 +118,14 @@ addUnits([
       prereq: [ choose(1, "STAT100", "AMTH250", "SCI210") ],
       cbok: [ data(2) ], sfia: [], 
       swebok: [ swebok.MathFoundations, swebok.EngFoundations ],
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.AP, ccdsc.DM, 
+        edison.SMDA,
+        edison.ML, // KU1.01.02 Regression
+        edison.RM,
+        edison.DM,
+        edison.DSDA, 
+      ],
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
     },
 
     {
@@ -111,7 +133,28 @@ addUnits([
       name: "Statistical Modelling & Experimental Design",
       prereq: [ "candidature in a pg award" ],
       cbok: [ data(2) ], sfia: [], 
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.AP, ccdsc.DM, 
+        edison.SMDA, 
+        edison.ML, // KU1.01.02 Regression
+        edison.RM,
+        edison.DM,
+        edison.DSDA, 
+      ],
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
+    },
+
+    {
+      code: "STAT420",
+      name: "Advanced Statistical Modelling",
+      prereq: [ "candidature in a pg award" ],
+      cbok: [ data(2) ], sfia: [], 
+      dsbok: [ ccdsc.AP, ccdsc.DM, 
+        edison.SMDA, 
+        edison.RM,
+        edison.DM,
+        edison.MODSIM,
+      ],
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
     },
 
     {
@@ -119,7 +162,12 @@ addUnits([
       name: "Probability and Simulation",
       prereq: [ "MTHS120", "MTHS130" ],
       cbok: [ data(3) ], sfia: [], 
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.AP, ccdsc.AI, 
+        edison.SDMA,
+        edison.ML, // KU1.01.05 Probabilistic reasoning 
+        edison.MODSIM,
+      ],
+      other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
     },
 
     {
@@ -127,7 +175,11 @@ addUnits([
       name: "Inference",
       prereq: [ "MATH260" ],
       cbok: [ data(3) ], sfia: [], 
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.AP, ccdsc.AI, 
+        edison.SDMA, 
+        edison.ML, // KU1.01.05 Probabilistic reasoning 
+      ],
+      other: [ idverify.TurnItIn ]
     },
 
     {
@@ -135,7 +187,12 @@ addUnits([
       name: "Advanced Statistical Modelling",
       prereq: [ "STAT210" ],
       cbok: [ data(3) ], sfia: [], 
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.AP, ccdsc.AI, ccdsc.DM, 
+        edison.SDMA, 
+        edison.ML, // KU1.01.05 Probabilistic reasoning 
+        edison.MODSIM,
+      ],
+      other: [ idverify.TurnItIn ]
     },
 
     {
@@ -144,6 +201,9 @@ addUnits([
       prereq: [ "STAT210" ],
       cbok: [ data(3) ], sfia: [], 
       swebok: [ swebok.MathFoundations, swebok.EngFoundations, swebok.Construction ],
+      dsbok: [ ccdsc.AP, ccdsc.DM, ccdsc.ML, 
+        edison.SDMA, edison.ML, edison.DM
+      ],
       tags: ["Advanced"], 
       other: [ idverify.TurnItIn, idverify.Oral ]
     },
@@ -153,6 +213,9 @@ addUnits([
       name: "Statistical Learning",
       prereq: [ "STAT100", "candidature in MDatSci or pg award" ],
       cbok: [ data(3) ], sfia: [], tags: ["Advanced"],
+      dsbok: [ ccdsc.AP, ccdsc.DM, ccdsc.ML, 
+        edison.SDMA, edison.ML, edison.DM
+      ],
       other: [ idverify.TurnItIn, idverify.Oral ]
     },
 
@@ -162,6 +225,7 @@ addUnits([
       name: "Introduction to Scientific Programming",
       prereq: [ cp(96), "or enrolment in pg award" ],
       cbok: [ programming(2), data(2) ], sfia: [], tags: ["Advanced"],
+      dsbok: [ ccdsc.AP, ccdsc.PDA, ccdsc.CCF, edison.SMDA ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -170,7 +234,8 @@ addUnits([
       code: "SCI501",
       name: "Special Topics in Science A",
       prereq: [ cp(48), "permission of HoS"],
-      cbok: [ data(3) ], sfia: [],
+      cbok: [ data(3), problemSolving(3) ], sfia: [],
+      dsbok: [ edison.RM ],
       tags: [ "Advanced", "Capstone" ],
       other: [ idverify.TurnItIn, idverify.Project, idverify.PersonalisedAssessment ]
     },
@@ -179,6 +244,7 @@ addUnits([
       code: "QM161",
       name: "Business Statistics",
       prereq: [], cbok: [ data(2) ], sfia: [],
+      dsbok: [ ccdsc.AP, edison.SDMA ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -186,6 +252,7 @@ addUnits([
       code: "QM262",
       name: "Introduction to Business Analytics",
       prereq: [], cbok: [ data(2) ], sfia: [],
+      dsbok: [ ccdsc.AP, edison.SDMA ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -196,6 +263,9 @@ addUnits([
       cbok: [ ethics(1), societal(1), humanFactors(1), problemSolving(1), programming(1) ],
       swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.EngFoundations, swebok.Construction ],
       sfia: [],
+      dsbok: [ ccdsc.CCF, ccdsc.PDA,
+        edison.TDM, // text processing of Beatrix Potter in "Little Data"
+      ],
       other: []
     },
 
@@ -206,6 +276,7 @@ addUnits([
       cbok: [ fundamentals(1), understanding(1), data(1) ],
       swebok: [ swebok.MathFoundations, swebok.CompFoundations ],
       sfia: [],
+      dsbok: [ ccdsc.CCF ],
       other: []
     },
 
@@ -216,7 +287,8 @@ addUnits([
       cbok: [ problemSolving(2), teamwork(2), communication(2), networking(1), humanFactors(1) ],
       swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.Construction, swebok.ProfPractice ],
       sfia: [],
-      other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.Video ]
+      dsbok: [ ccdsc.CCF, ccdsc.AP, ccdsc.PDA, ccdsc.PR ],
+      other: [ idverify.GroupWork, idverify.Video ]
     },
 
     {
@@ -226,7 +298,11 @@ addUnits([
       cbok: [  programming(2), teamwork(2), communication(2), data(1),problemSolving(1)],
       swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.EngFoundations, swebok.ProfPractice  ],
       sfia: [],
-      other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.Video ]
+      dsbok: [ 
+        ccdsc.CCF, ccdsc.AP, ccdsc.PDA, ccdsc.PR,
+        edison.DSDA,  
+      ],
+      other: [ idverify.GroupWork, idverify.Video ]
     },
 
 
@@ -237,7 +313,11 @@ addUnits([
       cbok: [ ethics(1), expectations(1), teamwork(1), societal(2), understanding(1), communication(1), programming(2), fundamentals(1) ],
       swebok: [ swebok.CompFoundations, swebok.Construction, swebok.Testing ],
       sfia: [], 
-      other: [ idverify.ProctoredExam, idverify.TurnItIn ]
+      dsbok: [ ccdsc.PDA, ccdsc.PR, ccdsc.CCF, ccdsc.SDM,
+        edison.DSAPPD, // KU2.06.05 Python
+
+      ],
+      other: [ idverify.ProctoredExam, idverify.TurnItIn, idverify.PersonalisedAssessment ]
     },
 
     {
@@ -246,8 +326,11 @@ addUnits([
       prereq: [ "COSC110" ],
       cbok: [ programming(2), problemSolving(1) ],
       swebok: [ swebok.Construction, swebok.Design, swebok.ModelsAndMethods ],
+      dsbok: [ ccdsc.PDA, ccdsc.CCF, ccdsc.SDM, 
+              
+      ],
       sfia: [],
-      other: [ idverify.ProctoredExam ]
+      other: [ idverify.Video ]
     },
 
     {
@@ -257,7 +340,12 @@ addUnits([
       cbok: [ problemSolving(1), societal(1), data(3), networking(2), systems(1), cybersecurity(1) ],      
       swebok: [ swebok.Construction, swebok.Design, swebok.ModelsAndMethods ],
       sfia: [ ],
-      other: [ idverify.ProctoredExam, idverify.TurnItIn ]
+      dsbok: [ ccdsc.DG, ccdsc.SDM,
+        edison.DMS,
+        edison.EDMI,
+
+      ],
+      other: [ idverify.TurnItIn ]
     },
 
     {
@@ -275,6 +363,12 @@ addUnits([
         swebok.ProfPractice, swebok.EngFoundations
       ],
       sfia: [],
+      dsbok: [ 
+        ccdsc.PR, ccdsc.SDM, ccdsc.CCF, ccdsc.DG,
+        edison.PM, // project management (agile)
+        edison.CCT, // VMs & containers
+        edison.DSAPPD, // Software engineering methods, testing
+      ],
       other: [ idverify.TurnItIn, idverify.GroupWork, idverify.Project, idverify.DataTrails, idverify.Video ]
     },
 
@@ -285,7 +379,10 @@ addUnits([
       cbok: [ fundamentals(2), programming(2) ],
       swebok: [ swebok.MathFoundations, swebok.CompFoundations, swebok.Construction, swebok.ModelsAndMethods, swebok.Design ],
       sfia: [], 
-      other: [ idverify.ProctoredExam ]
+      dsbok: [ ccdsc.PDA, ccdsc.SDM,
+        edison.BDSE, // software systems development
+      ],
+      other: [ ]
     },
 
     {
@@ -294,8 +391,9 @@ addUnits([
       prereq: [ "COSC120" ],
       cbok: [ problemSolving(2), societal(1), understanding(2), fundamentals(2), networking(2), programming(3), systems(1), cybersecurity(2) ],
       sfia: [], 
-      swebok: [ swebok.CompFoundations ], 
-      other: [ idverify.ProctoredExam, idverify.TurnItIn ]
+      swebok: [ swebok.CompFoundations ],
+      dsbok: [ ccdsc.CCF, ccdsc.DP, edison.SEC ],  
+      other: [ idverify.ProctoredExam, idverify.PersonalisedAssessment ]
     },
 
     {
@@ -305,6 +403,16 @@ addUnits([
       cbok: [ understanding(1), programming(3), systems(2) ],
       swebok: [ swebok.Design, swebok.Construction, swebok.Testing, swebok.ModelsAndMethods, swebok.MathFoundations, swebok.CompFoundations ],
       sfia: [],
+      dsbok: [ 
+        ccdsc.BDS, // akka, streams. Functional programming approaches tend to be used in Spark, Kafka 
+        ccdsc.SDM, 
+        ccdsc.PDA, 
+        ccdsc.AI,
+        edison.DSIAPP, // Spark, Kafka
+        edison.BDSE, // Akka
+        edison.DSAPPD, // Scala
+        edison.BDI, // Scalable computing. Parallel and distributed architecture (actors)
+      ],  
       other: [ idverify.ProctoredExam, idverify.Video ]
     },
 
@@ -315,6 +423,7 @@ addUnits([
       cbok: [ societal(1), networking(2), programming(2), humanFactors(2), systems(2), cybersecurity(2) ],
       swebok: [ swebok.Construction, swebok.Requirements ],
       sfia: [], 
+      dsbok: [ ccdsc.CCF, ccdsc.SDM, ccdsc.AP ],
       other: [ idverify.ProctoredExam ]
     },
 
@@ -333,11 +442,15 @@ addUnits([
       code: "COSC310",
       name: "Software Project Management",
       prereq: [ choose(1, "COSC210", "COSC220") ],
-      cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
+      cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3), humanFactors(2) ],
       dsbok: [],
       swebok: [ swebok.Requirements, swebok.Maintenance, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice, swebok.Economics ],
       sfia: [],
       tags: ["Advanced"],
+      dsbok: [ ccdsc.PR, ccdsc.DP,
+        edison.PM,
+        edison.DGOV,      
+      ],
       other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
     },
 
@@ -345,10 +458,14 @@ addUnits([
       code: "COSC510",
       name: "Software Project Management",
       prereq: [ coreq("COSC110", "COSC120" ) ],
-      cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
+      cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3), humanFactors(2) ],
       swebok: [ swebok.Requirements, swebok.Maintenance, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice, swebok.Economics ],
       sfia: [],
       tags: ["Advanced"],
+      dsbok: [ ccdsc.PR, ccdsc.DP,
+        edison.PM,
+        edison.DGOV,
+      ],
       other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
     },
 
@@ -360,6 +477,7 @@ addUnits([
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       swebok: [ swebok.Requirements, swebok.Construction, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice ],
       sfia: [],
+      dsbok: [ ccdsc.PR, edison.PM ],
       tags: [ "Advanced", "Capstone" ],
       other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
@@ -370,6 +488,7 @@ addUnits([
       prereq: [ "COSC510", choose(1, "COSC530", "COSC540", "COSC550", "COSC560", "COSC570", "COSC572", "COSC580") ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
+      dsbok: [ ccdsc.PR, edison.PM ],
       tags: [ "Advanced", "Capstone" ],
       other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
@@ -381,6 +500,7 @@ addUnits([
       prereq: [ "COSC220", cp(48) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
+      dsbok: [ ccdsc.PR, edison.PM  ],
       tags: [ "Advanced", "Capstone" ],
       other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
@@ -391,6 +511,7 @@ addUnits([
       prereq: [ "COSC220", cp(48) ],
       cbok: [ problemSolving(3), ethics(2), expectations(2), teamwork(3), communication(3), systems(3), projectManagement(3) ],
       sfia: [],
+      dsbok: [ ccdsc.PR, edison.PM  ],
       tags: [ "Advanced", "Capstone" ],
       other: [ idverify.GroupWork, idverify.Project, idverify.TurnItIn, idverify.Video, idverify.Oral ]
     },
@@ -403,6 +524,11 @@ addUnits([
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
       swebok: [ swebok.Construction, swebok.CompFoundations, swebok.ModelsAndMethods ],
       sfia: [],
+      dsbok: [ ccdsc.BDS, ccdsc.PDA,
+        edison.BDI, // parallel computing, HPC
+        edison.DSIAPP, // data processing models
+        edison.DSAPPD, // CUDA
+      ],
       tags: ["Advanced"],
       other: [  ]
     },
@@ -414,6 +540,11 @@ addUnits([
       cbok: [ fundamentals(3), data(3), networking(3), systems(2) ],
       swebok: [ swebok.Construction, swebok.CompFoundations, swebok.ModelsAndMethods ],
       sfia: [],
+      dsbok: [ ccdsc.BDS, ccdsc.PDA,
+        edison.BDI, // parallel computing, HPC
+        edison.DSIAPP, // data processing models
+        edison.DSAPPD, // CUDA
+      ],
       tags: ["Advanced"],
       other: [ ]
     },
@@ -426,8 +557,11 @@ addUnits([
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       swebok: [ swebok.CompFoundations, swebok.Construction ],
       sfia: [],
+      dsbok: [ ccdsc.CCF, ccdsc.DP,
+        edison.SEC
+      ],
       tags: ["Advanced"], 
-      other: [ idverify.ProctoredExam ]
+      other: [ idverify.ProctoredExam, idverify.PersonalisedAssessment ]
     },
 
     {
@@ -437,8 +571,11 @@ addUnits([
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       swebok: [ swebok.CompFoundations, swebok.Construction ],
       sfia: [],
+      dsbok: [ ccdsc.CCF, ccdsc.DP, 
+        edison.SEC 
+      ],
       tags: ["Advanced"],
-      other: [ idverify.ProctoredExam ]
+      other: [ idverify.ProctoredExam, idverify.PersonalisedAssessment ]
     },
 
 
@@ -446,9 +583,15 @@ addUnits([
       code: "COSC350",
       name: "Artificial Intelligence",
       prereq: [ "COSC230" ],
-      cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
+      cbok: [ data(3), programming(3), fundamentals(2), systems(2), problemSolving(2) ],
       swebok: [ swebok.Construction ],
       sfia: [],
+      dsbok: [ ccdsc.AI, ccdsc.ML, ccdsc.PDA,
+        edison.ML,
+        edison.PA,
+        edison.DM,
+        edison.SDMA,
+      ],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam ]
     },
@@ -457,9 +600,15 @@ addUnits([
       code: "COSC550",
       name: "Artificial Intelligence",
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
-      cbok: [ data(3), programming(3), fundamentals(2), systems(2) ],
+      cbok: [ data(3), programming(3), fundamentals(2), systems(2), problemSolving(2) ],
       swebok: [ swebok.Construction ],
       sfia: [],
+      dsbok: [ ccdsc.AI, ccdsc.ML, ccdsc.PDA,
+        edison.ML,
+        edison.PA,
+        edison.DM,
+        edison.SDMA,
+      ],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam ]
     },
@@ -471,6 +620,9 @@ addUnits([
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
       swebok: [ swebok.Construction, swebok.Design, swebok.Testing, swebok.Requirements ],
       sfia: [],
+      dsbok: [ ccdsc.CCF, ccdsc.AP, ccdsc.PDA,
+        edison.BDI, // NoSQL (Mongo)
+      ],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam, idverify.Project, idverify.Video ]
     },
@@ -482,6 +634,9 @@ addUnits([
       cbok: [ communication(2), networking(3), programming(3), humanFactors(2), systems(2), serviceManagement(2), cybersecurity(2) ],
       swebok: [ swebok.Construction, swebok.Design, swebok.Testing, swebok.Requirements ],
       sfia: [],
+      dsbok: [ ccdsc.CCF, ccdsc.AP, ccdsc.PDA,
+        edison.BDI, // NoSQL (Mongo)
+      ],
       tags: ["Advanced"],
       other: [ idverify.ProctoredExam, idverify.Project, idverify.Video ]
     },
@@ -494,6 +649,7 @@ addUnits([
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
       swebok: [ swebok.Requirements, swebok.Design, swebok.ProfPractice ], 
       sfia: [],
+      dsbok: [ ccdsc.AP, ccdsc.PR ],
       tags: ["Advanced"],
       other: [ idverify.Project, idverify.Video, idverify.TurnItIn ]
     },
@@ -505,6 +661,7 @@ addUnits([
       cbok: [ communication(3), societal(3), humanFactors(3), systems(3) ],
       swebok: [ swebok.Requirements, swebok.Design, swebok.ProfPractice ], 
       sfia: [],
+      dsbok: [ ccdsc.AP, ccdsc.PR ],
       tags: ["Advanced"],
       other: [ idverify.Project, idverify.Video, idverify.TurnItIn ]
     },
@@ -514,8 +671,15 @@ addUnits([
       code: "COSC372",
       name: "Management Information Systems",
       prereq: [ cp(48) ],
-      cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
+      cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2), networking(2), humanFactors(2), cybersecurity(1) ],
       swebok: [ swebok.Economics, swebok.Maintenance, swebok.Quality ],
+      dsbok: [ ccdsc.AP, ccdsc.PR, ccdsc.DG, ccdsc.DP,
+        edison.BAF,
+        edison.BAEM,
+        edison.IS,
+        edison.DMORG,
+        edison.DGOV,
+      ],
       sfia: [],
       other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ]
     },
@@ -524,9 +688,16 @@ addUnits([
       code: "COSC572",
       name: "Management Information Systems",
       prereq: [ cp(48) ],
-      cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2) ],
+      cbok: [ societal(2), data(2), systems(3), projectManagement(1), serviceManagement(2), networking(2), humanFactors(2), cybersecurity(1) ],
       swebok: [ swebok.Economics, swebok.Maintenance, swebok.Quality ],
       sfia: [],
+      dsbok: [ ccdsc.AP, ccdsc.PR, ccdsc.DG, ccdsc.DP,
+        edison.BAF,
+        edison.BAEM,
+        edison.IS,
+        edison.DMORG,
+        edison.DGOV,
+      ],
       other: [ idverify.PersonalisedAssessment, idverify.TurnItIn ] 
     },
 
@@ -535,20 +706,36 @@ addUnits([
       code: "COSC380",
       name: "Algorithms in Machine Learning",
       prereq: [ choose(1, "MTHS120", "MTHS130"), choose(1, "COSC230", "AMTH250", "SCI210", "STAT330") ],
-      cbok: [ data(3), programming(2) ],
+      cbok: [ data(3), programming(2), problemSolving(2) ],
       swebok: [ swebok.Construction, swebok.MathFoundations ],
       sfia: [],
-      tags: ["Advanced"]
+      dsbok: [ ccdsc.ML, ccdsc.PDA,
+        edison.ML,
+        edison.DM, // reinforcement learning
+        edison.PA,
+        edison.SMDA,
+        edison.DSAPPD,
+      ],
+      tags: ["Advanced"],
+      other: [idverify.Project, idverify.TurnItIn]
     },
 
     {
       code: "COSC580",
       name: "Algorithms in Machine Learning",
       prereq: [ "MTHS120", or("COSC110", "SCI410") ],
-      cbok: [ data(3), programming(2) ],
+      cbok: [ data(3), programming(2), problemSolving(2) ],
       swebok: [ swebok.Construction, swebok.MathFoundations ],
       sfia: [],
-      tags: ["Advanced"]
+      dsbok: [ ccdsc.ML, ccdsc.PDA,
+        edison.ML,
+        edison.DM, // reinforcement learning
+        edison.PA,
+        edison.SMDA,
+        edison.DSAPPD,      
+      ],
+      tags: ["Advanced"],
+      other: [idverify.Project, idverify.TurnItIn]
     },
 
 

@@ -87,7 +87,11 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                     <.tr(^.cls := "optional choose",
                       unitTH(u), unitCBoKcells(u)
                     )
-                case None => <.tr("Unit not found: " + s)
+                case None => 
+                  val u = Subject.empty(s)
+                  <.tr(^.cls := "optional choose",
+                    unitTH(u), unitCBoKcells(u)
+                  ) 
           case ComplexPrereqElement.or(a, b) =>
             for (s, i) <- Seq(a, b).zipWithIndex yield
               subjects.find(_.code == s) match
@@ -193,7 +197,12 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                     <.tr(^.cls := "optional choose",
                       unitTH(u), unitCBoKcells(u)
                     )
-                case None => <.tr("Unit not found: " + s)
+                case None => 
+                    val u = Subject.empty(s)
+                    <.tr(^.cls := "optional choose",
+                      unitTH(u), unitCBoKcells(u)
+                    ) 
+
           case ComplexPrereqElement.or(a, b) =>
             for (s, i) <- Seq(a, b).zipWithIndex yield
               subjects.find(_.code == s) match

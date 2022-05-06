@@ -16,7 +16,7 @@ enum CCDSC(val name:String) extends GridCategory:
   case DP extends CCDSC("Data Privacy, Security, Integity, and Analysis for Security")
   case ML extends CCDSC("Machine Learning")
   case PR extends CCDSC("Professionalism")
-  case PDA extends CCDSC("Professionalism, Data Structures, and Algorithms")
+  case PDA extends CCDSC("Programming, Data Structures, and Algorithms")
   case SDM extends CCDSC("Software Development and Maintenance")
 
   def css = "ccdsc"
@@ -37,10 +37,11 @@ enum EdisonDSBOK(val name:String, val css:String) extends GridCategory:
   case CCT extends EdisonDSBOK("CCT Cloud Computing Technologies", "edison dseng")
   case SEC extends EdisonDSBOK("SEC Data and Applications Security", "edison dseng")
   case BDSE extends EdisonDSBOK("BDSE Big Data Systems Org & Eng", "edison dseng")
+  case DSAPPD extends EdisonDSBOK("DSAPPD Data Science Applications Design", "edison dseng")
   case IS extends EdisonDSBOK("IS Information Systems", "edison dseng")
   case DMORG extends EdisonDSBOK("DMORG Data Management & Organisation", "edison dsdm")
   case DMS extends EdisonDSBOK("DMS Data Management Systems", "edison dsdm")
-  case EDM extends EdisonDSBOK("EDMI Data Mgmt & Enterprise Data Infra", "edison dsdm")
+  case EDMI extends EdisonDSBOK("EDMI Data Mgmt & Enterprise Data Infra", "edison dsdm")
   case DGOV extends EdisonDSBOK("DGOV Data Governance", "edison dsdm")
   case BDSTOR extends EdisonDSBOK("BDSTOR Big Data Storage", "edison dsdm")
   case DLIB extends EdisonDSBOK("DLIB Digital Libraries & Archives", "edison dsdm")

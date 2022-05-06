@@ -53,7 +53,10 @@ addCourses([
         {
           name: "Listed & Elective",
           units: [ 
-            "Listed elective", "Listed elective", "Listed elective", "Listed elective", "Listed elective",
+            choose(5, 
+              "ICT100", "ICT101", "COSC301", "COSC372", "COSC380",
+              "Listed elective", "Listed elective", "Listed elective", "Listed elective", "Listed elective"
+            ),
             "Elective", "Elective"
           ]
         }
@@ -95,7 +98,10 @@ addCourses([
         {
           name: "Listed & Elective",
           units: [ 
-            "Listed elective", "Listed elective", "Listed elective", "Listed elective", "Listed elective",
+            choose(5,
+              "ICT100", "ICT101", "COSC260", "COSC301", "COSC340", "COSC360", "COSC370", "COSC372",
+              "Listed elective", "Listed elective", "Listed elective", "Listed elective", "Listed elective"
+            ),
             "Elective", "Elective"
           ]
         }
@@ -258,7 +264,8 @@ addCourses([
         {
           name: "Listed units",
           units: [
-            "Listed elective", "Listed elective", "Listed elective"
+            choose(3, "AMTH250", "COSC230", "COSC250", "COSC240", "COSC260", "COSC530", "COSC540", "COSC560", "COSC570", "STAT420",
+              "Listed elective", "Listed elective", "Listed elective")
           ]
         }
       ],
@@ -275,9 +282,9 @@ addCourses([
 
 ])
 
-
+// Top 3 for BCOMP
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Ethics, ["COSC110", "COSC310", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Expectations, ["COSC110", "COSC220", "COSC320"])
+limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ProfExpectations, ["COSC110", "COSC220", "COSC320"])
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Teamwork, ["COSC101", "COSC102", "COSC220", "COSC320"])
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Communication, ["COSC101", "COSC102", "COSC220", "COSC320"])
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Societal, ["COSC110", "COSC210", "COSC240"])
@@ -293,3 +300,60 @@ limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Governance,
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ProjectManagement, ["COSC220", "COSC310", "COSC320"])
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ServiceManagement, ["COSC220"])
 limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Cybersecurity, ["AMTH140", "COSC210", "COSC240"])
+
+// Top 3 for MIT
+limitCBOK([ "MIT" ], cbok.Ethics, ["COSC110", "COSC510", "COSC594", "COSC595"])
+limitCBOK([ "MIT" ], cbok.ProfExpectations, ["COSC110", "COSC220", "COSC594", "COSC595"])
+limitCBOK([ "MIT" ], cbok.Teamwork, ["COSC101", "COSC220", "COSC594", "COSC595"])
+limitCBOK([ "MIT" ], cbok.Communication, ["COSC220", "COSC570", "COSC594", "COSC595"])
+limitCBOK([ "MIT" ], cbok.Societal, ["COSC110", "COSC210", "COSC570"])
+limitCBOK([ "MIT" ], cbok.Understanding, ["COSC110", "COSC220", "COSC240"])
+limitCBOK([ "MIT" ], cbok.ProblemSolving, ["COSC101", "COSC102", "COSC220", "COSC594", "COSC595"])
+limitCBOK([ "MIT" ], cbok.Fundamentals, ["COSC110" ])
+limitCBOK([ "MIT" ], cbok.Data, ["COSC210", "COSC220", "STAT100"])
+limitCBOK([ "MIT" ], cbok.Networking, ["COSC210", "COSC260", "COSC560"])
+limitCBOK([ "MIT" ], cbok.HumanFactors, ["COSC101", "COSC510", "COSC570"])
+limitCBOK([ "MIT" ], cbok.Programming, ["COSC110", "COSC120", "COSC560"])
+limitCBOK([ "MIT" ], cbok.Systems, ["COSC210", "COSC220", "COSC510"])
+limitCBOK([ "MIT" ], cbok.Governance, ["COSC510"])
+limitCBOK([ "MIT" ], cbok.ProjectManagement, ["COSC220", "COSC510", "COSC594", "COSC595"])
+limitCBOK([ "MIT" ], cbok.ServiceManagement, ["COSC220"])
+limitCBOK([ "MIT" ], cbok.Cybersecurity, ["COSC210", "COSC260", "COSC560"])
+
+// Top 3 for MIT
+limitCBOK([ "MDSC" ], cbok.Ethics, ["COSC110", "COSC510", "COSC591"])
+limitCBOK([ "MDSC" ], cbok.ProfExpectations, ["COSC110", "COSC510", "COSC591" ])
+limitCBOK([ "MDSC" ], cbok.Teamwork, ["COSC110", "COSC510", "COSC591", "SCI501"])
+limitCBOK([ "MDSC" ], cbok.Communication, ["COSC110", "COSC510", "COSC591"])
+limitCBOK([ "MDSC" ], cbok.Societal, ["COSC110", "COSC210", "COSC572"])
+limitCBOK([ "MDSC" ], cbok.Understanding, ["COSC110", "COSC572"])
+limitCBOK([ "MDSC" ], cbok.ProblemSolving, [ "COSC210", "COSC550", "COSC591", "SCI501"])
+limitCBOK([ "MDSC" ], cbok.Fundamentals, ["COSC110" ])
+limitCBOK([ "MDSC" ], cbok.Data, ["COSC210", "COSC572", "STAT430"])
+limitCBOK([ "MDSC" ], cbok.Networking, ["COSC210", "COSC572"])
+limitCBOK([ "MDSC" ], cbok.HumanFactors, ["COSC101", "COSC510", "COSC572"])
+limitCBOK([ "MDSC" ], cbok.Programming, ["COSC110", "COSC580", "SCI410"])
+limitCBOK([ "MDSC" ], cbok.Systems, ["COSC210", "COSC572", "COSC510"])
+limitCBOK([ "MDSC" ], cbok.Governance, ["COSC510"])
+limitCBOK([ "MDSC" ], cbok.ProjectManagement, ["COSC510", "COSC591", "COSC572"])
+limitCBOK([ "MDSC" ], cbok.ServiceManagement, ["COSC572"])
+limitCBOK([ "MDSC" ], cbok.Cybersecurity, ["COSC210", "COSC572" ])
+
+// limits for the DIT, though these are moot (not accredited)
+limitCBOK([ "DIT" ], cbok.Ethics, [ "ICT100", "COSC110", "COSC220"])
+limitCBOK([ "DIT" ], cbok.ProfExpectations, [ "COSC110", "COSC220"])
+limitCBOK([ "DIT" ], cbok.Teamwork, [ "COSC110", "COSC101", "COSC102", "COSC220"])
+limitCBOK([ "DIT" ], cbok.Communication, [ "COSC101", "COSC102", "MM105"])
+limitCBOK([ "DIT" ], cbok.Societal, ["ICT100", "COSC110", "COSC210"])
+limitCBOK([ "DIT" ], cbok.Understanding, [ "ICT101", "COSC110", "COSC220"])
+limitCBOK([ "DIT" ], cbok.ProblemSolving, [ "ICT100", "COSC120", "COSC101", "COSC102"])
+limitCBOK([ "DIT" ], cbok.Fundamentals, ["ICT101", "COSC110", "COSC240"])
+limitCBOK([ "DIT" ], cbok.Data, [ "ICT101", "COSC102", "COSC210"])
+limitCBOK([ "DIT" ], cbok.Networking, [ "COSC101", "COSC210", "COSC240"])
+limitCBOK([ "DIT" ], cbok.HumanFactors, ["COSC101", "COSC102", "ICT100"])
+limitCBOK([ "DIT" ], cbok.Programming, ["ICT100", "COSC110", "COSC120" ])
+limitCBOK([ "DIT" ], cbok.Systems, ["COSC210", "COSC220", "COSC260"])
+limitCBOK([ "DIT" ], cbok.Governance, [ "ICT100 "])
+limitCBOK([ "DIT" ], cbok.ProjectManagement, ["COSC220" ])
+limitCBOK([ "DIT" ], cbok.ServiceManagement, ["COSC220"])
+limitCBOK([ "DIT" ], cbok.Cybersecurity, ["COSC210", "COSC240", "COSC260"])
