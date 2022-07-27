@@ -13,8 +13,8 @@ updateOptions := updateOptions.value.withLatestSnapshots(false)
 
 libraryDependencies ++= Seq(
 //  "org.scala-js" %%% "scalajs-dom" % "1.1.0",
-  "com.github.wbillingsley.veautiful" %%% "veautiful" % "master-SNAPSHOT",
-  "com.github.wbillingsley.veautiful" %%% "doctacular" % "master-SNAPSHOT",
+  "com.github.wbillingsley.veautiful" %%% "veautiful" % "v0.3-SNAPSHOT",
+  "com.github.wbillingsley.veautiful" %%% "doctacular" % "v0.3-SNAPSHOT",
 )
 
 

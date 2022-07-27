@@ -74,6 +74,99 @@ addCourses([
     },
 
     {
+      code: "BCOMP single major sd (ACS diagram)",
+      name: "Bachelor of Computer Science",
+      structure: [
+        {
+          name: "Core",
+          units: [
+            "AMTH140", "MTHS120", or("MTHS130", "STAT100"),
+            "COSC110",
+            or("COSC101", "COSC102"), "COSC120",
+            "COSC210", "COSC220", "COSC230", "COSC240",
+            "COSC310", "COSC320"
+          ]
+        },
+
+        {
+          name: "Major",
+          units: [
+            choose(5, "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed", "Prescribed")
+          ]
+        },
+
+        {
+          name: "Listed & Elective",
+          units: [ 
+            choose(5, 
+              "Listed", "Listed", "Listed", "Listed", "Listed",
+            ),
+            choose(2, 
+              "Elective", "Elective"
+            )
+          ]
+        }
+      ],
+      plans: {
+        "Full-time, T1 start": [
+          { name: "Y1 Trimester 1", units: [ or("COSC101", "Elective"), "COSC110", "MTHS120", "Elective", ] },
+          { name: "Y1 Trimester 2", units: [ or("COSC102", "Elective"), "AMTH140", "COSC120", or("STAT100", "MTHS130"),   ] },
+          { name: "Y2 Trimester 1", units: [ "COSC210", "COSC230", "Listed", "Listed" ] },
+          { name: "Y2 Trimester 2", units: [ "COSC240", "COSC220", "Prescribed", "Listed" ] },
+          { name: "Y3 Trimester 1", units: [ "COSC310", "Prescribed 300-level", "Prescribed 300-level", "Listed" ] },
+          { name: "Y3 Trimester 2", units: [ "COSC320", "Prescribed 300-level", "Prescribed 300-level", "Listed", ] },
+        ]
+      }
+    },
+
+
+    {
+      code: "BCOMP single major (ACS diagram)",
+      name: "Bachelor of Computer Science",
+      structure: [
+        {
+          name: "Core",
+          units: [
+            "AMTH140", "MTHS120", or("MTHS130", "STAT100"),
+            "COSC110",
+            or("COSC101", "COSC102"), "COSC120",
+            "COSC210", "COSC220", "COSC230", "COSC240",
+            "COSC310", "COSC320"
+          ]
+        },
+
+        {
+          name: "Major",
+          units: [
+            choose(5, "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed", "Prescribed")
+          ]
+        },
+
+        {
+          name: "Listed & Elective",
+          units: [ 
+            choose(5, 
+              "Listed", "Listed", "Listed", "Listed", "Listed 300-level COSC",
+            ),
+            choose(2, 
+              "Elective", "Elective"
+            )
+          ]
+        }
+      ],
+      plans: {
+        "Full-time, T1 start": [
+          { name: "Y1 Trimester 1", units: [ or("COSC101", "Elective"), "COSC110", "MTHS120", "Elective", ] },
+          { name: "Y1 Trimester 2", units: [ or("COSC102", "Elective"), "AMTH140", "COSC120", or("STAT100", "MTHS130"),   ] },
+          { name: "Y2 Trimester 1", units: [ "COSC210", "COSC230", "Listed", "Listed" ] },
+          { name: "Y2 Trimester 2", units: [ "COSC240", "COSC220", "Prescribed", "Listed" ] },
+          { name: "Y3 Trimester 1", units: [ "COSC310", "Prescribed 300-level", "Prescribed", "Listed" ] },
+          { name: "Y3 Trimester 2", units: [ "COSC320", "Prescribed 300-level", "Prescribed 300-level", "Listed 300-level COSC", ] },
+        ]
+      }
+    },
+
+    {
       code: "BCOMP(DS)",
       name: "Bachelor of Computer Science (Data Science)",
       structure: [
@@ -287,6 +380,84 @@ addCourses([
         ]
       }
     },
+
+    {
+      code: "MDSC",
+      name: "Master of Data Science",
+      structure: [
+        {
+          name: "Core",
+          units: [
+            "COSC110", "COSC210", "COSC510", "COSC550", "COSC572", "COSC580", "MTHS120", "SCI410", 
+            "STAT100", or("STAT210", "STAT410"), "STAT430"
+          ]
+        },
+        {
+          name: "Research and Capstone",
+          units: [
+            "COSC591", "SCI501"
+          ]
+        },
+        {
+          name: "Listed units",
+          units: [
+            choose(3, "Listed 500-level", "Listed 500-level", "Listed")
+          ]
+        }
+      ],
+      plans: {
+        "Full-time, T1 start": [
+          { name: "Y1 Trimester 1", units: [ "SCI410", "COSC110", "COSC210", "COSC510",  ] },
+          { name: "Y1 Trimester 2", units: [ "MTHS120", "COSC572", "STAT100", "Listed" ] },
+          { name: "Y2 Trimester 1", units: [ or("STAT210", "STAT410"), "STAT430", "Listed 500-level", "Listed 500-level" ] },
+          { name: "Y2 Trimester 2", units: ["COSC591", "SCI501", "COSC580", "COSC550",   ] },
+        ]
+      }
+    },
+
+
+    {
+      code: "MIT acs",
+      name: "Master of Information Technology",
+      structure: [
+        {
+          name: "Core",
+          units: [
+            "COSC101", "COSC110", "COSC120", "COSC210", "COSC220", "COSC260", "COSC510", "COSC560", "COSC570"
+          ]
+        },
+        {
+          name: "Research and Capstone",
+          units: [
+            "COSC594", "COSC595"
+          ]
+        },
+        {
+          name: "Listed group 1",
+          units: [
+            choose(3, "COSC530", "COSC540", "COSC550", "COSC572")
+          ]
+        },
+        {
+          name: "Listed group 2",
+          units: [
+            choose(2,
+              "AMTH250", "COSC240", "COSC250", "SCI410", 
+              "COSC530", "COSC540", "COSC550", "COSC572", "Listed elective", "Listed elective"
+            )
+          ]
+        }
+      ],
+      plans: {
+        "Full-time, T1 start": [
+          { name: "Y1 Trimester 1", units: [ "COSC101", "COSC110", "COSC120", "COSC210" ] },
+          { name: "Y1 Trimester 2", units: [ "COSC220", "COSC260", "Listed Group 1", "Listed Group 2" ] },
+          { name: "Y2 Trimester 1", units: [ "COSC510", "Listed Group 1", "COSC570",    "COSC594",] },
+          { name: "Y2 Trimester 2", units: [  "COSC560",  "Listed Group 2", "Listed Group 1", "COSC595",] },
+        ]
+      }
+    },
+
 
 
 ])

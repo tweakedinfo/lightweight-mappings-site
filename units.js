@@ -457,7 +457,7 @@ addUnits([
     {
       code: "COSC510",
       name: "Software Project Management",
-      prereq: [ coreq("COSC110", "COSC120" ) ],
+      prereq: [ "COSC110", "COSC210" ],
       cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3), humanFactors(2) ],
       swebok: [ swebok.Requirements, swebok.Maintenance, swebok.EngManagement, swebok.Process, swebok.Quality, swebok.ProfPractice, swebok.Economics ],
       sfia: [],
@@ -737,6 +737,128 @@ addUnits([
       tags: ["Advanced"],
       other: [idverify.Project, idverify.TurnItIn]
     },
+
+    {
+      code: "Elective",
+      name: "Non-ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    },
+
+    {
+      code: "Listed Group 1",
+      name: "ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    },
+
+    {
+      code: "Listed Group 2",
+      name: "Non-ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    },
+
+    {
+      code: "Listed",
+      name: "Non-ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    },
+
+    {
+      code: "Listed 300-level COSC",
+      name: "Advanced ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: ["Advanced"],
+      other: []
+    },
+
+    {
+      code: "Listed 500-level",
+      name: "ICT/Non-ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    },
+
+    {
+      code: "Prescribed 300-level",
+      name: "Advanced ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: ["Advanced"],
+      other: []
+    },
+
+    {
+      code: "Prescribed 500-level",
+      name: "Advanced ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: ["Advanced"],
+      other: []
+    },
+
+    {
+      code: "Prescribed",
+      name: "ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    },
+
+    {
+      code: "Listed",
+      name: "Non-ICT Elective",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [],
+      other: []
+    }
+
+
 
 
 ])
