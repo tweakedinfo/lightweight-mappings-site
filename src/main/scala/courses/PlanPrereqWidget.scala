@@ -34,7 +34,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
 
   val sectionStyle = Styling(
     """font-family: 'Lato', sans-serif;
-      |size: 12px;
+      |font-size: 18px;
       |fill: black;
       |dominant-baseline: middle;
       |""".stripMargin
@@ -43,7 +43,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
 
   val orStyle = Styling(
     """font-family: 'Lato', sans-serif;
-      |size: 12px;
+      |font-size: 15px;
       |font-style: italic;
       |fill: black;
       |dominant-baseline: middle;
@@ -54,7 +54,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
 
   val chooseStyle = Styling(
     """font-family: 'Lato', sans-serif;
-      |size: 12px;
+      |font-size: 15px;
       |font-style: italic;
       |fill: black;
       |dominant-baseline: bottom;
@@ -73,6 +73,19 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
     <.div(<.span(^.cls := "code", s.code), " ", 
     <.span(^.cls := "name"), s.name, " ", for t <- s.tags yield <.span(<.span(^.cls := s"tag $t", t), " ")),
     <.div(^.cls := "requires", "requires: ", s.prereq.stringify)
+  )
+
+  def subjectDetailsSVG(s:Subject) = SVG.g(^.attr("transform") := "translate(0, 15)", ^.cls := unitStyle.className,
+    SVG.text(<("tspan", ns=DElement.svgNS)(^.cls := "code", s.code),<("tspan", ns=DElement.svgNS)(" "),
+      <("tspan", ns = DElement.svgNS)(^.cls := "name", s.name, " "),
+      (for 
+        t <- s.tags 
+        el <- Seq(<("tspan", ns=DElement.svgNS)(^.cls := s"tag $t", t), <("tspan", ns=DElement.svgNS)(" "))
+      yield el)
+    ),
+    SVG.g(^.attr("transform") := "translate(0, 25)",
+      SVG.text(^.cls := "requires", "requires: ", s.prereq.stringify)
+    )
   )
 
   def subjectBox(offset:Int, s:Subject) = SVG.g(^.attr("transform") := s"translate(50, ${offset * rowH})",

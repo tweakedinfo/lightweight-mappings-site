@@ -17,6 +17,19 @@ addUnits([
       other: [ ]
     },
 
+
+    {
+      code: "AMTH246",
+      name: "Mathematical Methods in the Sciences",
+      prereq: [ "PMTH212" ],
+      cbok: [ programming(1) ], sfia: [],
+      dsbok: [ 
+        ccdsc.PDA,
+        edison.SMDA, // KU1.01.14 Mathematical software and tools (Matlab) 
+      ],
+      other: [ idverify.ProctoredExam ]
+    },
+
     {
       code: "AMTH250",
       name: "Introduction to Programming in the Sciences",
@@ -78,6 +91,15 @@ addUnits([
       sfia: [],
       other: [ idverify.ProctoredExam ]
     },
+
+    {
+      code: "PMTH212",
+      name: "Multivariable Calculus",
+      prereq: [ "MTHS120", "MTHS130" ], cbok: [ ], sfia: [],
+      dsbok: [ ccdsc.AP, edison.SMDA ],
+      other: [ ]
+    },
+
 
     {
       code: "PMTH213",
@@ -334,6 +356,18 @@ addUnits([
     },
 
     {
+      code: "COSC315",
+      name: "Data Governance, Security, and Ethics (for instance) ???",
+      prereq: [ "AMTH140", "COSC110", "COSC210", "COSC230", "???" ],
+      cbok: [  ],
+      swebok: [  ],
+      dsbok: [  ],
+      sfia: [],
+      other: [ idverify.Video ], 
+      tags: [ "Advanced" ]
+    },
+
+    {
       code: "COSC210",
       name: "Database Management Systems",
       prereq: [ "COSC110" ],
@@ -369,6 +403,31 @@ addUnits([
         edison.CCT, // VMs & containers
         edison.DSAPPD, // Software engineering methods, testing
       ],
+      other: [ idverify.TurnItIn, idverify.GroupWork, idverify.Project, idverify.DataTrails, idverify.Video ],
+      tags: [ "adv?" ]
+    },
+
+    {
+      code: "COSC222",
+      name: "Data Science Studio 2 ??",
+      prereq: [ "COSC102", "STAT100", "COSC110", "COSC210" ],
+      cbok: [
+        problemSolving(3), ethics(1), expectations(3), teamwork(2), communication(2), societal(2),
+        understanding(2), data(3), programming(3), humanFactors(2), systems(2), projectManagement(2),
+        serviceManagement(1)
+      ],
+      swebok: [ 
+        swebok.Requirements, swebok.Design, swebok.Construction, swebok.Testing, swebok.Maintenance,
+        swebok.ConfigManagement, swebok.EngManagement, swebok.Process, swebok.ModelsAndMethods, swebok.Quality, 
+        swebok.ProfPractice, swebok.EngFoundations
+      ],
+      sfia: [],
+      dsbok: [ 
+        ccdsc.PR, ccdsc.SDM, ccdsc.CCF, ccdsc.DG,
+        edison.PM, // project management (agile)
+        edison.CCT, // VMs & containers
+        edison.DSAPPD, // Software engineering methods, testing
+      ],
       other: [ idverify.TurnItIn, idverify.GroupWork, idverify.Project, idverify.DataTrails, idverify.Video ]
     },
 
@@ -382,7 +441,8 @@ addUnits([
       dsbok: [ ccdsc.PDA, ccdsc.SDM,
         edison.BDSE, // software systems development
       ],
-      other: [ ]
+      other: [ ],
+      tags: ["adv?"]
     },
 
     {
@@ -413,7 +473,8 @@ addUnits([
         edison.DSAPPD, // Scala
         edison.BDI, // Scalable computing. Parallel and distributed architecture (actors)
       ],  
-      other: [ idverify.ProctoredExam, idverify.Video ]
+      other: [ idverify.ProctoredExam, idverify.Video ],
+      tags: ["adv?"]
     },
 
     {

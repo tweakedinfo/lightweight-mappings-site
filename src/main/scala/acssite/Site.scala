@@ -18,11 +18,19 @@ object ITICSESite {
   /** The script that loads the site into the page */
   @JSExport
   @main def main(): Unit = {
+
+    import site.given
+
     val n = dom.document.getElementById("render-here")
     n.innerHTML = ""
 
     site.toc = site.Toc(
       "Home" -> site.HomeRoute,
+      "Presentations" -> site.Toc(
+        "Aug 2022" -> site.addDeck("aug2022", planning.aug2022deck)
+      ),
+
+
       "Course structures" -> site.Toc(
         (for u <- courses.courses yield
           s"${u.code} ${u.name}" -> site.addPage(s"course-struct-${u.code}", courses.planPage(u))
