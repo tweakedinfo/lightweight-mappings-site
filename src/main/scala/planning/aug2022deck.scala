@@ -369,13 +369,13 @@ val aug2022deck = DeckBuilder(1920, 1080)
   |
   |---
   |
-  |### Rough idea 
+  |### Rough idea if we wanted to keep changes smaller
   |
   |- Move some units from core into majors, keeping core focused on CBoK so we can have majors in any area
   |
   |- Majors can be bigger. At "72cp" of choice, we even have room to add units. Computer vision? Ops? Embedded? etc
   |
-  |- Explicitly allow double counting of units in both majors, to free up elective space for dual majors. 
+  |- Allow double counting of units in both majors (replacement of overlap with elective), to free up elective space for dual majors. 
   |
   |- Add a computational mathematics minor / major, to make sure maths is still visible to our students
   |
@@ -396,7 +396,7 @@ val aug2022deck = DeckBuilder(1920, 1080)
   |
   |""".stripMargin)
   .veautifulSlide(<.div(
-    <.h3("Possible 60cp core / 48 cp major + minors; overlap majors and allow double-counting to enable double major"),
+    <.h3("Half-way house: 60cp core / 48 cp major + minors; overlap majors and allow double-counting to enable double major"),
     scrollableDiv(
       for c <- courses.find(_.code == "BCOMP(CDF60cp)") yield PlanPrereqWidget(c.structure)
     )
@@ -411,11 +411,25 @@ val aug2022deck = DeckBuilder(1920, 1080)
   |* Moving COSC220 would require is inclusion or duplication in the other majors 
   |  (it hits a lot of CBoK categories & a lot of material, e.g. git, build tools, docker containers, debugging & profiling, service management, security of dependencies, is hard to avoid)
   |
-  |Possible hack: Use UQ's trick and put it in all majors (but renamed)
+  |Possible hack: Use UQ's trick and put a unit all majors
+  |
+  |Edit: Peter's suggestion of putting COSC230 Data Structures & Algorithms (C++) into the software development major makes things
+  |fit much more easily. 
+  |
+  |This would also allow us to specialise the cybersecurity or ethics materials if it became part of a unit in each major. 
+  |(If the MCyber is going to introduce so many new units on this as it seems.)
+  |
+  |Another slight possibility (not included):
+  |
+  |* We do have students who say they've already done some programming and are less keen on COSC110. We could "or" it with the
+  |ICT units from the DIT, allowing those students a choice between Python, JS, and ARM assembly/digital electronics? 
+  |That would let us duck the CDF rule of having to offer COSC110 three times per year 
+  |(in which the third offering always has high attrition because it corrals all the students who've already failed it, but all the students who've passed it can't take it again)
   |
   |""".stripMargin)
   .veautifulSlide(<.div(
-    <.h3("48cp core by putting studio into the majors; require 2+ ACS-advanced from major; require remainder of 300-level from elective"),
+    <.h3("CDF: 48cp core; require 2+ ACS-advanced from major; require remainder of 300-level from elective;"),
+    <.div("Note: We could rename Software Development Studio 2 - probably just to 'Computing Studio 2' - and adjust the collaborative project to include more explicit DS and Cyber aspects"),
     scrollableDiv(
       for c <- courses.find(_.code == "BCOMP(CDFstrict)") yield PlanPrereqWidget(c.structure)
     )

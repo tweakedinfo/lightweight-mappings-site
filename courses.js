@@ -157,23 +157,23 @@ addCourses([
         {
           name: "Core major (48cp)",
           units: [
-            "AMTH140", "COSC110", 
-            "COSC210", "COSC230", "COSC240",
-            "COSC310", "COSC315", "COSC320"
+            "AMTH140", "COSC110", "COSC120",
+            "COSC210", "COSC220", "COSC240",
+            "COSC310", "COSC320"
           ]
         },
 
         {
           name: "Software Development major (48cp)",
           units: [
-            "COSC101", "COSC120", "COSC220", "COSC250", 
+            "COSC101", "COSC230", "COSC250", "COSC315",
             choose(4, "COSC260", "COSC330", "COSC340", "COSC350", "COSC360", "COSC370", "COSC372")
           ]
         },
         {
           name: "Data Science major (48cp)",
           units: [
-            "COSC102", "MTHS120", "STAT100", "COSC222",  
+            "COSC102", "MTHS120", "STAT100", "COSC315", 
             choose(4, "MTHS130", "COSC250", "STAT210", "COSC330", "COSC350", "COSC380", "STAT320", "STAT330")
           ]
         },
@@ -181,7 +181,7 @@ addCourses([
         {
           name: "Cybersecurity major (48cp) ??? ",
           units: [
-            "COSC120", "COSC220", "COSC340",
+            "COSC315", "COSC340",
             choose(5, "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed 300-level", "Prescribed", "Prescribed")
           ]
         },
@@ -189,15 +189,15 @@ addCourses([
         {
           name: "Computational Mathematics major (48cp)",
           units: [
-            "MTHS120", "AMTH250", or("COSC220", "COSC222"), "COSC350", "COSC380", "COSC3xx High Performance Computing (Prof Karton)",
-            choose(2, "MTHS130", "PMTH212", "AMTH246", "MATH260")
+            "MTHS120", "AMTH250", "COSC350", "COSC380", "COSC3xx High Performance Computing (Prof Karton)",
+            choose(3, "MTHS130", "PMTH212", "AMTH246", "MATH260")
           ]
         },
 
         {
           name: "Information Systems major (48cp)",
           units: [
-            or("QM161", "STAT100"), "COSC120", "COSC220", "COSC340", "COSC370", "COSC372",
+            or("QM161", "STAT100"), "COSC120", "COSC315", "COSC340", "COSC370", "COSC372",
             choose(2, "COSC260", "COSC350", "COSC360")
           ]
         },
