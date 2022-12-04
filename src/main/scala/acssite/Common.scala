@@ -5,7 +5,7 @@
 
 package acssite
 
-import com.wbillingsley.veautiful.html.{<, DElement, Markup, VHtmlNode, ^}
+import com.wbillingsley.veautiful.html.{<, DElement, Markup, DHtmlContent, ^}
 import com.wbillingsley.veautiful.templates.{DeckBuilder, VSlides}
 
 import scala.collection.mutable
@@ -18,7 +18,7 @@ object Common {
 
   given markdownGenerator:Markup = new Markup({ (s:String) => js.Dynamic.global.marked.parse(s).asInstanceOf[String] })
 
-  def markdown(s:String):VHtmlNode = markdownGenerator.Fixed(s)
+  def markdown(s:String) = markdownGenerator.Fixed(s)
 
 
   /** Circuits Up! Logo */
@@ -26,7 +26,7 @@ object Common {
     <.span()
   }
 
-  def downloadFromGitHub(project:String, user:String="UNEcosc250"):VHtmlNode = {
+  def downloadFromGitHub(project:String, user:String="UNEcosc250"):DHtmlContent = {
     <.a(
       ^.cls := "btn btn-secondary",
       ^.href := s"https://github.com/$user/$project/archive/master.zip",

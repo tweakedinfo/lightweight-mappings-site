@@ -1,14 +1,15 @@
 package courses
 
 import com.wbillingsley.veautiful.Unique
-import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponent, ^}
+import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, ^}
+import com.wbillingsley.veautiful.svg.{DSvgContent, DSvgComponent}
 import org.scalajs.dom
 
 /**
  * Lays out the structure of a course vertically, so that groups of subjects can be seen
  * more easily
  */
-case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
+case class PlanPrereqWidget(plan:Plan) extends DSvgComponent {
 
   import acssite.given
 
@@ -110,7 +111,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
     }
 
 
-  def svg(offset:Int, el:PrereqElement):(Int, <.SingleChild[dom.svg.G]) = el match {
+  def svg(offset:Int, el:PrereqElement):(Int, DSvgContent) = el match {
     case s:String =>
       1 -> singleUnitBox(offset, s)
       /*SVG.g(
@@ -141,7 +142,7 @@ case class PlanPrereqWidget(plan:Plan) extends VHtmlComponent {
   }
 
   val planStrings = flatStrings(plan)
-  println(planStrings)
+//  println(planStrings)
 
   def prereqLines(plan: Plan, active:Option[String]) =
     def arrow(startRow:Int, endRow:Int, number:Int) =

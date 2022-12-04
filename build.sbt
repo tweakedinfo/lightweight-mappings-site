@@ -7,14 +7,10 @@ scalaVersion := "3.1.0"
 // Don't automatically call main
 scalaJSUseMainModuleInitializer := false
 
-resolvers += "jitpack" at "https://jitpack.io"
-
-updateOptions := updateOptions.value.withLatestSnapshots(false)
+//updateOptions := updateOptions.value.withLatestSnapshots(false)
 
 libraryDependencies ++= Seq(
-//  "org.scala-js" %%% "scalajs-dom" % "1.1.0",
-  "com.github.wbillingsley.veautiful" %%% "veautiful" % "v0.3-SNAPSHOT",
-  "com.github.wbillingsley.veautiful" %%% "doctacular" % "v0.3-SNAPSHOT",
+  "com.wbillingsley" %%% "doctacular" % "0.3-M3",
 )
 
 

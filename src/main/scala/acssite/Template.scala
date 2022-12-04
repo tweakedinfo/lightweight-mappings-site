@@ -1,6 +1,6 @@
 package acssite
 
-import com.wbillingsley.veautiful.html.{<, VHtmlNode, ^}
+import com.wbillingsley.veautiful.html.{<, DHtmlContent, ^}
 import com.wbillingsley.veautiful.templates.DeckBuilder
 
 /**
@@ -35,7 +35,7 @@ extension (db:DeckBuilder) {
   }
 
   /** A title slide for the front of the deck */
-  def titleSlide(title:String, subtitle:String, authorCard:VHtmlNode, logos:VHtmlNode):DeckBuilder = {
+  def titleSlide(title:String, subtitle:String, authorCard:DHtmlContent, logos:DHtmlContent):DeckBuilder = {
     db.veautifulSlide(
       <.div(
         <.h1(^.attr("style") := "margin-bottom: 0; font-size: 60px", title),
@@ -63,7 +63,7 @@ extension (db:DeckBuilder) {
 
 
 
-def bootStrapMediaBox(imageUrl:String, content:VHtmlNode) = {
+def bootStrapMediaBox(imageUrl:String, content:DHtmlContent) = {
   <.div(^.cls := "media",
     <.img(^.src := imageUrl, ^.cls := "mr-3", ^.attr("style") := "height: 150px"),
     <.div(^.cls := "media-body", ^.attr("style") := "text-align: left;", content)

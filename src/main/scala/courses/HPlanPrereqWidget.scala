@@ -2,6 +2,7 @@ package courses
 
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponent, ^, EventMethods}
+import com.wbillingsley.veautiful.svg.DSvgContent
 import org.scalajs.dom
 
 
@@ -14,7 +15,7 @@ case class HPlanChooser(course:Course) extends VHtmlComponent {
       <("select")(
         ^.on("change") ==> { (evt) =>
           selected = evt.inputValue
-          rerender(),
+          rerender()
         },
         ^.attr("name") := "Plan",
         for 
@@ -189,7 +190,7 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
   def columnTransform(i:Int, gutter:Boolean = false):String = s"translate(${columnX(i, gutter)}, 0)"
 
 
-  def svg(el:PrereqElement):(Int, <.SingleChild[dom.svg.G]) = el match {
+  def svg(el:PrereqElement):(Int, DSvgContent) = el match {
     // A single unit is 
     case s:String =>
       1 -> singleUnitBox(s)
