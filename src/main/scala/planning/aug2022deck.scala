@@ -11,7 +11,7 @@ import Common.given
 
 import courses._
 
-def scrollableDiv = <.div(^.attr("style") := "height: 800px; overflow-y: scroll")
+def scrollableDiv = <.div(^.attr("style") := "height: 1000px; overflow-y: scroll")
 
 val aug2022deck = DeckBuilder(1920, 1080)
   .markdownSlide("""

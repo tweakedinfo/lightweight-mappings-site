@@ -39,7 +39,7 @@ val rotatedHeader = Styling(
     |    transform: rotate(-60deg);
     |    display: inline-block;
     |    transform-origin: left;
-    |    width: 30px;
+    |    width: 1.8em;
     |    bottom: 0;
     |""".stripMargin
 ).register()

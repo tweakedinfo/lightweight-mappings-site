@@ -30,6 +30,7 @@ object Styles {
 
   def installStyles():Unit = {
     VSlides.defaultTheme.addRules(Map(
+      " strong" -> "color: purple;",
       "" -> "position: relative; top: 0px;"
     ))
 

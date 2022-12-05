@@ -73,14 +73,14 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
     |width: 200px;
     |display: inline-block;
     |font-family: 'Lato', sans-serif;
-    |size: 12px;
+    |font-size: 15px;
     |fill: black;
     |text-align: center;
     |padding: 50px 5px 5px 5px;
     |""".stripMargin
   ).modifiedBy(
       " .code" -> "font-size: 11px;",
-      " .name" -> "",
+      " .name" -> "font-size: 20px;",
       " .component" -> "position: absolute; top: 0; font-style: italic; font-size: 12px; color: orange;",
       " .tag" -> "margin: 2px; padding: 2px 5px 2px 5px; background-color: #add; font-size: 12px;",
       " .tag.Capstone" -> "background: #dad",
@@ -89,7 +89,7 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
 
   val sectionStyle = Styling(
     """font-family: 'Lato', sans-serif;
-      |size: 12px;
+      |font-size: 12px;
       |fill: black;
       |dominant-baseline: middle;
       |""".stripMargin
@@ -106,7 +106,7 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
 
   val orStyle = Styling(
     """font-family: 'Lato', sans-serif;
-      |size: 12px;
+      |font-size: 15px;
       |fill: rgb(240, 240, 245);
       |stroke: rgb(200, 200, 200);
       |dominant-baseline: hanging;
