@@ -29,6 +29,9 @@ extension (db:DeckBuilder) {
   )
 }
 
+def asciliteScrollableDiv = <.div(^.attr("style") := "height: 100%; width: 100%; overflow-y: scroll")
+
+
 val ascilite2022deck = DeckBuilder(1920, 1080).markdownSlide("""
   |# Lightweight mapping of identity verification methods and secondary course aspects: "Swiss cheese" modelling.
   |Will Billingsley  
@@ -111,7 +114,7 @@ val ascilite2022deck = DeckBuilder(1920, 1080).markdownSlide("""
   |
   |""".stripMargin)
   .veautifulSlide(div(
-    scrollableDiv(^.prop("scrollTop") := "120",
+    asciliteScrollableDiv(^.prop("scrollTop") := "120",
       for c <- courses.find(_.code == "BCOMP(SD)") yield idverifyPage(c)
     )
   ))
@@ -141,22 +144,22 @@ val ascilite2022deck = DeckBuilder(1920, 1080).markdownSlide("""
   |
   |""".stripMargin)
   .veautifulSlide(div(
-    scrollableDiv(
+    asciliteScrollableDiv(
       for c <- courses.find(_.code == "BCOMP(SD)") yield planPage(c)
     )
   ))
   .veautifulSlide(div(
-    scrollableDiv(
+    asciliteScrollableDiv(
       for c <- courses.find(_.code == "BCOMP(SD)") yield cbokPage(c)
     )
   ))
   .veautifulSlide(div(
-    scrollableDiv(
+    asciliteScrollableDiv(
       for c <- courses.find(_.code == "BCOMP(SD)") yield swebokPage(c)
     )
   ))
   .veautifulSlide(div(
-    scrollableDiv(
+    asciliteScrollableDiv(
       for c <- courses.find(_.code == "MDSC") yield dsbokPage(c)
     )
   ))
