@@ -46,7 +46,7 @@ addCourses([
         name: "Artificial Intelligence major",
         units: [
           or("MTHS120", "STAT100"),
-          choose(5, "COSC250", "COSC331", "COSC350", "COSC351", "COSC380", "COSC483")
+          choose(5, "COSC250", "COSC331", "COSC350", "COSC351", "COSC352", "COSC380", "COSC483")
         ]
       },
 

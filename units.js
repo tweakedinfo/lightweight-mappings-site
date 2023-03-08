@@ -979,5 +979,41 @@ addUnits([
       other: []
     },
 
-  
+    {
+      code: "COSC331",
+      name: "Big Data",
+      prereq: [ ],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ ],
+      other: []
+    },
+
+    {
+      code: "COSC351",
+      name: "Deep Learning",
+      prereq: [ ],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ ],
+      other: []
+    },
+
+
+    {
+      code: "COSC352",
+      name: "Reinforcement Learning",
+      prereq: [ ],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ ],
+      other: []
+    },
+
   ])
