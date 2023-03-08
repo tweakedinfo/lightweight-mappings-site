@@ -356,18 +356,6 @@ addUnits([
     },
 
     {
-      code: "COSC315",
-      name: "Data Governance, Security, and Ethics (for instance) ???",
-      prereq: [ "AMTH140", "COSC110", "COSC210", "COSC230", "???" ],
-      cbok: [  ],
-      swebok: [  ],
-      dsbok: [  ],
-      sfia: [],
-      other: [ idverify.Video ], 
-      tags: [ "Advanced" ]
-    },
-
-    {
       code: "COSC210",
       name: "Database Management Systems",
       prereq: [ "COSC110" ],
@@ -613,7 +601,7 @@ addUnits([
     
     {
       code: "COSC340",
-      name: "Computer Networks and Information Security",
+      name: "Computer Networks and Network Security",
       prereq: [ cp(72), "AMTH140", "COSC240" ],
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       swebok: [ swebok.CompFoundations, swebok.Construction ],
@@ -627,7 +615,7 @@ addUnits([
 
     {
       code: "COSC540",
-      name: "Computer Networks and Information Security",
+      name: "Computer Networks and Network Security",
       prereq: [ "COSC110", choose(2, "COSC210", "COSC220", "COSC230", "COSC240", "COSC250", "COSC260", "STAT210") ],
       cbok: [ societal(1), communication(3), fundamentals(2), understanding(1), data(2), networking(3), programming(3), cybersecurity(3) ],
       swebok: [ swebok.CompFoundations, swebok.Construction ],
@@ -917,9 +905,79 @@ addUnits([
       dsbok: [],
       tags: [],
       other: []
-    }
+    },
 
+    {
+      code: "COSC130",
+      name: "Fundamentals of Cybersecurity and Privacy",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ ],
+      other: []
+    },
 
+    {
+      code: "COSC481",
+      name: "Cryptography",
+      prereq: ["AMTH140", "COSC230"],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ "Advanced" ],
+      other: []
+    },
 
+    {
+      code: "COSC482",
+      name: "Ethical Hacking",
+      prereq: ["COSC220", "COSC240"],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ "Advanced" ],
+      other: []
+    },
 
-])
+    {
+      code: "COSC483",
+      name: "Cybersecurity Risk and Project Management",
+      prereq: ["COSC220", "COSC240", "COSC340"],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ "Advanced" ],
+      other: []
+    },
+  
+    {
+      code: "COSC484",
+      name: "Cloud Security",
+      prereq: ["COSC220", "COSC240", "COSC340"],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ "Advanced" ],
+      other: []
+    },
+
+    {
+      code: "SCI310",
+      name: "Digital Technology Survival Skills",
+      prereq: [],
+      cbok: [],
+      swebok: [],
+      sfia: [],
+      dsbok: [],
+      tags: [ ],
+      other: []
+    },
+
+  
+  ])
