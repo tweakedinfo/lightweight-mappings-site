@@ -911,7 +911,7 @@ addUnits([
       code: "COSC130",
       name: "Fundamentals of Cybersecurity and Privacy",
       prereq: [],
-      cbok: [],
+      cbok: [ ethics(1), cybersecurity(1), expectations(1), understanding(1), societal(1), data(1), governance(1), serviceManagement(1) ],
       swebok: [],
       sfia: [],
       dsbok: [],

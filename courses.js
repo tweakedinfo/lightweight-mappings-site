@@ -87,6 +87,90 @@ addCourses([
 
 
   {
+    code: "BCOMP2024b",
+    name: "Bachelor of Computer Science 2024 with optional first year groupwork",
+    structure: [
+
+      {
+        name: "Core CS",
+        units: [
+          "AMTH140", "COSC110", "COSC120", "COSC130",
+          "COSC210", "COSC220", "COSC230", "COSC240",
+          "COSC310", "COSC320"
+        ]
+      },
+
+      {
+        name: "Software Development major",
+        units: [
+          or("MTHS120", "STAT100"),
+          choose(6, "COSC101", "COSC250", "COSC260", "COSC330", "COSC340", "COSC350", "COSC360", "COSC370", "COSC484")
+        ]
+      },
+      {
+        name: "Data Science major",
+        units: [
+          "MTHS120", "STAT100", "STAT210", 
+          choose(1, "COSC102", "MTHS130", "MATH260", "COSC250"),
+          choose(3, "COSC330", "COSC350", "COSC380", "STAT320", "STAT330")
+        ]
+      },
+
+      {
+        name: "Cybersecurity major",
+        units: [
+          "STAT100", 
+          choose(1, "COSC101", "COSC102", "MTHS120"),
+          "COSC340", "COSC350", "COSC372",
+          choose(2, "COSC481", "COSC482", "COSC483", "COSC484")
+        ]
+      },
+
+      {
+        name: "Artificial Intelligence major",
+        units: [
+          "MTHS120", "STAT100",
+          choose(2, "COSC102", "COSC250", "MATH260"),
+          choose(3, "COSC331", "COSC350", "COSC351", "COSC352", "COSC380", "COSC483")
+        ]
+      },
+
+      {
+        name: "Preparatory Minor",
+        units: [
+          choose(4, "MTHS100", "MTHS110", "ICT100", "ICT101", "MM105")
+        ]
+      },
+
+      {
+        name: "Computational Science Minor",
+        units: [
+          choose(4, "MTHS120", "MTHS130", "AMTH250", "MATH260", "SCI310")
+        ]
+      },
+
+
+      {
+        name: "Elective space (or second major / minors)",
+        units: [
+          "Elective", "Elective", "Elective", "Elective", "Elective", "Elective", "Elective"
+        ]
+      },
+
+    ],
+    plans: {
+      "Full-time, T1 start": [
+        { name: "Y1 Trimester 1", units: [ "COSC101", "COSC110", "MTHS120", or("ICT101", "Elective") ] },
+        { name: "Y1 Trimester 2", units: [ "AMTH140", "COSC102", "COSC120", or("STAT100", "MTHS130") ] },
+        { name: "Y2 Trimester 1", units: [ "COSC210", "COSC230", or("COSC250", "Elective"), "Elective" ] },
+        { name: "Y2 Trimester 2", units: [ "COSC220", "COSC240", or("COSC260", "Elective"), "Elective" ] },
+        { name: "Y3 Trimester 1", units: [ "COSC310", choose(3, "COSC340", "COSC370", "Elective", "Elective") ] },
+        { name: "Y3 Trimester 2", units: [ "COSC320", choose(3, "COSC330", "COSC350", "COSC360", "Elective") ] },
+      ]
+    }
+  },
+
+  {
     code: "DIT",
     name: "Diploma in Information Technology",
     structure: [
