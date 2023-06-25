@@ -41,8 +41,7 @@ jobs:
       - name: Compile the deck to JavaScript
         run: |
           yarn install
-          chmod u+x fullBuild.sh
-          ./fullBuild.sh
+          sbt deployScript
           mv .github/workflows/.gitignore.gh-pages .gitignore
 
       # Deploy to gh-pages branch
