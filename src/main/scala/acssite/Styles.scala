@@ -1,8 +1,7 @@
 package acssite
 
 import com.wbillingsley.veautiful.html._
-import com.wbillingsley.veautiful.doctacular._
-import com.wbillingsley.veautiful.templates.VSlides
+import com.wbillingsley.veautiful.doctacular.*
 
 given styleSuite:StyleSuite = StyleSuite()
 

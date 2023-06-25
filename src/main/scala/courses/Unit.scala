@@ -116,7 +116,7 @@ def addUnits(units:js.Array[js.Dynamic]) = {
 }
 
 
-def unitPage(u:Subject) = Unique(<.div(
+def unitPage(u:Subject) = <.div(
   <.h1(u.code, " ", u.name),
   <.p(
     <.a(^.href := s"https://handbook.une.edu.au/units/2022/${u.code}?year=2022", "Link to handbook entry")
@@ -128,7 +128,7 @@ def unitPage(u:Subject) = Unique(<.div(
       <.tr(<.td(cbok.name), <.td(l.toString))
   )
 
-))
+)
 
 // Composes a name like ICT100 Computational Thinking from a unit code
 // If there's not a unit with that code in the subjects list, leaves the string unchanged

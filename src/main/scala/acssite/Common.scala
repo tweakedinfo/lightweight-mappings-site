@@ -6,7 +6,7 @@
 package acssite
 
 import com.wbillingsley.veautiful.html.{<, DElement, Markup, DHtmlContent, ^}
-import com.wbillingsley.veautiful.templates.{DeckBuilder, VSlides}
+import com.wbillingsley.veautiful.doctacular.{DeckBuilder, VSlides}
 
 import scala.collection.mutable
 import scala.scalajs.js

@@ -10,7 +10,7 @@ scalaJSUseMainModuleInitializer := false
 //updateOptions := updateOptions.value.withLatestSnapshots(false)
 
 libraryDependencies ++= Seq(
-  "com.wbillingsley" %%% "doctacular" % "0.3-M3",
+  "com.wbillingsley" %%% "doctacular" % "0.3.0",
 )
 
 

@@ -4,7 +4,7 @@ import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.<
 import acssite.Common
 
-val home = Unique(<.div(
+val home = <.div(
   Common.markdown(
     """# UNE ACS Accreditation Mappings 2022
       |
@@ -29,4 +29,4 @@ val home = Unique(<.div(
       |If a unit or a course hasn't loaded, maybe check the console log for errors (F12).
       |Or, we might not have written it into units.js or courses.js yet.
       |""".stripMargin),
-))
+)

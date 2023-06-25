@@ -1,7 +1,7 @@
 package planning
 
 import com.wbillingsley.veautiful.html._
-import com.wbillingsley.veautiful.templates.DeckBuilder
+import com.wbillingsley.veautiful.doctacular.DeckBuilder
 import org.scalajs.dom
 
 import scalajs.js

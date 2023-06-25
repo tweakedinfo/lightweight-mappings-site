@@ -89,7 +89,7 @@ def limitCbok(courses:js.Array[String], category:CBOK, units:js.Array[String]) =
     topCbok(course) = topCbok.getOrElse(course, Map.empty) + (category -> units.toSeq)
 }
 
-def planPage(c:Course) = Unique(<.div(
+def planPage(c:Course) = <.div(
   <.h1(c.name),
   <.p(
     <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
@@ -120,9 +120,9 @@ def planPage(c:Course) = Unique(<.div(
     HPlanChooser(c)
   )
 
-))
+)
 
-def cbokPage(c:Course) = Unique(<.div(
+def cbokPage(c:Course) = <.div(
     <.h1(c.name),
     <.p(
       <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
@@ -192,10 +192,10 @@ def cbokPage(c:Course) = Unique(<.div(
         |
     """.stripMargin)
   )
-)
 
 
-def swebokPage(c:Course) = Unique(<.div(
+
+def swebokPage(c:Course) = <.div(
     <.h1(c.name),
     <.p(
       <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
@@ -236,9 +236,9 @@ def swebokPage(c:Course) = Unique(<.div(
       for e <- SWEBOK.values yield <.li(<("code")("swebok." + e.productPrefix), " ", <("i")(e.name))
     )
   )
-)
 
-def dsbokPage(c:Course) = Unique(<.div(
+
+def dsbokPage(c:Course) = <.div(
     <.h1("Data Science bodies of knoweledge"),
     <.h2(c.name),
     <.p(
@@ -297,9 +297,9 @@ def dsbokPage(c:Course) = Unique(<.div(
       for e <- EdisonDSBOK.values yield <.li(<("code")("edison." + e.productPrefix), " ", <("i")(e.name)),
     )
   )
-)
 
-def idverifyPage(c:Course) = Unique(<.div(
+
+def idverifyPage(c:Course) = <.div(
     <.h1("Methods of Identity Management"),
     <.h2(c.name),
     <.p(
@@ -342,4 +342,4 @@ def idverifyPage(c:Course) = Unique(<.div(
       for e <- IdentityVerification.values yield <.li(<("code")("idverify." + e.productPrefix), " ", <("i")(e.name))
     )
   )
-)
+

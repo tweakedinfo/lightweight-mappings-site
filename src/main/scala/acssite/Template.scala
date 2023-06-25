@@ -1,7 +1,7 @@
 package acssite
 
 import com.wbillingsley.veautiful.html.{<, DHtmlContent, ^}
-import com.wbillingsley.veautiful.templates.DeckBuilder
+import com.wbillingsley.veautiful.doctacular.DeckBuilder
 
 /**
 * A local object to demonstrate how layouts can be templated. These can be provided as libraries or written by

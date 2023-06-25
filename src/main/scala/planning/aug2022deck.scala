@@ -1,7 +1,7 @@
 package planning
 
 import com.wbillingsley.veautiful.html._
-import com.wbillingsley.veautiful.templates.DeckBuilder
+import com.wbillingsley.veautiful.doctacular.DeckBuilder
 import org.scalajs.dom
 
 import scalajs.js
@@ -11,7 +11,7 @@ import Common.given
 
 import courses._
 
-def scrollableDiv = <.div(^.attr("style") := "height: 1000px; overflow-y: scroll")
+//def scrollableDiv = <.div(^.attr("style") := "height: 1000px; overflow-y: scroll")
 
 val aug2022deck = DeckBuilder(1920, 1080)
   .markdownSlide("""
