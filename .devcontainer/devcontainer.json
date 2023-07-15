@@ -1,0 +1,12 @@
+{
+  "name": "Doctacular codespace config",
+  "build": {
+      "dockerfile": "Dockerfile"
+  },
+  "postCreateCommand": "nohup http-server -p 8080 &",
+  "extensions": [
+      "scalameta.metals",
+      "scala-lang.scala",
+  ]
+
+}
