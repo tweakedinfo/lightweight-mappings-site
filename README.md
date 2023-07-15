@@ -79,6 +79,11 @@ A unit looks like:
 
 * SFIA is still to come, just leave that empty.
 
+*A handy hint*:
+
+Unit codes are just text. I commonly define "units" called things like "Elective" or "300-level Elective" to produce diagrams in courses
+showing where electives can be taken.
+
 ## courses.js
 
 Again, it's probably better to start with the examples.
@@ -131,6 +136,10 @@ Courses are added within the `addCourses` call (or an `addCourse` call)
   - SFIA tables
   - Probably an "in-depth" column
 
+*A handy hint*:
+
+Some university handbooks (e.g. UNE's) ignore parts of the URL that are in parentheses. E.g. ..../BCOMP(SD) will link to the ..../BCOMP page.
+That can be useful for showing different diagrams for different majors in the same degree but still having a link to handbook.
 
 ## home.js
 

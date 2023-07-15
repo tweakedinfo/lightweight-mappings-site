@@ -26,12 +26,15 @@ object ITICSESite {
 
     site.toc = site.Toc(
       "Home" -> site.HomeRoute,
-      
+
+      /* An example of how to add a presentation deck to the site       
       "Presentations" -> site.Toc(
-        // "Aug 2022" -> site.addDeck("aug2022", planning.aug2022deck),
-        "ASCILITE 2022" -> site.addDeck("ascilite2022", planning.ascilite2022deck),
-        "ACDICT 2023" -> site.addDeck("acdict2023", planning.acdict2023deck),
+        // "My presentation" is the title to show in the Table of Contents
+        // "my-presentation" is the URL fragment to use -- i.e. it'll render at decks/my-presentation
+        // decks.myPresentation is the Scala code of the presentation
+        "My presentation" -> site.addDeck("my-presentation", decks.myPresentation),
       ),
+      */
 
       "Course structures" -> site.Toc(
         (for u <- courses.courses yield

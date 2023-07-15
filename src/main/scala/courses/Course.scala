@@ -57,6 +57,13 @@ given toScala:Conversion[JSPlanComponent, PlanComponent] with
 
 val courses = mutable.Buffer.empty[Course]
 
+var handbookUrl: Option[String => String] = None
+
+@JSExportTopLevel("setHandbookUrl")
+def setHandbookUrl(f:js.Function1[String, String]) = 
+  handbookUrl = Some(f)
+
+
 
 @JSExportTopLevel("addCourse")
 def addCourse(config:JSCourse): Unit = {
@@ -91,8 +98,10 @@ def limitCbok(courses:js.Array[String], category:CBOK, units:js.Array[String]) =
 
 def planPage(c:Course) = <.div(
   <.h1(c.name),
-  <.p(
-    <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
+  (for url <- handbookUrl yield
+    <.p(
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
   ),
   Common.markdown(
     """ The structure of the course is illustrated below. 
@@ -124,9 +133,11 @@ def planPage(c:Course) = <.div(
 
 def cbokPage(c:Course) = <.div(
     <.h1(c.name),
+  (for url <- handbookUrl yield
     <.p(
-      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
-    ),
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
     Common.markdown(
       """ The table below is generated from the data files for each unit within the course structure.
         | A toggle is provided to toggle between:
@@ -197,9 +208,11 @@ def cbokPage(c:Course) = <.div(
 
 def swebokPage(c:Course) = <.div(
     <.h1(c.name),
+  (for url <- handbookUrl yield
     <.p(
-      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
-    ),
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
     Common.markdown(
       """ The table below shows top-level SWEBOK categories that are relevant to each unit in the course
         |
@@ -241,9 +254,11 @@ def swebokPage(c:Course) = <.div(
 def dsbokPage(c:Course) = <.div(
     <.h1("Data Science bodies of knoweledge"),
     <.h2(c.name),
+  (for url <- handbookUrl yield
     <.p(
-      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
-    ),
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
     Common.markdown(
       """
         |This page maps units in the course against ACM and Edison bodies of knowledge for data science.
@@ -302,9 +317,11 @@ def dsbokPage(c:Course) = <.div(
 def idverifyPage(c:Course) = <.div(
     <.h1("Methods of Identity Management"),
     <.h2(c.name),
+  (for url <- handbookUrl yield
     <.p(
-      <.a(^.href := s"https://handbook.une.edu.au/courses/2022/${c.code}?year=2022", "Link to handbook entry")
-    ),
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
     Common.markdown(
       """
         |This page maps units in the course against different mechanisms that are used in assessment to support
