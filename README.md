@@ -1,22 +1,36 @@
-# ACS Mappings 2022
+# Lightweight mappings for CS Courses
 
 This site generates some of our mappings.
 It's intended to be easy(ish) to play around with.
 
+The rationale is described in 
+
+> Billingsley, W. (2022). Lightweight Mapping of Identify Verification Methods and Secondary Course Aspects: “Swiss Cheese” Modelling.
+> In S. Wilson, N. Arthars, D.Wardak, P. Yeoman, E. Kalman, & D.Y.T. Liu (Eds.), Reconnecting relationships through technology. 
+> *Proceedings of the 39thInternational Conference on Innovation, Practice and Research in the Use of Educational Technologies in Tertiary Education, ASCILITE 2022 in Sydney*: 
+> e22199. [https://doi.org/10.14742/apubs.2022.199](https://doi.org/10.14742/apubs.2022.199)
+
+Course and unit definitions (and the homepage) are defined simply in JS. Just edit and reload.
+It's only if you want to write slide-decks (or do fancier stuff) you'd need Scala.
+
 To grab a copy and view it on your computer:
 
 1. Clone the repository
+2. Switch to the `gh-pages` branch so you have a version with pre-compiled JavaScript
 2. Open index.html in a browser
 
-To alter course mappings or units:
+To alter the home page, course mappings or units:
 
-1. Edit units.js or course.js
+1. Edit home.js, units.js, or course.js
 2. Hit refresh in your browser
 
-To contribute those alterations back into the repository:
+To edit the source code or write slide-decks, you'll need [sbt](https://scala-sbt.org)
 
-1. Commit them
-2. Push them
+1. Switch to the `main` branch (and bring any changes you've made to the js files with you)
+2. Edit the Scala
+3. `sbt fastDeployScript` to recompile the JavaScript so you can view it on your own computer.
+4. Push the site to GitHub to publish it. An included Action will compile the site up on 
+
 
 ## units.js
 
@@ -116,3 +130,8 @@ Courses are added within the `addCourses` call (or an `addCourse` call)
   - altering the style of optional units so it's more obvious in the CBOK table which are mandatory
   - SFIA tables
   - Probably an "in-depth" column
+
+
+## home.js
+
+For consistency, the homepage text is also set using a loaded JS file. It's very self-explanatory, so open it and take a look.

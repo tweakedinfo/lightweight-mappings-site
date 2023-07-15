@@ -5,7 +5,7 @@
 
 package acssite
 
-import com.wbillingsley.veautiful.html.{<, DElement, Markup, DHtmlContent, ^}
+import com.wbillingsley.veautiful.html.{<, DElement, Markup, DHtmlContent, ^, VHtmlComponent}
 import com.wbillingsley.veautiful.doctacular.{DeckBuilder, VSlides}
 
 import scala.collection.mutable
@@ -20,10 +20,26 @@ object Common {
 
   def markdown(s:String) = markdownGenerator.Fixed(s)
 
+  /** A component that can load Markdown from a url and render it */
+  case class LoadMd(url:String) extends VHtmlComponent {
 
-  /** Circuits Up! Logo */
-  def symbol = {
-    <.span()
+    import scala.concurrent.ExecutionContext.Implicits.global
+    import js.Thenable.Implicits._
+    import org.scalajs.dom
+    import scala.util.*
+
+    val responseText = for
+      response <- dom.fetch("home.md")
+      text <- response.text()
+    yield text
+
+    override def render = 
+      responseText.value match 
+        case Some(Success(text)) => <.div(markdown(text))
+        case Some(Failure(ex)) => <.div(ex.getMessage)
+        case None => <.div(s"Loading markdown from $url")
+
+    responseText.onComplete((_) => rerender())
   }
 
   def downloadFromGitHub(project:String, user:String="UNEcosc250"):DHtmlContent = {
@@ -43,7 +59,7 @@ object Common {
     s"`git clone https://github.com/$user/$project.git`"
   }
 
-
+  /** Used in many of Will's slide decks */
   val willCcBy:String =
     """
       |<p>Written by Will Billingsley</p>

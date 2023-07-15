@@ -26,12 +26,12 @@ object ITICSESite {
 
     site.toc = site.Toc(
       "Home" -> site.HomeRoute,
+      
       "Presentations" -> site.Toc(
         // "Aug 2022" -> site.addDeck("aug2022", planning.aug2022deck),
         "ASCILITE 2022" -> site.addDeck("ascilite2022", planning.ascilite2022deck),
         "ACDICT 2023" -> site.addDeck("acdict2023", planning.acdict2023deck),
       ),
-
 
       "Course structures" -> site.Toc(
         (for u <- courses.courses yield
