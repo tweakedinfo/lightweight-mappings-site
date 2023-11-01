@@ -11,8 +11,8 @@ type PlanComponent = (String, Seq[PrereqElement])
 type Plan = Seq[PlanComponent]
 
 extension (p:Plan) {
-  def findComponentName(s:Subject):Option[String] = 
-    p.find((_, els) => els.flattened.contains(s.code)).map((name, _) => name)
+  def findComponentName(s:PrereqElement.unit):Option[String] = 
+    p.find((_, els) => els.flattened.contains(s)).map((name, _) => name)
 }
 
 def isMandatoryInPC(unit:Subject, planComponent: PlanComponent) =
@@ -42,15 +42,23 @@ case class Course(
 // Limits the rows shown in the CBOK table for a course
 val topCbok:mutable.Map[String, Map[CBOK, Seq[String]]] = mutable.Map.empty
 
+type JSPrereqElement = String | PrereqElement
+
 trait JSPlanComponent extends js.Object:
   val name:String
-  val units:js.Array[PrereqElement]
+  val units:js.Array[JSPrereqElement]
 
 trait JSCourse extends js.Object:
   val code:String
   val name:String
   val structure:js.Array[JSPlanComponent]
   val plans:js.Dictionary[js.Array[JSPlanComponent]]
+
+given Conversion[Seq[JSPrereqElement], Seq[PrereqElement]] with 
+  def apply(j:Seq[JSPrereqElement]) = j.map {
+    case s:String => PrereqElement.unit(s)
+    case e:PrereqElement => e
+  }
 
 given toScala:Conversion[JSPlanComponent, PlanComponent] with
   def apply(j:JSPlanComponent) = (j.name, j.units.toSeq)
