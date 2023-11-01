@@ -132,13 +132,17 @@ case class PlanPrereqWidget(plan:Plan) extends DSvgComponent {
         SVG.text(
           ^.attr("x") := 40, ^.attr("y") := (units.length * rowH) / 2, ^.cls := chooseStyle.className,
           ^.attr("transform") := s"rotate(-90 40 ${units.length * rowH / 2})",
-          s"choose $num"
+          num match {
+            case i:Int => s"choose $num"
+            case (from, to) => s"choose $from-$to"
+          }
         ),
         SVG.line(^.attr("x1") := 45, ^.attr("x2") := 45, ^.attr("y1") := 5, ^.attr("y2") := units.length * rowH - 5, ^.attr("stroke") := "black"),
         for (u, index) <- units.zipWithIndex yield svg(index, u)._2
       )
 
-    case _ => (0, SVG.g())
+    case _ => 
+      (0, SVG.g(SVG.text(s"Unexpected: $el")))
   }
 
   val planStrings = flatStrings(plan)

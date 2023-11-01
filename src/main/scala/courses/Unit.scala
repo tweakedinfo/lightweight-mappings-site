@@ -4,21 +4,31 @@ import com.wbillingsley.veautiful.html.{<, ^}
 
 import scala.collection.mutable
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSExportTopLevel
+import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
+
 
 type PrereqElement = String | ComplexPrereqElement
 enum ComplexPrereqElement:
   @JSExportTopLevel("or")
   case or(a:String, b:String)
 
-  @JSExportTopLevel("choose")
-  case choose(i:Int, els:String*)
+  case choose(num:Int | (Int, Int), els:String*)
 
   @JSExportTopLevel("cp")
   case cp(i:Int)
 
   @JSExportTopLevel("coreq")
   case coreq(els:PrereqElement*)
+
+
+@JSExportTopLevel("choose")
+def choose(num: Int | js.Array[Int], els:String*) = num match {
+  case i:Int => ComplexPrereqElement.choose(i, els*)
+  case a:js.Array[Int] => 
+    if a.length == 2 then ComplexPrereqElement.choose(a(0) -> a(1), els*) else 
+      throw new IllegalArgumentException("Choose ranges must contain a from and a to number (i.e. there must be two elements in the array)")
+}
+
 
 extension (el:PrereqElement) {
   // Produces a left-to-right Seq of the unit strings
@@ -38,6 +48,7 @@ extension (els:Seq[PrereqElement]) {
     els.map({
       case s:String => s
       case ComplexPrereqElement.or(a, b) => s"($a or $b)"
+      case ComplexPrereqElement.choose((from, to), units:_*) => s"($from-$to from ${units.mkString(", ")})"
       case ComplexPrereqElement.choose(num, units:_*) => s"($num from ${units.mkString(", ")})"
       case ComplexPrereqElement.cp(num) => s"${num}cp"
       case ComplexPrereqElement.coreq(els:_*) => s"corequisite(${(els.stringify)})"
@@ -53,6 +64,7 @@ def subjCodes(el:PrereqElement):Seq[String] = el match
 
 def isMandatoryIn(code:String, el:PrereqElement):Boolean = el match
   case s:String => s == code
+  case ComplexPrereqElement.choose((from, to), units:_*) => to == units.length && units.contains(code)
   case ComplexPrereqElement.choose(num, units:_*) => num == units.length && units.contains(code)
   case _ => false
 

@@ -225,7 +225,10 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
         SVG.text(^.cls := "orLabel", 
           ^.attr("x") := (2 * bracketMargin + (els.length - 1) * unitColumnWidth + unitBlockWidth) / 2,
           ^.attr("y") := - bracketMargin - bracketLabelHeight,
-          s"choose $num"
+          num match {
+            case (from, to) => s"choose $from-$to"
+            case i:Int => s"choose $num"
+          }
         ),
         for 
           (unit, i) <- els.zipWithIndex
