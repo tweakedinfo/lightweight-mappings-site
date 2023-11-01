@@ -178,10 +178,10 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
     )   
   )
 
-  def singleUnitBox(s:String) = 
-    subjects.find(_.code == s) match {
+  def singleUnitBox(u:PrereqElement.unit) = 
+    subjects.find(_.code == u.code) match {
       case Some(subj) => subjectBox(subj)
-      case None => labelledBox(s)
+      case None => labelledBox(u.code)
     }
 
   def columnX(i:Int, gutter:Boolean = false):Int = 
@@ -192,10 +192,10 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
 
   def svg(el:PrereqElement):(Int, DSvgContent) = el match {
     // A single unit is 
-    case s:String =>
+    case s:PrereqElement.unit =>
       1 -> singleUnitBox(s)
       
-    case ComplexPrereqElement.or(a, b) =>
+    case PrereqElement.or(a, b) =>
       2 -> SVG.g(^.cls := orStyle.className,
         SVG.rect(^.cls := "orBracket",
           ^.attr("x") := -bracketMargin, ^.attr("y") := -labelSpaceY, 
@@ -214,7 +214,7 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
         )
       )
 
-    case ComplexPrereqElement.choose(num, els:_*) =>
+    case PrereqElement.choose(num, els) =>
       els.length -> SVG.g(^.cls := orStyle.className,
         SVG.rect(^.cls := "orBracket",
           ^.attr("x") := -bracketMargin, ^.attr("y") := -labelSpaceY, 
@@ -244,8 +244,8 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
   def prerequisiteLines(unit:Option[Subject] = None) = {
     val unitMap = (for 
       ((_, rowContent), y) <- plan.zipWithIndex
-      (unitCode, x) <- rowContent.flattened.zipWithIndex
-      subject <- subjects.find(_.code == unitCode)
+      (u, x) <- rowContent.flattened.zipWithIndex
+      subject <- subjects.find(_.code == u.code)
     yield subject -> (x, y)).toMap
 
     def toBoxTop(p:(Int, Int)):(Int, Int) = {
@@ -276,24 +276,23 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
     def lines(subject:Subject, prereq:PrereqElement) = {
 
       prereq match {
-        case string:String => 
+        case u:PrereqElement.unit => 
           for 
-            s <- Seq(string)
-            subj <- subjects.find(_.code == s) if unitMap.contains(subj) && (selected.isEmpty || selected.contains(subject) || selected.contains(subj))
+            subj <- subjects.find(_.code == u.code) if unitMap.contains(subj) && (selected.isEmpty || selected.contains(subject) || selected.contains(subj))
           yield
             singleLine(unitMap(subject), unitMap(subj), "fixed")
 
-        case ComplexPrereqElement.or(a, b) => 
+        case PrereqElement.or(a, b) => 
           for 
             s <- Seq(a, b)
-            subj <- subjects.find(_.code == s) if unitMap.contains(subj) && (selected.isEmpty || selected.contains(subject) || selected.contains(subj))
+            subj <- subjects.find(_.code == s.code) if unitMap.contains(subj) && (selected.isEmpty || selected.contains(subject) || selected.contains(subj))
           yield
             singleLine(unitMap(subject), unitMap(subj), "choice")
 
-        case ComplexPrereqElement.choose(num, els:_*) => 
+        case PrereqElement.choose(num, els) => 
           for 
             s <- els
-            subj <- subjects.find(_.code == s) if unitMap.contains(subj) && (selected.isEmpty || selected.contains(subject) || selected.contains(subj))
+            subj <- subjects.find(_.code == s.code) if unitMap.contains(subj) && (selected.isEmpty || selected.contains(subject) || selected.contains(subj))
           yield
             singleLine(unitMap(subject), unitMap(subj), "choice")
 

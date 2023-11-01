@@ -65,8 +65,8 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
     <.tr(
       <.th(^.cls := "section", ^.attr("colspan") := 1, name)) +: (
         els.flatMap {
-          case s:String =>
-            subjects.find(_.code == s) match
+          case s:PrereqElement.unit =>
+            subjects.find(_.code == s.code) match
               case Some(u) => Seq(<.tr(^.cls := "mandatory",
                 unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
               ))
@@ -75,9 +75,9 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                 Seq(<.tr(^.cls := "optional",
                   unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
                 )) 
-          case ComplexPrereqElement.choose(lim, units:_*) =>
+          case PrereqElement.choose(lim, units) =>
             for (s, i) <- units.zipWithIndex yield
-              subjects.find(_.code == s) match
+              subjects.find(_.code == s.code) match
                 case Some(u) =>
                   if i == 0 then
                     <.tr(^.cls := "optional choose",
@@ -92,9 +92,9 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                   <.tr(^.cls := "optional choose",
                     unitTH(u), unitCBoKcells(u)
                   ) 
-          case ComplexPrereqElement.or(a, b) =>
+          case PrereqElement.or(a, b) =>
             for (s, i) <- Seq(a, b).zipWithIndex yield
-              subjects.find(_.code == s) match
+              subjects.find(_.code == s.code) match
                 case Some(u) =>
                   if i == 0 then
                     <.tr(^.cls := "optional or",
@@ -105,9 +105,9 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                       unitTH(u), unitCBoKcells(u)
                     )
                 case None => <.tr("Unit not found: " + s)
-          case ComplexPrereqElement.cp(x) =>
+          case PrereqElement.cp(x) =>
             Seq(<.tr(<.th(s"Complete $x credit points")))
-          case ComplexPrereqElement.coreq(els:_*) => Seq(<.tr(s"Corequisite ${els.stringify}"))
+          case PrereqElement.coreq(els:_*) => Seq(<.tr(s"Corequisite ${els.stringify}"))
         }
       )
 
@@ -175,8 +175,8 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
     <.tr(
       <.th(^.cls := "section", ^.attr("colspan") := 1, name)) +: (
         els.flatMap {
-          case s:String =>
-            subjects.find(_.code == s) match
+          case s:PrereqElement.unit =>
+            subjects.find(_.code == s.code) match
               case Some(u) => Seq(<.tr(^.cls := "mandatory",
                 unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
               ))
@@ -185,9 +185,9 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                 Seq(<.tr(^.cls := "optional",
                   unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
                 )) 
-          case ComplexPrereqElement.choose(lim, units:_*) =>
+          case PrereqElement.choose(lim, units) =>
             for (s, i) <- units.zipWithIndex yield
-              subjects.find(_.code == s) match
+              subjects.find(_.code == s.code) match
                 case Some(u) =>
                   if i == 0 then
                     <.tr(^.cls := "optional choose",
@@ -203,9 +203,9 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                       unitTH(u), unitCBoKcells(u)
                     ) 
 
-          case ComplexPrereqElement.or(a, b) =>
+          case PrereqElement.or(a, b) =>
             for (s, i) <- Seq(a, b).zipWithIndex yield
-              subjects.find(_.code == s) match
+              subjects.find(_.code == s.code) match
                 case Some(u) =>
                   if i == 0 then
                     <.tr(^.cls := "optional or",
@@ -216,9 +216,9 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                       unitTH(u), unitCBoKcells(u)
                     )
                 case None => <.tr("Unit not found: " + s)
-          case ComplexPrereqElement.cp(x) =>
+          case PrereqElement.cp(x) =>
             Seq(<.tr(<.th(s"Complete $x credit points")))
-          case ComplexPrereqElement.coreq(els:_*) =>
+          case PrereqElement.coreq(els:_*) =>
             Seq(<.tr(<.th(s"Corequisite(${els.stringify})")))
         }
       )

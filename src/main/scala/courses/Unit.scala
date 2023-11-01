@@ -6,13 +6,13 @@ import scala.collection.mutable
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
+enum PrereqElement:
+  @JSExportTopLevel("unit")
+  case unit(code:String)
 
-type PrereqElement = String | ComplexPrereqElement
-enum ComplexPrereqElement:
-  @JSExportTopLevel("or")
-  case or(a:String, b:String)
+  case or(a:PrereqElement.unit, b:PrereqElement.unit)
 
-  case choose(num:Int | (Int, Int), els:String*)
+  case choose(num:Int | (Int, Int), els:Seq[PrereqElement.unit])
 
   @JSExportTopLevel("cp")
   case cp(i:Int)
@@ -20,52 +20,60 @@ enum ComplexPrereqElement:
   @JSExportTopLevel("coreq")
   case coreq(els:PrereqElement*)
 
+  private var _notes:Seq[(String, String)] = Seq.empty
+
+  @JSExport
+  def withNote(symbol:String, note:String) = 
+    _notes = _notes :+ (symbol -> note)
+
+@JSExportTopLevel("or")
+def or(a:String, b:String) = PrereqElement.or(PrereqElement.unit(a), PrereqElement.unit(b))
 
 @JSExportTopLevel("choose")
 def choose(num: Int | js.Array[Int], els:String*) = num match {
-  case i:Int => ComplexPrereqElement.choose(i, els*)
+  case i:Int => PrereqElement.choose(i, els.map(PrereqElement.unit.apply))
   case a:js.Array[Int] => 
-    if a.length == 2 then ComplexPrereqElement.choose(a(0) -> a(1), els*) else 
+    if a.length == 2 then PrereqElement.choose(a(0) -> a(1), els.map(PrereqElement.unit.apply)) else 
       throw new IllegalArgumentException("Choose ranges must contain a from and a to number (i.e. there must be two elements in the array)")
 }
 
 
 extension (el:PrereqElement) {
   // Produces a left-to-right Seq of the unit strings
-  def flattened:Seq[String] = el match
-    case s:String => Seq(s)
-    case ComplexPrereqElement.or(a, b) => Seq(a, b)
-    case ComplexPrereqElement.choose(_, els:_*) => els
-    case ComplexPrereqElement.cp(_) => Seq.empty
-    case ComplexPrereqElement.coreq(els:_*) => els.flattened
+  def flattened:Seq[PrereqElement.unit] = el match
+    case PrereqElement.unit(code) => Seq(PrereqElement.unit(code))
+    case PrereqElement.or(a, b) => Seq(a, b)
+    case PrereqElement.choose(_, els) => els
+    case PrereqElement.cp(_) => Seq.empty
+    case PrereqElement.coreq(els:_*) => els.flattened
 } 
 
 extension (els:Seq[PrereqElement]) {
   // Produces a left-to-right Seq of the unit strings
-  def flattened:Seq[String] = els.flatMap(_.flattened)
+  def flattened:Seq[PrereqElement.unit] = els.flatMap(_.flattened)
 
   def stringify:String = 
     els.map({
-      case s:String => s
-      case ComplexPrereqElement.or(a, b) => s"($a or $b)"
-      case ComplexPrereqElement.choose((from, to), units:_*) => s"($from-$to from ${units.mkString(", ")})"
-      case ComplexPrereqElement.choose(num, units:_*) => s"($num from ${units.mkString(", ")})"
-      case ComplexPrereqElement.cp(num) => s"${num}cp"
-      case ComplexPrereqElement.coreq(els:_*) => s"corequisite(${(els.stringify)})"
+      case s:PrereqElement.unit => s.code
+      case PrereqElement.or(a, b) => s"($a or $b)"
+      case PrereqElement.choose((from, to), units) => s"($from-$to from ${units.mkString(", ")})"
+      case PrereqElement.choose(num, units) => s"($num from ${units.mkString(", ")})"
+      case PrereqElement.cp(num) => s"${num}cp"
+      case PrereqElement.coreq(els:_*) => s"corequisite(${(els.stringify)})"
     }).mkString(", ")
 }
 
 def subjCodes(el:PrereqElement):Seq[String] = el match
-  case s:String => Seq(s)
-  case ComplexPrereqElement.or(a, b) => Seq(a, b)
-  case ComplexPrereqElement.choose(_, units:_*) => units
-  case ComplexPrereqElement.cp(_) => Seq.empty
-  case ComplexPrereqElement.coreq(els:_*) => els.flatMap(subjCodes)
+  case s:PrereqElement.unit => Seq(s.code)
+  case PrereqElement.or(a, b) => Seq(a.code, b.code)
+  case PrereqElement.choose(_, units) => units.map(_.code)
+  case PrereqElement.cp(_) => Seq.empty
+  case PrereqElement.coreq(els:_*) => els.flatMap(subjCodes)
 
 def isMandatoryIn(code:String, el:PrereqElement):Boolean = el match
-  case s:String => s == code
-  case ComplexPrereqElement.choose((from, to), units:_*) => to == units.length && units.contains(code)
-  case ComplexPrereqElement.choose(num, units:_*) => num == units.length && units.contains(code)
+  case s:PrereqElement.unit => s.code == code
+  case PrereqElement.choose((from, to), units) => to == units.length && units.contains(code)
+  case PrereqElement.choose(num, units) => num == units.length && units.contains(code)
   case _ => false
 
 /**
@@ -89,7 +97,7 @@ case class Subject(
 }
 
 object Subject {
-  def empty(s:String) = Subject("", s , "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
+  def empty(s:PrereqElement.unit) = Subject("", s.code , "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
 }
 
 val subjects = mutable.Buffer.empty[Subject]
@@ -112,7 +120,10 @@ def addUnit(config:js.Dynamic) = {
       dsbok = if config.dsbok then config.dsbok.asInstanceOf[js.Array[GridCategory]].toSeq else Seq.empty,
       other = if config.other then config.other.asInstanceOf[js.Array[GridCategory]].toSeq else Seq.empty,
       sfia = config.sfia.asInstanceOf[js.Array[String]].toSeq,
-      prereq = config.prereq.asInstanceOf[js.Array[PrereqElement]].toSeq,
+      prereq = config.prereq.asInstanceOf[js.Array[String | PrereqElement]].map({ 
+        case s:String => PrereqElement.unit(s)
+        case p:PrereqElement => p
+      }).toSeq,
       tags = if config.tags then config.tags.asInstanceOf[js.Array[String]].toSeq else Seq.empty
     )
 

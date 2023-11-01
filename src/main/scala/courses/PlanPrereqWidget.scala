@@ -104,22 +104,22 @@ case class PlanPrereqWidget(plan:Plan) extends DSvgComponent {
     )   
   )
 
-  def singleUnitBox(offset:Int, s:String) = 
-    subjects.find(_.code == s) match {
+  def singleUnitBox(offset:Int, s:PrereqElement.unit) = 
+    subjects.find(_.code == s.code) match {
       case Some(subj) => subjectBox(offset, subj)
-      case None => labelledBox(offset, s)
+      case None => labelledBox(offset, s.code)
     }
 
 
   def svg(offset:Int, el:PrereqElement):(Int, DSvgContent) = el match {
-    case s:String =>
+    case s:PrereqElement.unit =>
       1 -> singleUnitBox(offset, s)
       /*SVG.g(
         SVG.rect(^.attr("x") := unitBlockStart, ^.attr("width") := unitBlockWidth, ^.attr("y") := offset * rowH + 2, ^.attr("height") := rowH - 4, ^.attr("fill") := "rgba(120, 120, 120, 0.2)" ),
         SVG.text(^.attr("x") := 50, ^.attr("y") := offset * rowH + halfH, ^.cls := unitStyle.className, unitText(s)),
       )*/
 
-    case ComplexPrereqElement.or(a, b) =>
+    case PrereqElement.or(a, b) =>
       2 -> SVG.g(^.attr("transform") := s"translate(0, ${offset * rowH})",
         SVG.text(^.attr("x") := 40, ^.attr("y") := rowH, ^.cls := orStyle.className, "or"),
         SVG.line(^.attr("x1") := 45, ^.attr("x2") := 45, ^.attr("y1") := 5, ^.attr("y2") := 2 * rowH - 5, ^.attr("stroke") := "black"),
@@ -127,7 +127,7 @@ case class PlanPrereqWidget(plan:Plan) extends DSvgComponent {
         svg(1, b)._2,
       )
 
-    case ComplexPrereqElement.choose(num, units:_*) =>
+    case PrereqElement.choose(num, units) =>
       units.length -> SVG.g(^.attr("transform") := s"translate(0, ${offset * rowH})",
         SVG.text(
           ^.attr("x") := 40, ^.attr("y") := (units.length * rowH) / 2, ^.cls := chooseStyle.className,

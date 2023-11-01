@@ -282,7 +282,7 @@ addCourses([
           { name: "Y2 Trimester 2", units: [ "COSC220", "COSC240", choose(2, "COSC380", "STAT320", "Law unit**", "Law unit**") ] },
           { name: "Y3 Trimester 1", units: [ "COSC310", choose(3, "COSC340", "COSC370", "STAT330", "Law unit**", "Law unit**", "Law unit**") ] },
           { name: "Y3 Trimester 2", units: [ "COSC320", choose(3, "COSC330", "COSC350", "COSC360", "Law unit**", "Law unit**", "Law unit**") ] },
-          { name: "Y4 Trimester 1", units: [ choose([0,2], "COSC481", "COSC482").withNote("Two 400-level cybersecurity subjects must be taken across the degree") ] },
+          { name: "Y4 Trimester 1", units: [ choose([0,2], "COSC481", "COSC482").withNote("*", "Two 400-level cybersecurity subjects must be taken across the degree") ] },
           { name: "Y4 Trimester 2", units: [ choose([0,2], "COSC483", "COSC484") ] },
           { name: "Y5 Trimester 1", units: [ "Law unit", "Law unit", "Law unit", "Law unit" ] },
           { name: "Y5 Trimester 2", units: [ "Law unit", "Law unit", "Law unit", "Law unit" ] },
