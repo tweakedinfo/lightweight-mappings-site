@@ -8,7 +8,7 @@ setHandbookUrl((code) => `https://handbook.une.edu.au/courses/2022/${code}?year=
 
 addCourses([
   {
-    code: "BCOMP2024CS",
+    code: "BCOMP(CS)",
     name: "Bachelor of Computer Science (Cybersecurity) 2024",
     structure: [
 
@@ -36,8 +36,8 @@ addCourses([
           { name: "Y1 Trimester 2", units: [ "AMTH140", "COSC120", "COSC102", "MTHS120" ] },
           { name: "Y2 Trimester 1", units: [ "COSC210", "COSC230", "Elective", "Elective" ] },
           { name: "Y2 Trimester 2", units: [ "COSC220", "COSC240", choose(1, "MTHS130", "STAT100", "PMTH338"), choose(1, "COSC350", "COSC372") ] },
-          { name: "Y3 Trimester 1", units: [ "COSC310", choose(1, "COSC340", "Elective*"), choose(2, "COSC481", "COSC482", "Elective**", "Elective**") ] },
-          { name: "Y3 Trimester 2", units: [ "COSC320", choose(1, "COSC350", "COSC372", "Elective*"), choose(2, "COSC483", "COSC484", "Elective**", "Elective**") ] },
+          { name: "Y3 Trimester 1", units: [ "COSC310", choose([0,1], "COSC340"), choose([0,2], "COSC481", "COSC482").withNote("*", "A maximum of 2 units at 400-level can be taken in the degree").withNote("**", "7 units from the major must be taken overall.") ] },
+          { name: "Y3 Trimester 2", units: [ "COSC320", choose([0,1], "COSC350", "COSC372"), choose([0,2], "COSC483", "COSC484").withNote("*", "A maximum of 2 units at 400-level can be taken in the degree.") ] },
           // Can only do one Elective*
           // Can only do two Elective**
       ]

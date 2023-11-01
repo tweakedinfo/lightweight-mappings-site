@@ -71,7 +71,7 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                 unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
               ))
               case None => 
-                val u = Subject.empty(s)
+                val u = Subject.empty(s.code)
                 Seq(<.tr(^.cls := "optional",
                   unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
                 )) 
@@ -88,7 +88,7 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                       unitTH(u), unitCBoKcells(u)
                     )
                 case None => 
-                  val u = Subject.empty(s)
+                  val u = Subject.empty(s.code)
                   <.tr(^.cls := "optional choose",
                     unitTH(u), unitCBoKcells(u)
                   ) 
@@ -107,7 +107,7 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
                 case None => <.tr("Unit not found: " + s)
           case PrereqElement.cp(x) =>
             Seq(<.tr(<.th(s"Complete $x credit points")))
-          case PrereqElement.coreq(els:_*) => Seq(<.tr(s"Corequisite ${els.stringify}"))
+          case PrereqElement.coreq(els) => Seq(<.tr(s"Corequisite ${els.stringify}"))
         }
       )
 
@@ -181,7 +181,7 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                 unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
               ))
               case None => 
-                val u = Subject.empty(s)
+                val u = Subject.empty(s.code)
                 Seq(<.tr(^.cls := "optional",
                   unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
                 )) 
@@ -198,7 +198,7 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                       unitTH(u), unitCBoKcells(u)
                     )
                 case None => 
-                    val u = Subject.empty(s)
+                    val u = Subject.empty(s.code)
                     <.tr(^.cls := "optional choose",
                       unitTH(u), unitCBoKcells(u)
                     ) 
@@ -218,7 +218,7 @@ def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
                 case None => <.tr("Unit not found: " + s)
           case PrereqElement.cp(x) =>
             Seq(<.tr(<.th(s"Complete $x credit points")))
-          case PrereqElement.coreq(els:_*) =>
+          case PrereqElement.coreq(els) =>
             Seq(<.tr(<.th(s"Corequisite(${els.stringify})")))
         }
       )

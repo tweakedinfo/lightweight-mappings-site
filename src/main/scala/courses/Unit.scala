@@ -17,14 +17,16 @@ enum PrereqElement:
   @JSExportTopLevel("cp")
   case cp(i:Int)
 
-  @JSExportTopLevel("coreq")
-  case coreq(els:PrereqElement*)
+  case coreq(els:Seq[PrereqElement])
 
   private var _notes:Seq[(String, String)] = Seq.empty
 
+  def notes = _notes
+
   @JSExport
-  def withNote(symbol:String, note:String) = 
+  def withNote(symbol:String, note:String):PrereqElement = 
     _notes = _notes :+ (symbol -> note)
+    this
 
 @JSExportTopLevel("or")
 def or(a:String, b:String) = PrereqElement.or(PrereqElement.unit(a), PrereqElement.unit(b))
@@ -37,6 +39,12 @@ def choose(num: Int | js.Array[Int], els:String*) = num match {
       throw new IllegalArgumentException("Choose ranges must contain a from and a to number (i.e. there must be two elements in the array)")
 }
 
+@JSExportTopLevel("coreq")
+def coreq(els:JSPrereqElement*) = PrereqElement.coreq(els)
+
+extension (u:PrereqElement.unit) {
+  def toSubject = subjects.find(_.code == u.code).getOrElse(Subject.empty(u.code))
+}
 
 extension (el:PrereqElement) {
   // Produces a left-to-right Seq of the unit strings
@@ -45,7 +53,7 @@ extension (el:PrereqElement) {
     case PrereqElement.or(a, b) => Seq(a, b)
     case PrereqElement.choose(_, els) => els
     case PrereqElement.cp(_) => Seq.empty
-    case PrereqElement.coreq(els:_*) => els.flattened
+    case PrereqElement.coreq(els) => els.flattened
 } 
 
 extension (els:Seq[PrereqElement]) {
@@ -59,7 +67,7 @@ extension (els:Seq[PrereqElement]) {
       case PrereqElement.choose((from, to), units) => s"($from-$to from ${units.mkString(", ")})"
       case PrereqElement.choose(num, units) => s"($num from ${units.mkString(", ")})"
       case PrereqElement.cp(num) => s"${num}cp"
-      case PrereqElement.coreq(els:_*) => s"corequisite(${(els.stringify)})"
+      case PrereqElement.coreq(els) => s"corequisite(${(els.stringify)})"
     }).mkString(", ")
 }
 
@@ -68,7 +76,7 @@ def subjCodes(el:PrereqElement):Seq[String] = el match
   case PrereqElement.or(a, b) => Seq(a.code, b.code)
   case PrereqElement.choose(_, units) => units.map(_.code)
   case PrereqElement.cp(_) => Seq.empty
-  case PrereqElement.coreq(els:_*) => els.flatMap(subjCodes)
+  case PrereqElement.coreq(els) => els.flatMap(subjCodes)
 
 def isMandatoryIn(code:String, el:PrereqElement):Boolean = el match
   case s:PrereqElement.unit => s.code == code
@@ -97,7 +105,7 @@ case class Subject(
 }
 
 object Subject {
-  def empty(s:PrereqElement.unit) = Subject("", s.code , "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
+  def empty(s:String) = Subject("", s, "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
 }
 
 val subjects = mutable.Buffer.empty[Subject]

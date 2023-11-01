@@ -27,7 +27,7 @@ case class HPlanChooser(course:Course) extends VHtmlComponent {
         for 
           name <- selected
           (_, plan) <- course.plans.find((n, _) => n == name)
-        yield HPlanPrereqWidget(course, plan)
+        yield HPlanPrereqWidget2(course, plan)
       )
     )
   }
@@ -148,7 +148,7 @@ case class HPlanPrereqWidget(course:Course, plan:Plan) extends VHtmlComponent {
       
       <.div(^.cls := "code", s.code),
       <.div(^.cls := "name", s.name),
-      <.div(^.cls := "component", course.structure.findComponentName(s)),
+      <.div(^.cls := "component", course.structure.findComponentName(PrereqElement.unit(s.code))),
       <.div(^.cls := "tags", 
         for t <- s.tags yield <.span(<.span(^.cls := s"tag $t", t), " "), 
       )
