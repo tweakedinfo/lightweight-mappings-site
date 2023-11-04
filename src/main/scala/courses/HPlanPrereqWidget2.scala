@@ -47,7 +47,7 @@ val prereqLines = Styling(
        |pointer-events: none;
        |""".stripMargin
 ).modifiedBy(
-    " line" -> "stroke-width: 1px;",
+    " line" -> "stroke-width: 1px; opacity: 0.4;",
     " .fixed" -> "stroke: red;",
     " .choice" -> "stroke: #aab;"
 ).register()
@@ -191,22 +191,40 @@ case class HPlanPrereqWidget2(course:Course, plan:Plan) extends DHtmlComponent {
             (_, row) <- widgetStructure
             (boxes, _) <- row
             box <- boxes
-        yield box.s -> box).toMap
+        yield box.s -> box).groupBy(_._1)
 
+    // Caches the box to box relationships from pre-requisites
+    lazy val prereqLineData:Iterable[(SubjectBox, SubjectBox, String)] = 
+        for 
+            sourcePairs <- subjectBoxes.values
+            (s, box) <- sourcePairs
+            prereq <- s.prereq
+            (prereqBox, kind) <- prereq match {
+                case p:PrereqElement.unit => 
+                    for (_, box) <- subjectBoxes.get(p.toSubject).toSeq.flatten yield (box, "fixed")
+
+                case _ =>
+                    for 
+                        p <- prereq.flattened
+                        (_, box) <- subjectBoxes.get(p.toSubject).toSeq.flatten
+                    yield (box, "choice")
+            }
+        yield (box, prereqBox, kind)
+            
     
     /** When rendering the SVG pre-requisite lines, we need to know the plan's relative position, width, and height */
-    def clientRect() = for n <- domNode yield n.getBoundingClientRect()
+    def clientRect() = for n <- domNode yield (n.getBoundingClientRect(), (n.scrollTop, n.scrollLeft))
 
     object PrereqLines extends DSvgComponent {
         override def render = {
             val ocr = clientRect()
-            val subjects = if selected.value.nonEmpty then selected.value.toSeq else subjectBoxes.keySet.toSeq
+            val allSubjects = if selected.value.nonEmpty then selected.value.toSeq else subjectBoxes.keySet.toSeq
 
             <.svg(^.cls := prereqLines,
                 (for 
-                    cr <- ocr.toSeq
+                    (cr, (scrollX, scrollY)) <- ocr.toSeq
                     m <- Seq(
-                        ^.attr.viewPort := s"0 0 ${cr.width} ${cr.height}", 
+                        ^.attr.viewPort := s"0 0 ${cr.width + scrollX} ${cr.height + scrollY}", 
                         ^.attr.width := cr.width, ^.attr.height := cr.height,
                     )
                 yield m),
@@ -214,38 +232,16 @@ case class HPlanPrereqWidget2(course:Course, plan:Plan) extends DHtmlComponent {
 
                 SVG.g(
                         for 
-                            cr <- ocr.toSeq
-                            s <- subjects
-                            destination <- subjectBoxes.get(s).toSeq
-                            (x1, y1) <- destination.topHandlePos().toSeq
-                            prereq <- s.prereq                            
-                        yield SVG.g(
-                            prereq match {
-                                case p:PrereqElement.unit => 
-                                    for 
-                                        source <- subjectBoxes.get(p.toSubject)
-                                        (x2, y2) <- source.bottomHandlePos()
-                                    yield SVG.line(^.cls := "prereq-line fixed",
-                                        ^.attr.x1 := (x1 - cr.x), 
-                                        ^.attr.x2 := (x2 - cr.x),
-                                        ^.attr.y1 := (y1 - cr.y), 
-                                        ^.attr.y2 := (y2 - cr.y)
-                                    )
-
-                                case _ => 
-                                    for 
-                                        subj <- prereq.flattened
-                                        source <- subjectBoxes.get(subj.toSubject)
-                                        (x2, y2) <- source.bottomHandlePos()
-                                    yield SVG.line(^.cls := "prereq-line choice",
-                                        ^.attr.x1 := (x1 - cr.x), 
-                                        ^.attr.x2 := (x2 - cr.x),
-                                        ^.attr.y1 := (y1 - cr.y), 
-                                        ^.attr.y2 := (y2 - cr.y)
-                                    )
-                            }
-
-                        )       
+                            (cr, (scrollX, scrollY)) <- ocr.toSeq
+                            (s, p, style) <- prereqLineData if selected.value.isEmpty || selected.value.contains(s.s) || selected.value.contains(p.s)                    
+                            (x1, y1) <- s.topHandlePos().toSeq
+                            (x2, y2) <- p.bottomHandlePos().toSeq            
+                        yield SVG.line(^.cls := "prereq-line " + style,
+                            ^.attr.x1 := (x1 - cr.x + scrollX), 
+                            ^.attr.x2 := (x2 - cr.x + scrollX),
+                            ^.attr.y1 := (y1 - cr.y + scrollY), 
+                            ^.attr.y2 := (y2 - cr.y + scrollY)
+                        )     
                     )
                 ) 
         }
@@ -253,7 +249,7 @@ case class HPlanPrereqWidget2(course:Course, plan:Plan) extends DHtmlComponent {
 
     override def render = {
 
-        <.div(^.style := "position: relative; top: 0;",
+        <.div(^.style := "position: relative; top: 0; width: fit-content;",
             for 
                 (name, entries) <- widgetStructure 
             yield
