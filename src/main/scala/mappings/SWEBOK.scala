@@ -3,6 +3,7 @@ package mappings
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
 import scala.scalajs.js.JSConverters._
 
+import courses.*
 
 enum SWEBOK(val name: String) extends GridCategory {
   case Requirements extends SWEBOK("Software Requirements")
@@ -30,4 +31,51 @@ enum SWEBOK(val name: String) extends GridCategory {
 
 @JSExportTopLevel("swebok")
 val swebokjs = (for e <- SWEBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+
+import com.wbillingsley.veautiful.html.{<, ^}
+import ui.*
+
+def swebokPage(c:Course) = <.div(
+    <.h1(c.name),
+  (for url <- handbookUrl yield
+    <.p(
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
+    Common.markdown(
+      """ The table below shows top-level SWEBOK categories that are relevant to each unit in the course
+        |
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[SWEBOK](c.structure, SWEBOK.values.toSeq) {
+      (s, cat) => s.swebok.contains(cat)
+    }, <("hr"),
+        Common.markdown(
+      s"""
+        |#### How to edit these tables 
+        |
+        |In `units.js`, these tables are driven from the contents of the `swebok` array of each unit.
+        |e.g.
+        |
+        |```js
+        |{
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
+        |  prereq: [ choose(1, "COSC210", "COSC220") ],
+        |  cbok: [ teamwork(2), communication(3) ],
+        |  swebok: [ swebok.Design, swebok.Construction ],
+        |  sfia: [ "PROG" ],
+        |  tags: ["Advanced"],
+        |  other: [ idverify.ProctoredExam ]
+        |},
+        |```
+        |
+        |Values for the columns (defined in `src/main/scala/courses/SWEBOK.scala`) are:
+        |
+        |""".stripMargin
+    ),
+    <.ul(
+      for e <- SWEBOK.values yield <.li(<("code")("swebok." + e.productPrefix), " ", <("i")(e.name))
+    )
+  )
 

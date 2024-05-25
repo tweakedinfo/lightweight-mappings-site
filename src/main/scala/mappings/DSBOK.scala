@@ -54,3 +54,70 @@ enum EdisonDSBOK(val name:String, val css:String) extends GridCategory:
   
 @JSExportTopLevel("edison")
 val edisonjs = (for e <- EdisonDSBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+
+import com.wbillingsley.veautiful.html.{<, ^}
+import ui.*
+import courses.*
+
+def dsbokPage(c:Course) = <.div(
+    <.h1("Data Science bodies of knoweledge"),
+    <.h2(c.name),
+  (for url <- handbookUrl yield
+    <.p(
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
+    Common.markdown(
+      """
+        |This page maps units in the course against ACM and Edison bodies of knowledge for data science.
+        |Note however, that as the criteria ask for 1 EFTSL of content drawn from these bodies of knowledge,
+        |rather than complete coverage of all bodies of knowledge, not every column may be covered.
+        | 
+        |### ACM Computing Competencies for Undergraduate Data Science Curricula (CCDS)
+        |
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[CCDSC](c.structure, CCDSC.values.toSeq) {
+      (s, cat) => s.dsbok.contains(cat)
+    },
+    Common.markdown(
+      """
+        |### Edison Data Science Body of Knowledge
+        | 
+        |The table below maps units to Knowledge Areas (KAs) in the Edison Data Science Body of Knowledge.
+        |KAs within the same Knowledge Area Group (KAG) are given similar colouring. 
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[EdisonDSBOK](c.structure, EdisonDSBOK.values.toSeq) {
+      (s, cat) => s.dsbok.contains(cat)
+    }, <("hr"),
+    Common.markdown(
+      s"""
+        |#### How to edit these tables 
+        |
+        |In `units.js`, these tables are driven from the contents of the `dsbok` array of each unit.
+        |e.g.
+        |
+        |```js
+        |{
+        |  code: "FOO123",
+        |  name: "Foo and Thingummy Analysis",
+        |  prereq: [ choose(1, "COSC210", "COSC220") ],
+        |  cbok: [ teamwork(2), communication(3) ],
+        |  dsbok: [ ccdsc.AP, ccdsc.ML, edison.ML ],
+        |  sfia: [ "DATS" ],
+        |  tags: ["Advanced"],
+        |  other: [ idverify.ProctoredExam ]
+        |},
+        |```
+        |
+        |Values for the columns (defined in `src/main/scala/courses/DSBOK.scala`) are:
+        |
+        |""".stripMargin
+    ),
+    <.ul(
+      for e <- CCDSC.values yield <.li(<("code")("ccsdsc." + e.productPrefix), " ", <("i")(e.name)),
+      for e <- EdisonDSBOK.values yield <.li(<("code")("edison." + e.productPrefix), " ", <("i")(e.name)),
+    )
+  )
+
