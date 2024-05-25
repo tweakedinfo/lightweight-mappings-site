@@ -13,11 +13,13 @@ val scaleChallengesToWindow:Boolean = {
   !dom.window.location.search.contains("scale=off")
 }
 
-@JSExportTopLevel("ITICSESite")
+
 object ITICSESite {
+
+
   /** The script that loads the site into the page */
-  @JSExport
-  @main def main(): Unit = {
+  @JSExportTopLevel("loadSite")
+  def main(): Unit = {
 
     import site.given
 

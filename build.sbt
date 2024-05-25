@@ -2,12 +2,15 @@ enablePlugins(ScalaJSPlugin)
 
 name := "acsmappings2022"
 //organization := "com.wbillingsley"
-scalaVersion := "3.1.0"
+scalaVersion := "3.3.3"
 
 // Don't automatically call main
 scalaJSUseMainModuleInitializer := false
 
 //updateOptions := updateOptions.value.withLatestSnapshots(false)
+
+// For Metals
+Global / semanticdbEnabled := true
 
 libraryDependencies ++= Seq(
   "com.wbillingsley" %%% "doctacular" % "0.3.0",
