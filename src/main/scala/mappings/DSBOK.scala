@@ -1,11 +1,12 @@
-package courses
+package mappings
 
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
 import scala.scalajs.js.JSConverters._
 
+
 /**
  * ACM Computing Competencies for Undergraduate Data Science Curricula
- */ 
+ */
 enum CCDSC(val name:String) extends GridCategory:
   case AP extends CCDSC("Analytics and Presentation")
   case AI extends CCDSC("Artificial Intelligence")

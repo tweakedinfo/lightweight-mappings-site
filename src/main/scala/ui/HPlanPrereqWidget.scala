@@ -1,4 +1,6 @@
-package courses
+package ui
+
+import courses.*
 
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponent, ^, EventMethods}

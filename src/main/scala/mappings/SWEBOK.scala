@@ -1,12 +1,8 @@
-package courses
+package mappings
 
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
 import scala.scalajs.js.JSConverters._
 
-trait GridCategory {
-  def name:String
-  def css:String
-}
 
 enum SWEBOK(val name: String) extends GridCategory {
   case Requirements extends SWEBOK("Software Requirements")

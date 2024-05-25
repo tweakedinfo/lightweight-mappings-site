@@ -1,9 +1,12 @@
-package courses
+package mappings
+
+import courses.*
 
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponent, ^}
 import org.scalajs.dom
 import acssite.given
+
 
 val gridStyle = Styling(
   """font-family: 'Lato', sans-serif;

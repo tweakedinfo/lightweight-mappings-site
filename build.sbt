@@ -14,6 +14,8 @@ Global / semanticdbEnabled := true
 
 libraryDependencies ++= Seq(
   "com.wbillingsley" %%% "doctacular" % "0.3.0",
+
+  "org.typelevel" %%% "cats-core" % "2.10.0"
 )
 
 

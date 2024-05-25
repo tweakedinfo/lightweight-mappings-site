@@ -1,4 +1,5 @@
 package courses
+
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.{<, ^}
 import acssite.Common
@@ -6,6 +7,9 @@ import acssite.Common
 import scala.collection.mutable
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
+
+import ui.*
+import mappings.*
 
 type PlanComponent = (String, Seq[PrereqElement])
 type Plan = Seq[PlanComponent]

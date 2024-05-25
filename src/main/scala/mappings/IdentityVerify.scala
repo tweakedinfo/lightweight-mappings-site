@@ -1,4 +1,4 @@
-package courses
+package mappings
 
 import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
 import scala.scalajs.js.JSConverters._
