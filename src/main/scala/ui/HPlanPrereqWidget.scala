@@ -7,6 +7,8 @@ import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponen
 import com.wbillingsley.veautiful.svg.DSvgContent
 import org.scalajs.dom
 
+import courses.*
+
 
 case class HPlanChooser(course:Course) extends VHtmlComponent {
 

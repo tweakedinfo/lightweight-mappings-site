@@ -1,7 +1,9 @@
 package mappings
 
-import scala.scalajs.js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
-import scala.scalajs.js.JSConverters.*
+import scala.scalajs.js
+import js.annotation.{JSExport, JSExportAll, JSExportTopLevel}
+import js.JSConverters.*
+import scala.collection.mutable
 
 enum Category(val css:String):
   case Essential extends Category("essential")
@@ -38,6 +40,17 @@ enum CBOK(val category: Category, val name: String):
 /*
  * JavaScript API
  */
+
+ // Limits the rows shown in the CBOK table for a course
+val topCbok:mutable.Map[String, Map[CBOK, Seq[String]]] = mutable.Map.empty
+
+@JSExportTopLevel("limitCBOK")
+def limitCbok(courses:js.Array[String], category:CBOK, units:js.Array[String]) = {
+  for course <- courses do
+    topCbok(course) = topCbok.getOrElse(course, Map.empty) + (category -> units.toSeq)
+}
+
+
 
 @JSExportTopLevel("cbok")
 val cbokjs = (for e <- CBOK.values yield {

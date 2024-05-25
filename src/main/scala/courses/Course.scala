@@ -11,46 +11,20 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 import ui.*
 import mappings.*
 
-type PlanComponent = (String, Seq[PrereqElement])
-type Plan = Seq[PlanComponent]
-
-extension (p:Plan) {
-  def findComponentName(s:PrereqElement.unit):Option[String] = 
-    p.find((_, els) => els.flattened.contains(s)).map((name, _) => name)
-}
-
-def isMandatoryInPC(unit:Subject, planComponent: PlanComponent) =
-  val (_, els) = planComponent
-  els.exists(p => isMandatoryIn(unit.code, p))
-
-def isMandatoryInCourse(unit:Subject, course: Course) =
-  course.structure.exists {
-    case (_, els) => 
-      els.exists(p => isMandatoryIn(unit.code, p))   
-  }
-
-// Turns a plan into a sequence of the main string in each row.
-// Used to work out what row a unit is in, when drawing pre-req arrows
-def flatStrings(plan: Plan):Seq[String] =
-  plan.flatMap {
-    case (name, els) => Seq(name) ++ els.flatMap(subjCodes)
-  }
-
-
+/**
+  * A representation of a course (degree)
+  *
+  * @param code e.g. BCOMP
+  * @param name e.g. Bachelor of Computer Science
+  * @param structure the sequence of elements that need completing, e.g. majors and minors
+  * @param plans possible orderings in which students might take the subjects (e.g. part-time starting in trimester 1)
+  */
 case class Course(
   code:String, name:String,
   structure: Plan,
   plans: Seq[(String, Plan)]
 )
 
-// Limits the rows shown in the CBOK table for a course
-val topCbok:mutable.Map[String, Map[CBOK, Seq[String]]] = mutable.Map.empty
-
-type JSPrereqElement = String | PrereqElement
-
-trait JSPlanComponent extends js.Object:
-  val name:String
-  val units:js.Array[JSPrereqElement]
 
 trait JSCourse extends js.Object:
   val code:String
@@ -102,11 +76,6 @@ def addCourses(courses:js.Array[JSCourse]): Unit = {
   for c <- courses do addCourse(c)
 }
 
-@JSExportTopLevel("limitCBOK")
-def limitCbok(courses:js.Array[String], category:CBOK, units:js.Array[String]) = {
-  for course <- courses do
-    topCbok(course) = topCbok.getOrElse(course, Map.empty) + (category -> units.toSeq)
-}
 
 
 import ui.*
