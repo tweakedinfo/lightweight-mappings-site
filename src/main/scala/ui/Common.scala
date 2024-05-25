@@ -3,7 +3,7 @@
  *    Future library updates will make this unnecessary.
  */
 
-package acssite
+package ui 
 
 import com.wbillingsley.veautiful.html.{<, DElement, Markup, DHtmlContent, ^, VHtmlComponent}
 import com.wbillingsley.veautiful.doctacular.{DeckBuilder, VSlides}

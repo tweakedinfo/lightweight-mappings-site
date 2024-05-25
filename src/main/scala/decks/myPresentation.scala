@@ -6,10 +6,11 @@ import org.scalajs.dom
 
 import scalajs.js
 import scala.util.Random
-import acssite.Common
-import Common.given
 
-import courses._
+import courses.* 
+import mappings.*
+import ui.* 
+import Common.given
 
 /* 
  * As this is based on Veautiful, we can define custom elements like this. 

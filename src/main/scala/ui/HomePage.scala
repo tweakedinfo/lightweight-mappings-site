@@ -1,11 +1,12 @@
-package courses
+package ui
 
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.*
-import acssite.Common
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
+
+import ui.*
 
 var homeMd = """
   |### Default home page text

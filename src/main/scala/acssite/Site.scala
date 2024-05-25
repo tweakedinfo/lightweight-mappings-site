@@ -45,25 +45,25 @@ object ITICSESite {
       ),
       "CBOK Tables" -> site.Toc(
         (for u <- courses.courses yield
-          s"${u.code} ${u.name}" -> site.addPage(s"course-cbok-${u.code}", courses.cbokPage(u))
+          s"${u.code} ${u.name}" -> site.addPage(s"course-cbok-${u.code}", mappings.cbokPage(u))
           ).toSeq:_*
       ),
 
       "SWEBOK Tables" -> site.Toc(
         (for u <- courses.courses yield
-          s"${u.code} ${u.name}" -> site.addPage(s"course-swebok-${u.code}", courses.swebokPage(u))
+          s"${u.code} ${u.name}" -> site.addPage(s"course-swebok-${u.code}", mappings.swebokPage(u))
           ).toSeq:_*
       ),
 
       "DSBoK Pages" -> site.Toc(
         (for u <- courses.courses yield
-          s"${u.code} ${u.name}" -> site.addPage(s"course-dsbok-${u.code}", courses.dsbokPage(u))
+          s"${u.code} ${u.name}" -> site.addPage(s"course-dsbok-${u.code}", mappings.dsbokPage(u))
           ).toSeq:_*
       ),
 
       "Identity management" -> site.Toc(
         (for u <- courses.courses yield
-          s"${u.code} ${u.name}" -> site.addPage(s"course-idverify-${u.code}", courses.idverifyPage(u))
+          s"${u.code} ${u.name}" -> site.addPage(s"course-idverify-${u.code}", mappings.idverifyPage(u))
           ).toSeq:_*
       ),
 
@@ -75,7 +75,7 @@ object ITICSESite {
       ),*/
     )
 
-    site.home = () => site.renderPage(courses.home)
+    site.home = () => site.renderPage(ui.home)
     Styles.installStyles()
     site.attachTo(n)
   }

@@ -1,9 +1,13 @@
-package courses
+package ui
+
+import courses.*
 
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponent, ^, EventMethods}
 import com.wbillingsley.veautiful.svg.DSvgContent
 import org.scalajs.dom
+
+import courses.*
 
 
 case class HPlanChooser(course:Course) extends VHtmlComponent {

@@ -6,6 +6,9 @@ import scala.collection.mutable
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
+import mappings.*
+import ui.*
+
 enum PrereqElement:
   @JSExportTopLevel("unit")
   case unit(code:String)
