@@ -1,4 +1,19 @@
-# Lightweight mappings for CS Courses
+# Effect-tracking for academic integrity
+
+This site explores a lightweight mechanism for tracking the academic integrity mechanisms across a course of study, in a manner similar to "effect tracking" in functional code.
+
+Rather than write the initial experiment as a compiler, this is a library written in Scala that produces a language-like JavaScript API for describing assessment. 
+This then lets us produce reports and analyis of how learning outcomes, academic integrity management, and various curriculum mappings are handled across a degree.
+
+It is built on an earlier system used for accreditation course mapping in computer science.
+
+It is a work-in-progress. Documentation to follow
+
+
+---
+
+## The content below is from the original system's readme
+
 
 This site generates some of our mappings.
 It's intended to be easy(ish) to play around with.

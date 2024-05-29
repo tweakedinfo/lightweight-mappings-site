@@ -4,37 +4,9 @@ import cats.{Comonad, Monoid}
 import scala.PartialFunction.Combined
 
 
-enum CalculationElement[T]:
-    case score(a:Assessment[T]) 
-    case bestOf(n:Int, a:Assessment[T]*)
-
-
-case class SubjectLearningOutcome(text:String)
-
 /**
-  * 
+  * A simplified token of integrity evidence that an assessment would receive in marking.
   */
-trait Assessment[T] {
-
-    type Work
-    type Integrity
-
-    val name:String
-    val LOs:Seq[SubjectLearningOutcome] = Seq.empty
-    val mustAttempt:Boolean = false
-    val mustPass:Boolean = false
-
-    def score(work:Work, integrityData:Integrity):Score[T]
-
-}
-
-enum IntegrityManagement(evidence:IntegritySupport):
-    case Proctored extends IntegrityManagement(IntegritySupport.CleanObserverReport)
-    case GroupWork extends IntegrityManagement(IntegritySupport.CleanPeerReport)
-    case DataTrails extends IntegrityManagement(IntegritySupport.WorkHistory)
-    case Video extends IntegrityManagement(IntegritySupport.RecordedPerformance)
-
-
 enum IntegritySupport:
     case CleanObserverReport
     case CleanPeerReport
@@ -62,33 +34,23 @@ trait Score[T] {
 }
 
 
-case class AssignmentScore[T : CombinationRule](assessment:Assessment[T], score:T, integrity:IntegritySupport) extends Score[T] {
+case class AssignmentScore[T](assessment:Assessment[T], score:T, integrity:IntegritySupport) extends Score[T] {
     def result = score
     def integrityReport: Map[Assessment[?], IntegritySupport] = Map(assessment -> integrity)
 }
 
 
-case class CombinedScore[T : CombinationRule](parts:Score[T]*) extends Score[T] {
-    lazy val result = 
-        val r = summon[CombinationRule[T]]
-        parts.foldLeft(r.empty)((t, s) => r.combine(t, s.result))
-
-    lazy val integrityReport: Map[Assessment[?], IntegritySupport] = 
-        parts.foldLeft(Map.empty)((m, s) => m ++ s.integrityReport)
-}
-
+/**
+  * Represents a score converted from one format to another. E.g. from a subject mark to a grade
+  *
+  * @param f
+  * @param from
+  */
 class ConvertedScore[B, T](f: Score[T] => B)(from:Score[T]) extends Score[B] {
     lazy val result = f(from)
 
     export from.integrityReport
 
-}
-
-/** A monoid describing how, by default, to combine scores of this type */ 
-val sumScores = new CombinationRule[Double] {
-    def combine(a:Double, b:Double) = a + b 
-
-    def empty = 0
 }
 
 /**
@@ -105,3 +67,96 @@ given Comonad[Score] with {
     def map[A, B](fa: Score[A])(f: A => B): Score[B] = ConvertedScore((s:Score[A]) => f(s.result))(fa)
 
 }
+
+/**
+  * Combines scores into an aggregated result using a combination rule
+  *
+  * @param parts
+  */
+case class CombinedScore[T : CombinationRule](parts:Score[T]*) extends Score[T] {
+    lazy val result = 
+        val r = summon[CombinationRule[T]]
+        parts.foldLeft(r.empty)((t, s) => r.combine(t, s.result))
+
+    lazy val integrityReport: Map[Assessment[?], IntegritySupport] = 
+        parts.foldLeft(Map.empty)((m, s) => m ++ s.integrityReport)
+}
+
+
+/** A monoid describing how, by default, to combine scores of this type */ 
+val sumScores = new CombinationRule[Double] {
+    def combine(a:Double, b:Double) = a + b 
+
+    def empty = 0
+}
+
+
+/* -- 
+   Static view
+ */
+
+
+ /**
+   * Represents an integrity strategy and the kind of evidence that it produces
+   *
+   * @param evidence
+   */
+enum IntegrityManagement(evidence:IntegritySupport):
+    case Proctored extends IntegrityManagement(IntegritySupport.CleanObserverReport)
+    case GroupWork extends IntegrityManagement(IntegritySupport.CleanPeerReport)
+    case DataTrails extends IntegrityManagement(IntegritySupport.WorkHistory)
+    case Video extends IntegrityManagement(IntegritySupport.RecordedPerformance)
+
+
+/**
+  * How much evidence of authenticity is produced involves two perspectives.
+  * From a positive perspective, we are interested in seeing every place where a student might produce evidence of learning
+  * From a negative perspective, we are interested in the cases where they will definitely produce evidence of learning
+  * 
+  * A text parameter is included for the report
+  */
+enum IntegrityAssurance:
+    case MayProduce(i:IntegrityManagement, text:String)
+    case WillRequire(i:IntegrityManagement, text:String)
+
+
+trait GradeCalculation[T] {
+
+    def children:Seq[GradeCalculation[?]]
+
+    def IntegrityAssurance:Seq[IntegrityAssurance]
+
+
+}
+
+
+case class SubjectLearningOutcome(text:String)
+
+/**
+  * 
+  */
+trait Assessment[T] extends GradeCalculation[T] {
+
+    type Work = Unit // A placeholder, as we do not actually pass work into the model
+
+    val name:String
+    val LOs:Seq[SubjectLearningOutcome] = Seq.empty
+    val mustAttempt:Boolean = false
+
+    
+    val mustPass:Boolean = false
+
+    def integrityAssurance:Seq[IntegrityAssurance]
+
+    override val children = Seq.empty
+
+    /** 
+     * The action of marking work involves both the work and the data about its evidence of authenticity.
+     * We leave this unimplemented, as we are modelling the assessment system, rather than implementing an automarker.
+     */
+    def grade(work:Work, integrityData:IntegritySupport):Score[T] = 
+        ???
+
+}
+
+
