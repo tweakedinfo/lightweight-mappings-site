@@ -32,7 +32,7 @@ addUnits([
 
     {
       code: "AMTH250",
-      name: "Introduction to Programming in the Sciences",
+      name: "Computational Mathematics",
       prereq: [ or("MTHS120", "MTHS130")],
       cbok: [ programming(1) ], sfia: [],
       dsbok: [ 
@@ -108,6 +108,15 @@ addUnits([
       dsbok: [ ccdsc.AP, edison.SMDA ],
       other: [ ]
     },
+
+    {
+      code: "PMTH338",
+      name: "Number Theory",
+      prereq: [ "AMTH140" ], cbok: [ ], sfia: [],
+      dsbok: [ ccdsc.AP, edison.SMDA ],
+      other: [ ]
+    },
+
 
     {
       code: "MM105",
@@ -981,13 +990,13 @@ addUnits([
 
     {
       code: "COSC331",
-      name: "Big Data",
+      name: "Machine Learning with Big Data",
       prereq: [ ],
       cbok: [],
       swebok: [],
       sfia: [],
       dsbok: [],
-      tags: [ ],
+      tags: [ "Advanced" ],
       other: []
     },
 
@@ -999,7 +1008,7 @@ addUnits([
       swebok: [],
       sfia: [],
       dsbok: [],
-      tags: [ ],
+      tags: [ "Advanced" ],
       other: []
     },
 
@@ -1012,7 +1021,7 @@ addUnits([
       swebok: [],
       sfia: [],
       dsbok: [],
-      tags: [ ],
+      tags: [ "Advanced" ],
       other: []
     },
 

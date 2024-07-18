@@ -61,6 +61,20 @@ object ITICSESite {
           ).toSeq:_*
       ),
 
+      "CyBOK Pages" -> site.Toc(
+        (for u <- courses.courses yield
+          s"${u.code} ${u.name}" -> site.addPage(s"course-cybok-${u.code}", mappings.cybokPage(u))
+          ).toSeq:_*
+      ),
+
+
+      "CS2023 AI Pages" -> site.Toc(
+        (for u <- courses.courses yield
+          s"${u.code} ${u.name}" -> site.addPage(s"course-cs2023ai-${u.code}", mappings.cs2023aiPage(u))
+          ).toSeq:_*
+      ),
+
+
       "Identity management" -> site.Toc(
         (for u <- courses.courses yield
           s"${u.code} ${u.name}" -> site.addPage(s"course-idverify-${u.code}", mappings.idverifyPage(u))
