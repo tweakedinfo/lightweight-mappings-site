@@ -23,6 +23,8 @@ enum SWEBOK(val name: String) extends GridCategory {
   case EngFoundations extends SWEBOK("Engineering Foundations")
 
   def css = "swebok" 
+
+  def jsName = productPrefix
 }
 
 /*
@@ -30,7 +32,7 @@ enum SWEBOK(val name: String) extends GridCategory {
  */
 
 @JSExportTopLevel("swebok")
-val swebokjs = (for e <- SWEBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+val swebokjs = (for e <- SWEBOK.values yield e.jsName -> e).toMap.toJSDictionary
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*
@@ -48,13 +50,13 @@ def swebokPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[SWEBOK](c.structure, SWEBOK.values.toSeq) {
-      (s, cat) => s.swebok.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     }, <("hr"),
         Common.markdown(
       s"""
         |#### How to edit these tables 
         |
-        |In `units.js`, these tables are driven from the contents of the `swebok` array of each unit.
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
         |e.g.
         |
         |```js
@@ -62,12 +64,14 @@ def swebokPage(c:Course) = <.div(
         |  code: "THI123",
         |  name: "Thingummy Design and Construction",
         |  prereq: [ choose(1, "COSC210", "COSC220") ],
-        |  cbok: [ teamwork(2), communication(3) ],
-        |  swebok: [ swebok.Design, swebok.Construction ],
-        |  sfia: [ "PROG" ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
         |  tags: ["Advanced"],
-        |  other: [ idverify.ProctoredExam ]
         |},
+        |
         |```
         |
         |Values for the columns (defined in `src/main/scala/courses/SWEBOK.scala`) are:

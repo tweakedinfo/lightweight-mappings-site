@@ -1,4 +1,5 @@
-package mappings.cbok
+package mappings
+
 
 import courses.*
 import mappings.*
@@ -9,56 +10,59 @@ import org.scalajs.dom
 import acssite.given
 
 
-/**
-  * Shows a "levelled grid", i.e. one that maps different units to different numerical levels, optionally limited to a subset of subjects
-  *
-  * @param grid
-  * @param course
-  * @param plan
-  */
-case class LevelledGridComponent(grid:LevelledGrid, course:Course, plan:Plan) extends VHtmlComponent {
+val gridStyle = Styling(
+  """font-family: 'Lato', sans-serif;
+    |size: 12px;
+    |margin-top: 300px;
+    |""".stripMargin
+).modifiedBy(
+  " tr.optional" -> "opacity: 0.67;",
+  " .choose.indicator, .or.indicator" -> "border-left: 1px solid #aaa;",
+  " th" -> "font-style: italic; font-weight: normal;",
+  " td" -> "border: 1px solid white;",
+  " th.unit" -> "text-align:right; padding-right: 5px;",
+  " td.indicator" -> "background: #ddd;",
+  " th.cat" -> "font-weight: normal;",
+  " th.section" -> "text-align: right; font-weight: bold;",
+  " ."+ cbok.old.Category.Essential.css -> "background-color: #ffdfba; text-align: center;",
+  " ."+ cbok.old.Category.TechnologyBuilding.css -> "background-color: #baffc9; text-align: center;",
+  " ."+ cbok.old.Category.TechnologyResources.css -> "background-color: #ffffba; text-align: center;",
+  " ."+ cbok.old.Category.Management.css -> "background-color: #bae0ff; text-align: center;",
+  " .swebok" -> "background-color: #baffc9; text-align: center;",
+  " .ccdsc" -> "background-color: #baffc9; text-align: center;",
+  " .edison.dsda" -> "background-color: #baffc9; text-align: center;",
+  " .edison.dseng" -> "background-color: #ffffba; text-align: center;",
+  " .edison.dsdm" -> "background-color: #ffdfba; text-align: center;",
+  " .edison.dsrmpm" -> "background-color: #bae0ff; text-align: center;",
+  " .identity" -> "background-color: #baffc9; text-align: center;",
+).register()
 
-  var limitToMap:Boolean = true
-
-  def render = 
-    <.div(
-      <.div(
-        <.input(^.attr("id") := "limit-toggle",
-          ^.attr("type") := "checkbox", ^.attr("checked") ?= (if limitToMap then Some("checked") else None),
-          ^.on("change") --> { limitToMap = !limitToMap; rerender(); }
-        ), " ",
-        <.label(^.attr("for") := "limit-toggle", "Limit to top 3 core units for each category")
-      ),
-
-      if (limitToMap && limitCourseGridEntries.contains(course.code)) then
-        cbokGrid(grid, plan, limitCourseGridEntries(course.code))
-      else cbokGrid(grid, plan, Map.empty)
-    )
-}
+val rotatedHeader = Styling(
+  """    white-space: nowrap;
+    |    height: 20px;
+    |    text-align: right;
+    |    transform: rotate(-60deg);
+    |    display: inline-block;
+    |    transform-origin: left;
+    |    width: 1.8em;
+    |    bottom: 0;
+    |""".stripMargin
+).register()
 
 
-/** 
- * A specialised grid for showing CBOK values, colour coded into their categories
- */
-def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[String]] = Map.empty) = {
+
+//
+def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Subject, C) => Boolean) = {
 
   def unitTH(u:Subject) =
     <.th(^.cls := "unit",
-      <.small(u.code), " ", u.name
+      <("small")(u.code), " ", u.name
     )
 
-  def unitPermitted(category:GridCategory, unitCode:String):Boolean = 
-    !categoryUnitLists.contains(category) || categoryUnitLists(category).contains(unitCode) 
-
   def unitCBoKcells(u:Subject) =
-    for cat <- grid.categories yield
+    for cat <- categories yield
       <.td(^.cls := cat.css, {
-        if unitPermitted(cat, u.code) then 
-          u.mappings.collect({ case (c, i:Int) if c == cat => i}).headOption match {
-            case Some(i) => i.toString
-            case None => ""
-          }
-        else ""
+        if f(u, cat) then "✔" else ""
       })
 
   def subTable(planComponent: PlanComponent) =
@@ -89,11 +93,10 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
                       unitTH(u), unitCBoKcells(u)
                     )
                 case None => 
-                    val u = Subject.empty(s.code)
-                    <.tr(^.cls := "optional choose",
-                      unitTH(u), unitCBoKcells(u)
-                    ) 
-
+                  val u = Subject.empty(s.code)
+                  <.tr(^.cls := "optional choose",
+                    unitTH(u), unitCBoKcells(u)
+                  ) 
           case PrereqElement.or(a, b) =>
             for (s, i) <- Seq(a, b).zipWithIndex yield
               subjects.find(_.code == s.code) match
@@ -109,8 +112,7 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
                 case None => <.tr("Unit not found: " + s)
           case PrereqElement.cp(x) =>
             Seq(<.tr(<.th(s"Complete $x credit points")))
-          case PrereqElement.coreq(els) =>
-            Seq(<.tr(<.th(s"Corequisite(${els.stringify})")))
+          case PrereqElement.coreq(els) => Seq(<.tr(s"Corequisite ${els.stringify}"))
         }
       )
 
@@ -118,8 +120,8 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
   <.table(^.cls := gridStyle.className,
     <.tr(
       <.th(""), <.td(),
-      for cat <- grid.categories.toSeq yield <.th(^.cls := "cat",
-        <.span(^.cls := "cbokcat " + rotatedHeader.className + " " + cat.css, cat.name)
+      for cat <- categories yield <.th(^.cls := "cat",
+        <.span(^.cls := "cat " + rotatedHeader.className + " " + cat.css, cat.name)
       )
     ),
 
@@ -130,5 +132,3 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
 
   )
 }
-
-

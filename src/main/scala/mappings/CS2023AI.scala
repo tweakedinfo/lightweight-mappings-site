@@ -19,6 +19,8 @@ enum CS2023AI(val name: String) extends GridCategory {
   case NLP extends CS2023AI("Natural Language Processing")
   case Robotics extends CS2023AI("Robotics")
   case Perception extends CS2023AI("Perception and Computer Vision")
+
+  def jsName = productPrefix
   
   def css = "swebok" 
 }
@@ -46,13 +48,13 @@ def cs2023aiPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[CS2023AI](c.structure, CS2023AI.values.toSeq) {
-      (s, cat) => s.swebok.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     }, <("hr"),
         Common.markdown(
       s"""
         |#### How to edit these tables 
         |
-        |In `units.js`, these tables are driven from the contents of the `cs2023ai` array of each unit.
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
         |e.g.
         |
         |```js
@@ -60,12 +62,14 @@ def cs2023aiPage(c:Course) = <.div(
         |  code: "THI123",
         |  name: "Thingummy Design and Construction",
         |  prereq: [ choose(1, "COSC210", "COSC220") ],
-        |  cbok: [ teamwork(2), communication(3) ],
-        |  swebok: [ swebok.Design, swebok.Construction ],
-        |  sfia: [ "PROG" ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
         |  tags: ["Advanced"],
-        |  other: [ idverify.ProctoredExam ]
         |},
+        |
         |```
         |
         |Values for the columns (defined in `src/main/scala/courses/CS2023AI.scala`) are:

@@ -143,7 +143,7 @@ val myPresentation = DeckBuilder(1920, 1080).markdownSlide("""
   ))
   .veautifulSlide(div(
     scrollableDiv(
-      for c <- courses.find(_.code == "BCOMP(SD)") yield cbokPage(c)
+      for c <- courses.find(_.code == "BCOMP(SD)") yield cbok.cbokPage(c)
     )
   ))
   .veautifulSlide(div(

@@ -45,7 +45,7 @@ object ITICSESite {
       ),
       "CBOK Tables" -> site.Toc(
         (for u <- courses.courses yield
-          s"${u.code} ${u.name}" -> site.addPage(s"course-cbok-${u.code}", mappings.cbokPage(u))
+          s"${u.code} ${u.name}" -> site.addPage(s"course-cbok-${u.code}", mappings.cbok.cbokPage(u))
           ).toSeq:_*
       ),
 

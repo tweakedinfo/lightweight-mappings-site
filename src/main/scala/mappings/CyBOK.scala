@@ -13,6 +13,8 @@ enum CyBOK(val name: String) extends GridCategory {
   case IS extends CyBOK("Infrastructure Security")
   
   def css = "swebok" 
+
+  def jsName = productPrefix
 }
 
 /*
@@ -38,13 +40,13 @@ def cybokPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[CyBOK](c.structure, CyBOK.values.toSeq) {
-      (s, cat) => s.swebok.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     }, <("hr"),
         Common.markdown(
       s"""
         |#### How to edit these tables 
         |
-        |In `units.js`, these tables are driven from the contents of the `cybok` array of each unit.
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
         |e.g.
         |
         |```js
@@ -52,11 +54,12 @@ def cybokPage(c:Course) = <.div(
         |  code: "THI123",
         |  name: "Thingummy Design and Construction",
         |  prereq: [ choose(1, "COSC210", "COSC220") ],
-        |  cbok: [ teamwork(2), communication(3) ],
-        |  swebok: [ swebok.Design, swebok.Construction ],
-        |  sfia: [ "PROG" ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
         |  tags: ["Advanced"],
-        |  other: [ idverify.ProctoredExam ]
         |},
         |```
         |

@@ -95,20 +95,15 @@ case class Subject(
  code:String,
  name:String,
  handbookUrl:String,
- cbok: Seq[(CBOK, Int)],
- swebok: Seq[SWEBOK],
- dsbok: Seq[GridCategory],
- other: Seq[GridCategory],
- sfia: Seq[String],
+ mappings:Set[Any], 
  prereq: Seq[PrereqElement],
  tags: Seq[String] = Seq.empty
 ) {
-  def cbokLevel(cat:CBOK):Int =
-    cbok.find(_._1 == cat).map(_._2).getOrElse(0)
+
 }
 
 object Subject {
-  def empty(s:String) = Subject("", s, "", Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty, Seq.empty)
+  def empty(s:String) = Subject("", s, "", Set.empty, Seq.empty, Seq.empty)
 }
 
 val subjects = mutable.Buffer.empty[Subject]
@@ -122,15 +117,13 @@ def addUnit(config:js.Dynamic) = {
     import js.JSConverters._
     import js.DynamicImplicits.truthValue
 
+    
+
     val s = Subject(
       code = config.code.asInstanceOf[String],
       name = config.name.asInstanceOf[String],
       handbookUrl = "",
-      cbok = config.cbok.asInstanceOf[js.Array[(CBOK, Int)]].toSeq,
-      swebok = if config.swebok then config.swebok.asInstanceOf[js.Array[SWEBOK]].toSeq else Seq.empty,
-      dsbok = if config.dsbok then config.dsbok.asInstanceOf[js.Array[GridCategory]].toSeq else Seq.empty,
-      other = if config.other then config.other.asInstanceOf[js.Array[GridCategory]].toSeq else Seq.empty,
-      sfia = config.sfia.asInstanceOf[js.Array[String]].toSeq,
+      mappings = (if config.mappings then config.mappings.asInstanceOf[js.Array[Any]].toSeq.toSet else Set.empty),
       prereq = config.prereq.asInstanceOf[js.Array[String | PrereqElement]].map({ 
         case s:String => PrereqElement.unit(s)
         case p:PrereqElement => p
@@ -155,12 +148,6 @@ def unitPage(u:Subject) = <.div(
   <.p(
     <.a(^.href := s"https://handbook.une.edu.au/units/2022/${u.code}?year=2022", "Link to handbook entry")
   ),
-  <.h3("CBOK Categories"),
-  <.table(
-    <.tr(<.th("Category"), <.th("Level")),
-    for (cbok, l) <- u.cbok yield
-      <.tr(<.td(cbok.name), <.td(l.toString))
-  )
 
 )
 

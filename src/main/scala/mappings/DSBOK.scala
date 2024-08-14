@@ -22,6 +22,8 @@ enum CCDSC(val name:String) extends GridCategory:
 
   def css = "ccdsc"
 
+  def jsName = productPrefix
+
 @JSExportTopLevel("ccdsc")
 val ccdscjs = (for e <- CCDSC.values yield e.productPrefix -> e).toMap.toJSDictionary
 
@@ -51,6 +53,8 @@ enum EdisonDSBOK(val name:String, val css:String) extends GridCategory:
   case BAF extends EdisonDSBOK("BAF Business Analytics Foundation", "edison dsrmpm")
   case BAEM extends EdisonDSBOK("BAEM Business Analytics Org & Enterprise Mgmt", "edison dsrmpm")
 
+  def jsName = productPrefix
+
   
 @JSExportTopLevel("edison")
 val edisonjs = (for e <- EdisonDSBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
@@ -78,7 +82,7 @@ def dsbokPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[CCDSC](c.structure, CCDSC.values.toSeq) {
-      (s, cat) => s.dsbok.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     },
     Common.markdown(
       """
@@ -89,26 +93,28 @@ def dsbokPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[EdisonDSBOK](c.structure, EdisonDSBOK.values.toSeq) {
-      (s, cat) => s.dsbok.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     }, <("hr"),
     Common.markdown(
       s"""
         |#### How to edit these tables 
         |
-        |In `units.js`, these tables are driven from the contents of the `dsbok` array of each unit.
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
         |e.g.
         |
         |```js
         |{
-        |  code: "FOO123",
-        |  name: "Foo and Thingummy Analysis",
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
         |  prereq: [ choose(1, "COSC210", "COSC220") ],
-        |  cbok: [ teamwork(2), communication(3) ],
-        |  dsbok: [ ccdsc.AP, ccdsc.ML, edison.ML ],
-        |  sfia: [ "DATS" ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
         |  tags: ["Advanced"],
-        |  other: [ idverify.ProctoredExam ]
         |},
+        |
         |```
         |
         |Values for the columns (defined in `src/main/scala/courses/DSBOK.scala`) are:
