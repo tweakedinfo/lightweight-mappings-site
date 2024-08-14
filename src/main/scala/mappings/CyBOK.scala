@@ -22,7 +22,10 @@ enum CyBOK(val name: String) extends GridCategory {
  */
 
 @JSExportTopLevel("cybok")
-val cybokjs = (for e <- CyBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+val cybokjs = (
+  (for e <- CyBOK.values yield e.jsName -> e).toMap + 
+  ("page" -> ("CyBoK", "cybok", cybokPage))
+).toJSDictionary
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*

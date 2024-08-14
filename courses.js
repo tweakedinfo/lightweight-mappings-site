@@ -41,7 +41,10 @@ addCourses([
           // Can only do one Elective*
           // Can only do two Elective**
       ]
-    }
+    },
+    pages: [
+      cbok.old.page, cbok.v3_2.page, cybok.page
+    ]
   },
 
   {
@@ -77,7 +80,10 @@ addCourses([
           // Can do at most one of the Elective* units
           // Can do at most three of the Elective* or Elective** units
       ]
-    }
+    },
+    pages: [
+      cbok.old.page, cbok.v3_2.page, swebok.page
+    ]
   },
 
   {
@@ -112,7 +118,11 @@ addCourses([
           { name: "Y3 Trimester 2", units: [ "COSC320", choose(3, "COSC330", "COSC350", "COSC380", "STAT320", "Elective*") ] },
           // Can do at most one of the Elective* units
       ]
-    }
+    },
+    pages: [
+      cbok.old.page, cbok.v3_2.page, edison.page, ccdsc.page, cs2023ai.page
+    ]
+
   },
 
     {

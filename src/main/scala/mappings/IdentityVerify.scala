@@ -19,15 +19,17 @@ enum IdentityVerification(val name:String) extends GridCategory:
 
 @JSExportTopLevel("idverify")
 @JSExportAll 
-val idverify = (for e <- IdentityVerification.values yield e.productPrefix -> e).toMap.toJSDictionary
-
+val idverify = (
+  (for e <- IdentityVerification.values yield e.jsName -> e).toMap + 
+  ("page" -> ("Identity Verification", "idverify", idVerifyPage))
+).toJSDictionary
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*
 import courses.*
 
 
-def idverifyPage(c:Course) = <.div(
+def idVerifyPage(c:Course) = <.div(
     <.h1("Methods of Identity Management"),
     <.h2(c.name),
   (for url <- handbookUrl yield

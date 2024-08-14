@@ -9,6 +9,8 @@ import scalajs.js
   */
 trait Grid {
   def categories:Seq[GridCategory]
+
+  def name:String
 }
 
 /**

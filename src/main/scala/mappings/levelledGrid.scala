@@ -31,8 +31,8 @@ case class LevelledGridComponent(grid:LevelledGrid, course:Course, plan:Plan) ex
       ),
 
       if (limitToMap && limitCourseGridEntries.contains(course.code)) then
-        cbokGrid(grid, plan, limitCourseGridEntries(course.code))
-      else cbokGrid(grid, plan, Map.empty)
+        levelledGrid(grid, plan, limitCourseGridEntries(course.code))
+      else levelledGrid(grid, plan, Map.empty)
     )
 }
 
@@ -40,7 +40,7 @@ case class LevelledGridComponent(grid:LevelledGrid, course:Course, plan:Plan) ex
 /** 
  * A specialised grid for showing CBOK values, colour coded into their categories
  */
-def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[String]] = Map.empty) = {
+def levelledGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[String]] = Map.empty) = {
 
   def unitTH(u:Subject) =
     <.th(^.cls := "unit",
@@ -50,7 +50,7 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
   def unitPermitted(category:GridCategory, unitCode:String):Boolean = 
     !categoryUnitLists.contains(category) || categoryUnitLists(category).contains(unitCode) 
 
-  def unitCBoKcells(u:Subject) =
+  def unitCells(u:Subject) =
     for cat <- grid.categories yield
       <.td(^.cls := cat.css, {
         if unitPermitted(cat, u.code) then 
@@ -69,12 +69,12 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
           case s:PrereqElement.unit =>
             subjects.find(_.code == s.code) match
               case Some(u) => Seq(<.tr(^.cls := "mandatory",
-                unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
+                unitTH(u), <.td(^.cls := "indicator"), unitCells(u)
               ))
               case None => 
                 val u = Subject.empty(s.code)
                 Seq(<.tr(^.cls := "optional",
-                  unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
+                  unitTH(u), <.td(^.cls := "indicator"), unitCells(u)
                 )) 
           case PrereqElement.choose(lim, units) =>
             for (s, i) <- units.zipWithIndex yield
@@ -82,16 +82,16 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
                 case Some(u) =>
                   if i == 0 then
                     <.tr(^.cls := "optional choose",
-                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := units.length, lim.toString), unitCBoKcells(u)
+                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := units.length, lim.toString), unitCells(u)
                     )
                   else
                     <.tr(^.cls := "optional choose",
-                      unitTH(u), unitCBoKcells(u)
+                      unitTH(u), unitCells(u)
                     )
                 case None => 
                     val u = Subject.empty(s.code)
                     <.tr(^.cls := "optional choose",
-                      unitTH(u), unitCBoKcells(u)
+                      unitTH(u), unitCells(u)
                     ) 
 
           case PrereqElement.or(a, b) =>
@@ -100,11 +100,11 @@ def cbokGrid(grid:Grid, plan:Plan, categoryUnitLists: Map[GridCategory, Seq[Stri
                 case Some(u) =>
                   if i == 0 then
                     <.tr(^.cls := "optional or",
-                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := 2, 1.toString), unitCBoKcells(u)
+                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := 2, 1.toString), unitCells(u)
                     )
                   else
                     <.tr(^.cls := "optional or",
-                      unitTH(u), unitCBoKcells(u)
+                      unitTH(u), unitCells(u)
                     )
                 case None => <.tr("Unit not found: " + s)
           case PrereqElement.cp(x) =>

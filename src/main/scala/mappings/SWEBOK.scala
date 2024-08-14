@@ -32,7 +32,10 @@ enum SWEBOK(val name: String) extends GridCategory {
  */
 
 @JSExportTopLevel("swebok")
-val swebokjs = (for e <- SWEBOK.values yield e.jsName -> e).toMap.toJSDictionary
+val swebokjs = (
+  (for e <- SWEBOK.values yield e.jsName -> e).toMap + 
+  ("page" -> ("SWEBOK", "swebok", swebokPage))
+).toJSDictionary
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*

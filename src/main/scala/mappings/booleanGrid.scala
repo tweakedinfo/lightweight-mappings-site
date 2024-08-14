@@ -28,6 +28,11 @@ val gridStyle = Styling(
   " ."+ cbok.old.Category.TechnologyBuilding.css -> "background-color: #baffc9; text-align: center;",
   " ."+ cbok.old.Category.TechnologyResources.css -> "background-color: #ffffba; text-align: center;",
   " ."+ cbok.old.Category.Management.css -> "background-color: #bae0ff; text-align: center;",
+
+  " .cbok-professional" -> "background-color: #ffdfba; text-align: center;",
+  " .cbok-core" -> "background-color: #ffffba; text-align: center;",
+  " .cbok-depth" -> "background-color: #bae0ff; text-align: center;",
+
   " .swebok" -> "background-color: #baffc9; text-align: center;",
   " .ccdsc" -> "background-color: #baffc9; text-align: center;",
   " .edison.dsda" -> "background-color: #baffc9; text-align: center;",
@@ -51,7 +56,14 @@ val rotatedHeader = Styling(
 
 
 
-//
+/**
+  * A grid where each category either is or is not mapped to a unit
+  *
+  * @param plan
+  * @param categories
+  * @param f
+  * @return
+  */
 def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Subject, C) => Boolean) = {
 
   def unitTH(u:Subject) =
@@ -132,3 +144,50 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
 
   )
 }
+
+
+def gridPage(c:Course, grid:Grid) = <.div(
+    <.h1(c.name),
+  (for url <- handbookUrl yield
+    <.p(
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
+    ui.Common.markdown(
+      """ The table below shows top-level SWEBOK categories that are relevant to each unit in the course
+        |
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[GridCategory](c.structure, grid.categories) {
+      (s, cat) => s.mappings.contains(cat)
+    }, <("hr"),
+        ui.Common.markdown(
+      s"""
+        |#### How to edit these tables 
+        |
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
+        |e.g.
+        |
+        |```js
+        |{
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
+        |  prereq: [ choose(1, "COSC210", "COSC220") ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
+        |  tags: ["Advanced"],
+        |},
+        |
+        |```
+        |
+        |Values for the columns are:
+        |
+        |""".stripMargin
+    ),
+    <.ul(
+      for e <- grid.categories yield <.li(<.code(e.jsName), " ", <("i")(e.name))
+    )
+  )

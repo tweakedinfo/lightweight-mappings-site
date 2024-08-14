@@ -1,7 +1,7 @@
 package courses
 
 import com.wbillingsley.veautiful.Unique
-import com.wbillingsley.veautiful.html.{<, ^}
+import com.wbillingsley.veautiful.html.{<, ^, VHtmlContent}
 import ui.Common
 
 import scala.collection.mutable
@@ -10,6 +10,8 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 
 import ui.*
 import mappings.*
+
+type CoursePage = (String, String, (Course) => VHtmlContent)
 
 /**
   * A representation of a course (degree)
@@ -22,7 +24,8 @@ import mappings.*
 case class Course(
   code:String, name:String,
   structure: Plan,
-  plans: Seq[(String, Plan)]
+  plans: Seq[(String, Plan)],
+  pages: Seq[CoursePage] = Seq.empty
 )
 
 
@@ -31,6 +34,7 @@ trait JSCourse extends js.Object:
   val name:String
   val structure:js.Array[JSPlanComponent]
   val plans:js.Dictionary[js.Array[JSPlanComponent]]
+  val pages:js.UndefOr[js.Array[CoursePage]]
 
 given Conversion[Seq[JSPrereqElement], Seq[PrereqElement]] with 
   def apply(j:Seq[JSPrereqElement]) = j.map {
@@ -59,7 +63,8 @@ def addCourse(config:JSCourse): Unit = {
       name = config.name,
       structure = config.structure.map(toScala).toSeq,
       plans = for (name, jsplan) <- config.plans.toSeq yield
-        name -> jsplan.map(toScala).toSeq
+        name -> jsplan.map(toScala).toSeq,
+      pages = config.pages.toOption.toSeq.flatten
     )
 
     courses.append(c)

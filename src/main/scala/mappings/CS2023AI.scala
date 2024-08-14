@@ -30,7 +30,10 @@ enum CS2023AI(val name: String) extends GridCategory {
  */
 
 @JSExportTopLevel("cs2023ai")
-val cs2023aijs = (for e <- CyBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+val cs2023aijs = (
+  (for e <- CS2023AI.values yield e.jsName -> e).toMap + 
+  ("page" -> ("CS2023 AI", "cs2023-ai", cs2023aiPage))
+).toJSDictionary
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*
