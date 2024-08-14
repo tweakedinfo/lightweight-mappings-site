@@ -67,8 +67,8 @@ extension (els:Seq[PrereqElement]) {
     els.map({
       case s:PrereqElement.unit => s.code
       case PrereqElement.or(a, b) => s"($a or $b)"
-      case PrereqElement.choose((from, to), units) => s"($from-$to from ${units.mkString(", ")})"
-      case PrereqElement.choose(num, units) => s"($num from ${units.mkString(", ")})"
+      case PrereqElement.choose((from, to), units) => s"($from-$to from ${units.map(_.code).mkString(", ")})"
+      case PrereqElement.choose(num, units) => s"($num from ${units.map(_.code).mkString(", ")})"
       case PrereqElement.cp(num) => s"${num}cp"
       case PrereqElement.coreq(els) => s"corequisite(${(els.stringify)})"
     }).mkString(", ")
