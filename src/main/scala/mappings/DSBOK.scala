@@ -22,8 +22,68 @@ enum CCDSC(val name:String) extends GridCategory:
 
   def css = "ccdsc"
 
+  def jsName = productPrefix
+
 @JSExportTopLevel("ccdsc")
-val ccdscjs = (for e <- CCDSC.values yield e.productPrefix -> e).toMap.toJSDictionary
+val ccdscjs = (
+  (for e <- CCDSC.values yield e.jsName -> e).toMap + 
+  ("page" -> ("ACM CCDSC", "CCDSC", ccdscPage))
+).toJSDictionary
+
+
+def ccdscPage(c:Course) = <.div(
+    <.h1("Data Science bodies of knoweledge"),
+    <.h2(c.name),
+  (for url <- handbookUrl yield
+    <.p(
+      <.a(^.href := url(c.code), "Link to handbook entry")
+    )
+  ),
+    Common.markdown(
+      """
+        |This page maps units in the course against ACM and Edison bodies of knowledge for data science.
+        |Note however, that as the criteria ask for 1 EFTSL of content drawn from these bodies of knowledge,
+        |rather than complete coverage of all bodies of knowledge, not every column may be covered.
+        | 
+        |### ACM Computing Competencies for Undergraduate Data Science Curricula (CCDS)
+        |
+        |""".stripMargin
+    ),
+    booleanCategoryGrid[CCDSC](c.structure, CCDSC.values.toSeq) {
+      (s, cat) => s.mappings.contains(cat)
+    },
+    <("hr"),
+    Common.markdown(
+      s"""
+        |#### How to edit these tables 
+        |
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
+        |e.g.
+        |
+        |```js
+        |{
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
+        |  prereq: [ choose(1, "COSC210", "COSC220") ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
+        |  tags: ["Advanced"],
+        |},
+        |
+        |```
+        |
+        |Values for the columns (defined in `src/main/scala/courses/DSBOK.scala`) are:
+        |
+        |""".stripMargin
+    ),
+    <.ul(
+      for e <- CCDSC.values yield <.li(<("code")("ccsdsc." + e.productPrefix), " ", <("i")(e.name)),
+    )
+  )
+
 
 
 enum EdisonDSBOK(val name:String, val css:String) extends GridCategory:
@@ -51,9 +111,14 @@ enum EdisonDSBOK(val name:String, val css:String) extends GridCategory:
   case BAF extends EdisonDSBOK("BAF Business Analytics Foundation", "edison dsrmpm")
   case BAEM extends EdisonDSBOK("BAEM Business Analytics Org & Enterprise Mgmt", "edison dsrmpm")
 
+  def jsName = productPrefix
   
 @JSExportTopLevel("edison")
-val edisonjs = (for e <- EdisonDSBOK.values yield e.productPrefix -> e).toMap.toJSDictionary
+val edison = (
+  (for e <- EdisonDSBOK.values yield e.jsName -> e).toMap + 
+  ("page" -> ("Edison DSBoK", "edison", dsbokPage))
+).toJSDictionary
+
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*
@@ -69,19 +134,6 @@ def dsbokPage(c:Course) = <.div(
   ),
     Common.markdown(
       """
-        |This page maps units in the course against ACM and Edison bodies of knowledge for data science.
-        |Note however, that as the criteria ask for 1 EFTSL of content drawn from these bodies of knowledge,
-        |rather than complete coverage of all bodies of knowledge, not every column may be covered.
-        | 
-        |### ACM Computing Competencies for Undergraduate Data Science Curricula (CCDS)
-        |
-        |""".stripMargin
-    ),
-    booleanCategoryGrid[CCDSC](c.structure, CCDSC.values.toSeq) {
-      (s, cat) => s.dsbok.contains(cat)
-    },
-    Common.markdown(
-      """
         |### Edison Data Science Body of Knowledge
         | 
         |The table below maps units to Knowledge Areas (KAs) in the Edison Data Science Body of Knowledge.
@@ -89,26 +141,28 @@ def dsbokPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[EdisonDSBOK](c.structure, EdisonDSBOK.values.toSeq) {
-      (s, cat) => s.dsbok.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     }, <("hr"),
     Common.markdown(
       s"""
         |#### How to edit these tables 
         |
-        |In `units.js`, these tables are driven from the contents of the `dsbok` array of each unit.
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
         |e.g.
         |
         |```js
         |{
-        |  code: "FOO123",
-        |  name: "Foo and Thingummy Analysis",
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
         |  prereq: [ choose(1, "COSC210", "COSC220") ],
-        |  cbok: [ teamwork(2), communication(3) ],
-        |  dsbok: [ ccdsc.AP, ccdsc.ML, edison.ML ],
-        |  sfia: [ "DATS" ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
         |  tags: ["Advanced"],
-        |  other: [ idverify.ProctoredExam ]
         |},
+        |
         |```
         |
         |Values for the columns (defined in `src/main/scala/courses/DSBOK.scala`) are:

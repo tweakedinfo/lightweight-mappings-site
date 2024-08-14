@@ -13,19 +13,23 @@ enum IdentityVerification(val name:String) extends GridCategory:
     case GroupWork extends IdentityVerification("Group work")
     case DataTrails extends IdentityVerification("Data trails")
 
+    def jsName = productPrefix
+
     def css = "identity"
 
 @JSExportTopLevel("idverify")
 @JSExportAll 
-val idverify = (for e <- IdentityVerification.values yield e.productPrefix -> e).toMap.toJSDictionary
-
+val idverify = (
+  (for e <- IdentityVerification.values yield e.jsName -> e).toMap + 
+  ("page" -> ("Identity Verification", "idverify", idVerifyPage))
+).toJSDictionary
 
 import com.wbillingsley.veautiful.html.{<, ^}
 import ui.*
 import courses.*
 
 
-def idverifyPage(c:Course) = <.div(
+def idVerifyPage(c:Course) = <.div(
     <.h1("Methods of Identity Management"),
     <.h2(c.name),
   (for url <- handbookUrl yield
@@ -40,26 +44,28 @@ def idverifyPage(c:Course) = <.div(
         |""".stripMargin
     ),
     booleanCategoryGrid[IdentityVerification](c.structure, IdentityVerification.values.toSeq) {
-      (s, cat) => s.other.contains(cat)
+      (s, cat) => s.mappings.contains(cat)
     }, <("hr"),
     Common.markdown(
       s"""
         |#### How to edit this table 
         |
-        |In `units.js`, this table is driven from the contents of the `other` array of each unit.
+        |In `units.js`, this table is driven from the contents of the `mappings` array of each unit.
         |e.g.
         |
         |```js
         |{
-        |  code: "COSC310",
-        |  name: "Software Project Management",
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
         |  prereq: [ choose(1, "COSC210", "COSC220") ],
-        |  cbok: [ ethics(2), expectations(2), teamwork(2), communication(3), systems(2), governance(3), projectManagement(3) ],
-        |  dsbok: [],
-        |  sfia: [ "PROG" ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
         |  tags: ["Advanced"],
-        |  other: [ idverify.ProctoredExam, idverify.GroupWork, idverify.TurnItIn, idverify.Video ]
         |},
+        |
         |```
         |
         |Values for the columns (defined in `src/main/scala/courses/IdentityVerify.scala`) are:

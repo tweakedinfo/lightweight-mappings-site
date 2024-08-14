@@ -41,11 +41,14 @@ addCourses([
           // Can only do one Elective*
           // Can only do two Elective**
       ]
-    }
+    },
+    pages: [
+      cbok.old.page, cbok.v3_2.page, cybok.page
+    ]
   },
 
   {
-    code: "BCOMP2024SD",
+    code: "BCOMP(SD)",
     name: "Bachelor of Computer Science (Software Development) 2024",
     structure: [
 
@@ -77,7 +80,10 @@ addCourses([
           // Can do at most one of the Elective* units
           // Can do at most three of the Elective* or Elective** units
       ]
-    }
+    },
+    pages: [
+      cbok.old.page, cbok.v3_2.page, swebok.page
+    ]
   },
 
   {
@@ -112,7 +118,11 @@ addCourses([
           { name: "Y3 Trimester 2", units: [ "COSC320", choose(3, "COSC330", "COSC350", "COSC380", "STAT320", "Elective*") ] },
           // Can do at most one of the Elective* units
       ]
-    }
+    },
+    pages: [
+      cbok.old.page, cbok.v3_2.page, edison.page, ccdsc.page, cs2023ai.page
+    ]
+
   },
 
     {
@@ -298,58 +308,58 @@ addCourses([
 ])
 
 // Top 3 for BCOMP
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Ethics, ["COSC110", "COSC310", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ProfExpectations, ["COSC110", "COSC220", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Teamwork, ["COSC101", "COSC102", "COSC220", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Communication, ["COSC101", "COSC102", "COSC220", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Societal, ["COSC110", "COSC210", "COSC240"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Understanding, ["COSC110", "COSC220", "COSC240"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ProblemSolving, ["COSC101", "COSC102", "COSC220", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Fundamentals, ["COSC110", "COSC230", "COSC240"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Data, ["COSC210", "COSC220", "STAT100"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Networking, ["COSC210", "COSC220", "COSC240"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.HumanFactors, ["COSC101", "COSC102", "COSC220"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Programming, ["COSC110", "COSC120", "COSC230"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Systems, ["COSC210", "COSC220", "COSC310"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Governance, ["COSC310"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ProjectManagement, ["COSC220", "COSC310", "COSC320"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.ServiceManagement, ["COSC220"])
-limitCBOK([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.Cybersecurity, ["AMTH140", "COSC210", "COSC240"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Ethics, ["COSC110", "COSC310", "COSC320"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.ProfExpectations, ["COSC110", "COSC220", "COSC320"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Teamwork, ["COSC101", "COSC102", "COSC220", "COSC320"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Communication, ["COSC101", "COSC102", "COSC220", "COSC320"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Societal, ["COSC110", "COSC210", "COSC240"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Understanding, ["COSC110", "COSC220", "COSC240"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.ProblemSolving, ["COSC101", "COSC102", "COSC220", "COSC320"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Fundamentals, ["COSC110", "COSC230", "COSC240"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Data, ["COSC210", "COSC220", "STAT100"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Networking, ["COSC210", "COSC220", "COSC240"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.HumanFactors, ["COSC101", "COSC102", "COSC220"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Programming, ["COSC110", "COSC120", "COSC230"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Systems, ["COSC210", "COSC220", "COSC310"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Governance, ["COSC310"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.ProjectManagement, ["COSC220", "COSC310", "COSC320"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.ServiceManagement, ["COSC220"])
+limitCourseGridEntries([ "BCOMP(SD)", "BCOMP(DS)", "BCOMP(dbl)", "BCSLAW" ], cbok.old.Cybersecurity, ["AMTH140", "COSC210", "COSC240"])
 
 // Top 3 for MIT
-limitCBOK([ "MIT" ], cbok.Ethics, ["COSC110", "COSC510", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.ProfExpectations, ["COSC110", "COSC220", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.Teamwork, ["COSC101", "COSC220", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.Communication, ["COSC220", "COSC570", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.Societal, ["COSC110", "COSC210", "COSC570"])
-limitCBOK([ "MIT" ], cbok.Understanding, ["COSC110", "COSC220", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.ProblemSolving, ["COSC101", "COSC102", "COSC220", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.Fundamentals, ["COSC110" ])
-limitCBOK([ "MIT" ], cbok.Data, ["COSC210", "COSC220", "STAT100"])
-limitCBOK([ "MIT" ], cbok.Networking, ["COSC210", "COSC260", "COSC560"])
-limitCBOK([ "MIT" ], cbok.HumanFactors, ["COSC101", "COSC510", "COSC570"])
-limitCBOK([ "MIT" ], cbok.Programming, ["COSC110", "COSC120", "COSC560"])
-limitCBOK([ "MIT" ], cbok.Systems, ["COSC210", "COSC220", "COSC510"])
-limitCBOK([ "MIT" ], cbok.Governance, ["COSC510"])
-limitCBOK([ "MIT" ], cbok.ProjectManagement, ["COSC220", "COSC510", "COSC594", "COSC595"])
-limitCBOK([ "MIT" ], cbok.ServiceManagement, ["COSC220"])
-limitCBOK([ "MIT" ], cbok.Cybersecurity, ["COSC210", "COSC260", "COSC560"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Ethics, ["COSC110", "COSC510", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.ProfExpectations, ["COSC110", "COSC220", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Teamwork, ["COSC101", "COSC220", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Communication, ["COSC220", "COSC570", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Societal, ["COSC110", "COSC210", "COSC570"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Understanding, ["COSC110", "COSC220", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.ProblemSolving, ["COSC101", "COSC102", "COSC220", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Fundamentals, ["COSC110" ])
+limitCourseGridEntries([ "MIT" ], cbok.old.Data, ["COSC210", "COSC220", "STAT100"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Networking, ["COSC210", "COSC260", "COSC560"])
+limitCourseGridEntries([ "MIT" ], cbok.old.HumanFactors, ["COSC101", "COSC510", "COSC570"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Programming, ["COSC110", "COSC120", "COSC560"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Systems, ["COSC210", "COSC220", "COSC510"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Governance, ["COSC510"])
+limitCourseGridEntries([ "MIT" ], cbok.old.ProjectManagement, ["COSC220", "COSC510", "COSC594", "COSC595"])
+limitCourseGridEntries([ "MIT" ], cbok.old.ServiceManagement, ["COSC220"])
+limitCourseGridEntries([ "MIT" ], cbok.old.Cybersecurity, ["COSC210", "COSC260", "COSC560"])
 
 // Top 3 for MIT
-limitCBOK([ "MDSC" ], cbok.Ethics, ["COSC110", "COSC510", "COSC591"])
-limitCBOK([ "MDSC" ], cbok.ProfExpectations, ["COSC110", "COSC510", "COSC591" ])
-limitCBOK([ "MDSC" ], cbok.Teamwork, ["COSC110", "COSC510", "COSC591", "SCI501"])
-limitCBOK([ "MDSC" ], cbok.Communication, ["COSC110", "COSC510", "COSC591"])
-limitCBOK([ "MDSC" ], cbok.Societal, ["COSC110", "COSC210", "COSC572"])
-limitCBOK([ "MDSC" ], cbok.Understanding, ["COSC110", "COSC572", "COSC591"])
-limitCBOK([ "MDSC" ], cbok.ProblemSolving, [ "COSC210", "COSC550", "COSC591", "SCI501"])
-limitCBOK([ "MDSC" ], cbok.Fundamentals, ["COSC110" ])
-limitCBOK([ "MDSC" ], cbok.Data, ["COSC210", "COSC572", "STAT430"])
-limitCBOK([ "MDSC" ], cbok.Networking, ["COSC210", "COSC572"])
-limitCBOK([ "MDSC" ], cbok.HumanFactors, ["COSC101", "COSC510", "COSC572"])
-limitCBOK([ "MDSC" ], cbok.Programming, ["COSC110", "COSC580", "SCI410"])
-limitCBOK([ "MDSC" ], cbok.Systems, ["COSC210", "COSC572", "COSC510"])
-limitCBOK([ "MDSC" ], cbok.Governance, ["COSC510"])
-limitCBOK([ "MDSC" ], cbok.ProjectManagement, ["COSC510", "COSC591", "COSC572"])
-limitCBOK([ "MDSC" ], cbok.ServiceManagement, ["COSC572"])
-limitCBOK([ "MDSC" ], cbok.Cybersecurity, ["COSC210", "COSC572" ])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Ethics, ["COSC110", "COSC510", "COSC591"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.ProfExpectations, ["COSC110", "COSC510", "COSC591" ])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Teamwork, ["COSC110", "COSC510", "COSC591", "SCI501"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Communication, ["COSC110", "COSC510", "COSC591"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Societal, ["COSC110", "COSC210", "COSC572"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Understanding, ["COSC110", "COSC572", "COSC591"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.ProblemSolving, [ "COSC210", "COSC550", "COSC591", "SCI501"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Fundamentals, ["COSC110" ])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Data, ["COSC210", "COSC572", "STAT430"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Networking, ["COSC210", "COSC572"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.HumanFactors, ["COSC101", "COSC510", "COSC572"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Programming, ["COSC110", "COSC580", "SCI410"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Systems, ["COSC210", "COSC572", "COSC510"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Governance, ["COSC510"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.ProjectManagement, ["COSC510", "COSC591", "COSC572"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.ServiceManagement, ["COSC572"])
+limitCourseGridEntries([ "MDSC" ], cbok.old.Cybersecurity, ["COSC210", "COSC572" ])

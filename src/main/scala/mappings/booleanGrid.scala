@@ -1,6 +1,8 @@
 package mappings
 
+
 import courses.*
+import mappings.*
 
 import com.wbillingsley.veautiful.Unique
 import com.wbillingsley.veautiful.html.{<, DElement, SVG, Styling, VHtmlComponent, ^}
@@ -22,10 +24,15 @@ val gridStyle = Styling(
   " td.indicator" -> "background: #ddd;",
   " th.cat" -> "font-weight: normal;",
   " th.section" -> "text-align: right; font-weight: bold;",
-  " ."+Category.Essential.css -> "background-color: #ffdfba; text-align: center;",
-  " ."+Category.TechnologyBuilding.css -> "background-color: #baffc9; text-align: center;",
-  " ."+Category.TechnologyResources.css -> "background-color: #ffffba; text-align: center;",
-  " ."+Category.Management.css -> "background-color: #bae0ff; text-align: center;",
+  " ."+ cbok.old.Category.Essential.css -> "background-color: #ffdfba; text-align: center;",
+  " ."+ cbok.old.Category.TechnologyBuilding.css -> "background-color: #baffc9; text-align: center;",
+  " ."+ cbok.old.Category.TechnologyResources.css -> "background-color: #ffffba; text-align: center;",
+  " ."+ cbok.old.Category.Management.css -> "background-color: #bae0ff; text-align: center;",
+
+  " .cbok-professional" -> "background-color: #ffdfba; text-align: center;",
+  " .cbok-core" -> "background-color: #ffffba; text-align: center;",
+  " .cbok-depth" -> "background-color: #bae0ff; text-align: center;",
+
   " .swebok" -> "background-color: #baffc9; text-align: center;",
   " .ccdsc" -> "background-color: #baffc9; text-align: center;",
   " .edison.dsda" -> "background-color: #baffc9; text-align: center;",
@@ -49,7 +56,14 @@ val rotatedHeader = Styling(
 
 
 
-//
+/**
+  * A grid where each category either is or is not mapped to a unit
+  *
+  * @param plan
+  * @param categories
+  * @param f
+  * @return
+  */
 def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Subject, C) => Boolean) = {
 
   def unitTH(u:Subject) =
@@ -132,115 +146,48 @@ def booleanCategoryGrid[C <: GridCategory](plan:Plan, categories:Seq[C])(f: (Sub
 }
 
 
-case class CBOKGridComponent(course:Course, plan:Plan) extends VHtmlComponent {
-
-  var limitToMap:Boolean = true
-
-  def render = 
-    <.div(
-      <.div(
-        <.input(^.attr("id") := "limit-toggle",
-          ^.attr("type") := "checkbox", ^.attr("checked") ?= (if limitToMap then Some("checked") else None),
-          ^.on("change") --> { limitToMap = !limitToMap; rerender(); }
-        ), " ",
-        <("label")(^.attr("for") := "limit-toggle", "Limit to top 3 core units for each category")
-      ),
-
-      if (limitToMap && topCbok.contains(course.code)) then
-        cbokGrid(plan, topCbok(course.code))
-      else cbokGrid(plan, Map.empty)
+def gridPage(c:Course, grid:Grid) = <.div(
+    <.h1(c.name),
+  (for url <- handbookUrl yield
+    <.p(
+      <.a(^.href := url(c.code), "Link to handbook entry")
     )
-}
-
-
-/** 
- * A specialised grid for showing CBOK values, colour coded into their categories
- */
-def cbokGrid(plan:Plan, topCbokMap: Map[CBOK, Seq[String]] = Map.empty) = {
-
-  def unitTH(u:Subject) =
-    <.th(^.cls := "unit",
-      <("small")(u.code), " ", u.name
-    )
-
-  def unitPermitted(category:CBOK, unitCode:String):Boolean = 
-    !topCbokMap.contains(category) || topCbokMap(category).contains(unitCode) 
-
-  def unitCBoKcells(u:Subject) =
-    for cat <- CBOK.values.toSeq yield
-      <.td(^.cls := cat.category.css, {
-        val l = u.cbokLevel(cat)
-        if unitPermitted(cat, u.code) && l > 0 then l.toString else ""
-      })
-
-  def subTable(planComponent: PlanComponent) =
-    val (name, els) = planComponent
-    <.tr(
-      <.th(^.cls := "section", ^.attr("colspan") := 1, name)) +: (
-        els.flatMap {
-          case s:PrereqElement.unit =>
-            subjects.find(_.code == s.code) match
-              case Some(u) => Seq(<.tr(^.cls := "mandatory",
-                unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
-              ))
-              case None => 
-                val u = Subject.empty(s.code)
-                Seq(<.tr(^.cls := "optional",
-                  unitTH(u), <.td(^.cls := "indicator"), unitCBoKcells(u)
-                )) 
-          case PrereqElement.choose(lim, units) =>
-            for (s, i) <- units.zipWithIndex yield
-              subjects.find(_.code == s.code) match
-                case Some(u) =>
-                  if i == 0 then
-                    <.tr(^.cls := "optional choose",
-                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := units.length, lim.toString), unitCBoKcells(u)
-                    )
-                  else
-                    <.tr(^.cls := "optional choose",
-                      unitTH(u), unitCBoKcells(u)
-                    )
-                case None => 
-                    val u = Subject.empty(s.code)
-                    <.tr(^.cls := "optional choose",
-                      unitTH(u), unitCBoKcells(u)
-                    ) 
-
-          case PrereqElement.or(a, b) =>
-            for (s, i) <- Seq(a, b).zipWithIndex yield
-              subjects.find(_.code == s.code) match
-                case Some(u) =>
-                  if i == 0 then
-                    <.tr(^.cls := "optional or",
-                      unitTH(u), <.td(^.cls := "choose indicator", ^.attr("rowspan") := 2, 1.toString), unitCBoKcells(u)
-                    )
-                  else
-                    <.tr(^.cls := "optional or",
-                      unitTH(u), unitCBoKcells(u)
-                    )
-                case None => <.tr("Unit not found: " + s)
-          case PrereqElement.cp(x) =>
-            Seq(<.tr(<.th(s"Complete $x credit points")))
-          case PrereqElement.coreq(els) =>
-            Seq(<.tr(<.th(s"Corequisite(${els.stringify})")))
-        }
-      )
-
-
-  <.table(^.cls := gridStyle.className,
-    <.tr(
-      <.th(""), <.td(),
-      for cat <- CBOK.values.toSeq yield <.th(^.cls := "cat",
-        <.span(^.cls := "cbokcat " + rotatedHeader.className + " " + cat.category.css, cat.name)
-      )
+  ),
+    ui.Common.markdown(
+      """ The table below shows top-level SWEBOK categories that are relevant to each unit in the course
+        |
+        |""".stripMargin
     ),
-
-    for
-      pc <- plan
-      html <- subTable(pc)
-    yield html
-
+    booleanCategoryGrid[GridCategory](c.structure, grid.categories) {
+      (s, cat) => s.mappings.contains(cat)
+    }, <("hr"),
+        ui.Common.markdown(
+      s"""
+        |#### How to edit these tables 
+        |
+        |In `units.js`, these tables are driven from the contents of the `mappings` array of each unit.
+        |e.g.
+        |
+        |```js
+        |{
+        |  code: "THI123",
+        |  name: "Thingummy Design and Construction",
+        |  prereq: [ choose(1, "COSC210", "COSC220") ],
+        |  mappings: [ 
+        |     cbok.old.Teamwork.level(2), cbok.old.Communication.level(3),
+        |     swebok.Design, swebok.Construction,
+        |     idverify.ProctoredExam 
+        |  ],
+        |  tags: ["Advanced"],
+        |},
+        |
+        |```
+        |
+        |Values for the columns are:
+        |
+        |""".stripMargin
+    ),
+    <.ul(
+      for e <- grid.categories yield <.li(<.code(e.jsName), " ", <("i")(e.name))
+    )
   )
-}
-
-

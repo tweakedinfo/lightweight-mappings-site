@@ -108,7 +108,7 @@ val myPresentation = DeckBuilder(1920, 1080).markdownSlide("""
   |""".stripMargin)
   .veautifulSlide(div(
     scrollableDiv(^.prop("scrollTop") := "120",
-      for c <- courses.find(_.code == "BCOMP(SD)") yield idverifyPage(c)
+      for c <- courses.find(_.code == "BCOMP(SD)") yield idVerifyPage(c)
     )
   ))
   .markdownSlides("""
@@ -143,7 +143,7 @@ val myPresentation = DeckBuilder(1920, 1080).markdownSlide("""
   ))
   .veautifulSlide(div(
     scrollableDiv(
-      for c <- courses.find(_.code == "BCOMP(SD)") yield cbokPage(c)
+      for c <- courses.find(_.code == "BCOMP(SD)") yield cbok.old.page(c)
     )
   ))
   .veautifulSlide(div(
