@@ -152,6 +152,7 @@ object v3_2 extends LevelledGrid {
     case Infrastructure extends Core("ICT Infrastructure")
     case Data extends Core("Information & Data Science and Engineering")
     case Computing extends Core("Computational Science and Engineering")
+    case Application extends Core("Application Systems")
     case Cybersecurity extends Core("Cyber Security")
     case Projects extends Core("ICT Projects")
     case Governance extends Core("ICT Management & Governance")
