@@ -136,8 +136,12 @@ object v3_2 extends LevelledGrid {
     case Impacts extends Professional("Impacts of ICT")
     case Collaboration extends Professional("Working Individually and in Teams")
     case Communication extends Professional("Professional Communication")
-    case Practitioner extends Professional("The Professional ICT Practitioner")    
+    case Practitioner extends Professional("The Professional ICT Practitioner")
 
+    // This lets us say Cybersecurity(3) to get the tuple (3, Cybersecurity)
+    @JSExport("level")
+    def apply(level:Int): (Professional, Int) = (this, level)
+    
     val css = "cbok-professional"
 
     def jsName = productPrefix
@@ -152,12 +156,20 @@ object v3_2 extends LevelledGrid {
     case Projects extends Core("ICT Projects")
     case Governance extends Core("ICT Management & Governance")
 
+    // This lets us say Cybersecurity(3) to get the tuple (3, Cybersecurity)
+    @JSExport("level")
+    def apply(level:Int): (Core, Int) = (this, level)    
+
     def jsName = productPrefix
 
     val css = "cbok-core"
   }
 
   case object Depth extends GridCategory {
+
+    // This lets us say Cybersecurity(3) to get the tuple (3, Cybersecurity)
+    @JSExport("level")
+    def apply(level:Int): (Depth.type, Int) = (this, level)
 
     def name = "In depth"
 
